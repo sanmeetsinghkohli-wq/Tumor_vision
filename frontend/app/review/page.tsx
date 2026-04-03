@@ -37,6 +37,16 @@ export default function ReviewPage() {
         // Read global language preference
         const savedLang = localStorage.getItem('appLanguage') || 'en'
         setLanguage(savedLang)
+
+        // Keep in sync if user changes language in navbar while on this page
+        const onStorage = () => setLanguage(localStorage.getItem('appLanguage') || 'en')
+        window.addEventListener('storage', onStorage)
+        // Also poll every 500ms (same-tab localStorage changes don't fire 'storage')
+        const interval = setInterval(onStorage, 500)
+        return () => {
+            window.removeEventListener('storage', onStorage)
+            clearInterval(interval)
+        }
     }, [])
 
     const handleSubmit = async () => {
@@ -53,7 +63,9 @@ export default function ReviewPage() {
     }
 
     const handleDownload = () => {
-        downloadReport(form, predictions, image, undefined, language)
+        // Always read the freshest language at download time
+        const lang = localStorage.getItem('appLanguage') || language || 'en'
+        downloadReport(form, predictions, image, undefined, lang)
     }
 
     return (
