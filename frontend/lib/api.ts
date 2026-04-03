@@ -204,3 +204,20 @@ export async function downloadTreatmentSummary(params: { tumor_type: string; pat
 export function getStaticUrl(path: string): string {
   return `${API_BASE_URL}${path}`;
 }
+
+export interface MetricsData {
+  overall_accuracy: number;
+  total_scans: number;
+  detection_rates: {
+    glioma: number;
+    meningioma: number;
+    pituitary: number;
+    no_tumor: number;
+  };
+}
+
+export async function getMetrics(): Promise<MetricsData> {
+  const response = await fetch(`${API_BASE_URL}/api/metrics`, { mode: corsMode });
+  if (!response.ok) throw new Error('Failed to load metrics');
+  return response.json();
+}
