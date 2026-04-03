@@ -1,12 +1,6 @@
 const rawBase = (process.env.NEXT_PUBLIC_API_URL || '').trim();
-let API_BASE_URL: string = (/^https?:\/\//i.test(rawBase) ? rawBase : '') || 'https://tumor-vision.onrender.com';
+const API_BASE_URL: string = (/^https?:\/\//i.test(rawBase) ? rawBase : '') || 'https://tumor-vision.onrender.com';
 
-if (typeof window !== 'undefined') {
-  const onLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-  if (!onLocalhost && /localhost|127\.0\.0\.1/.test(API_BASE_URL)) {
-    API_BASE_URL = 'https://tumor-vision-api.onrender.com';
-  }
-}
 
 const corsMode: RequestMode = 'cors';
 
@@ -95,8 +89,14 @@ export async function submitReview(data: ReviewData): Promise<{ success: boolean
   return result;
 }
 
-export async function downloadReport(reviewData?: ReviewData, predictions?: Prediction[], image?: string, image_url?: string): Promise<void> {
-  const requestBody: any = {};
+export async function downloadReport(
+  reviewData?: ReviewData,
+  predictions?: Prediction[],
+  image?: string,
+  image_url?: string,
+  language: string = 'en'
+): Promise<void> {
+  const requestBody: Record<string, unknown> = { language };
   const storedResult = typeof window !== 'undefined' ? localStorage.getItem('latestResult') : null;
   if (storedResult) {
     const resultData = JSON.parse(storedResult);

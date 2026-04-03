@@ -34,6 +34,9 @@ export default function ReviewPage() {
                 }))
             }
         }
+        // Read global language preference
+        const savedLang = localStorage.getItem('appLanguage') || 'en'
+        setLanguage(savedLang)
     }, [])
 
     const handleSubmit = async () => {
@@ -50,7 +53,7 @@ export default function ReviewPage() {
     }
 
     const handleDownload = () => {
-        downloadReport({ ...form, language } as any, predictions, image)
+        downloadReport(form, predictions, image, undefined, language)
     }
 
     return (
