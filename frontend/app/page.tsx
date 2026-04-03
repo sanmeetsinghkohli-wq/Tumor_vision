@@ -4,6 +4,7 @@ import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { TubesCursor } from '@/components/ui/tube-cursor';
+import { ContainerScroll } from '@/components/ui/container-scroll-animation';
 
 export default function Home() {
   return (
@@ -191,6 +192,82 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* Scroll Showcase Section */}
+        <section className="relative overflow-hidden bg-transparent">
+          <ContainerScroll
+            titleComponent={
+              <div className="mb-6">
+                <span className="inline-block px-4 py-1.5 mb-4 bg-gradient-to-r from-[#C5757C]/20 to-[#F9AAAD]/20 border border-[#C5757C]/30 rounded-full text-[#C5757C] text-sm font-semibold tracking-widest">
+                  POWERED BY AI
+                </span>
+                <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                  Detect. Analyze.{' '}
+                  <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">
+                    Save Lives.
+                  </span>
+                </h2>
+                <p className="mt-4 text-lg text-gray-400 max-w-xl mx-auto">
+                  Upload a brain MRI and get AI-powered tumor detection in under 2 minutes — with multilingual PDF reports for rural clinics.
+                </p>
+              </div>
+            }
+          >
+            {/* Platform UI mockup inside the scroll card */}
+            <div className="w-full h-full flex flex-col bg-[#140E1C] rounded-2xl overflow-hidden">
+              {/* Mock nav bar */}
+              <div className="flex items-center gap-2 px-6 py-3 border-b border-white/10 bg-[#1a0f24]">
+                <div className="w-3 h-3 rounded-full bg-[#C5757C]" />
+                <div className="w-3 h-3 rounded-full bg-[#F9AAAD]/60" />
+                <div className="w-3 h-3 rounded-full bg-white/20" />
+                <span className="ml-4 text-xs text-gray-500 font-mono">tumor-vision.onrender.com/upload</span>
+              </div>
+              {/* Mock content */}
+              <div className="flex flex-1 overflow-hidden">
+                {/* Left: upload zone */}
+                <div className="flex-1 flex flex-col items-center justify-center p-8 border-r border-white/10">
+                  <div className="w-full max-w-xs aspect-square rounded-2xl border-2 border-dashed border-[#C5757C]/50 flex flex-col items-center justify-center gap-4 bg-[#C5757C]/5 hover:bg-[#C5757C]/10 transition-colors">
+                    <div className="text-6xl">🧠</div>
+                    <p className="text-[#F9AAAD] text-sm font-semibold">Drop MRI Scan Here</p>
+                    <p className="text-gray-500 text-xs">PNG, JPG up to 10MB</p>
+                  </div>
+                </div>
+                {/* Right: results preview */}
+                <div className="flex-1 flex flex-col gap-3 p-6 overflow-hidden">
+                  <div className="text-white font-bold text-sm">AI Detection Results</div>
+                  {[
+                    { label: 'Glioma', pct: 87, color: '#C5757C' },
+                    { label: 'Meningioma', pct: 8, color: '#F9AAAD' },
+                    { label: 'Pituitary', pct: 3, color: '#683A46' },
+                    { label: 'No Tumor', pct: 2, color: '#A1525F' },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-3">
+                      <span className="text-gray-400 text-xs w-20 shrink-0">{item.label}</span>
+                      <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full"
+                          style={{ width: `${item.pct}%`, backgroundColor: item.color }}
+                        />
+                      </div>
+                      <span className="text-xs font-bold" style={{ color: item.color }}>{item.pct}%</span>
+                    </div>
+                  ))}
+                  <div className="mt-4 p-3 rounded-xl bg-[#C5757C]/10 border border-[#C5757C]/30">
+                    <p className="text-[#F9AAAD] text-xs font-semibold">Primary Detection: Glioma</p>
+                    <p className="text-gray-400 text-xs mt-1">Confidence: 87% · Report ready in English, हिंदी, मराठी</p>
+                  </div>
+                  <motion.div
+                    className="mt-auto px-4 py-2 rounded-full bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white text-xs font-bold text-center"
+                    animate={{ opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    Download PDF Report →
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </ContainerScroll>
         </section>
 
         {/* How It Works */}
