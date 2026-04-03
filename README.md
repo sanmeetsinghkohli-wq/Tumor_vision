@@ -4,7 +4,6 @@
   <img src="https://img.shields.io/badge/Hosted%20on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render"/>
   <img src="https://img.shields.io/badge/Multilingual-Hindi%20%7C%20English%20%7C%20Marathi-orange?style=for-the-badge&logo=google-translate&logoColor=white" alt="Multilingual"/>
   <img src="https://img.shields.io/badge/Status-In%20Development-yellow?style=for-the-badge" alt="Status"/>
-  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License"/>
 </p>
 
 <h1 align="center">🧠 Tumor Vision</h1>
@@ -642,12 +641,6 @@ Contributions are welcome! Whether it's improving the AI model accuracy, adding 
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
----
-
-## 📜 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
