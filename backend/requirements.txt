@@ -5,3 +5,4 @@ msrest==0.7.1
 gunicorn==21.2.0
 reportlab>=4.0.7
 Pillow>=10.1.0
+python-dotenv>=1.0.0
