@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /c/Users/Lenovo/Tumor_vision remote -v)",
+      "Bash(git -C /c/Users/Lenovo/Tumor_vision log --oneline)"
+    ]
+  }
+}
