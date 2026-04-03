@@ -6,51 +6,41 @@ import Layout from '@/components/Layout'
 import Link from 'next/link'
 import type { Prediction } from '@/lib/api'
 
-const TUMOR_META: Record<string, { icon: string; color: string; bg: string; border: string; severity: string; info: string }> = {
+const TUMOR_META: Record<string, { color: string; severity: string; tagline: string; info: string }> = {
   'Glioma': {
-    icon: '⚠️',
     color: '#ef4444',
-    bg: 'rgba(239,68,68,0.08)',
-    border: 'rgba(239,68,68,0.35)',
-    severity: 'High Priority',
-    info: 'Gliomas are primary brain tumors arising from glial cells. Immediate specialist consultation recommended.',
+    severity: 'High Priority · Immediate Attention',
+    tagline: 'Neural tissue tumor detected. Expert consultation urgently recommended.',
+    info: 'Gliomas are primary brain tumors arising from glial cells. Grade III–IV require immediate specialist intervention.',
   },
   'Meningioma': {
-    icon: '🔶',
     color: '#f97316',
-    bg: 'rgba(249,115,22,0.08)',
-    border: 'rgba(249,115,22,0.35)',
-    severity: 'Moderate Priority',
-    info: 'Meningiomas arise from the meninges. Most are benign and slow-growing. Specialist review advised.',
+    severity: 'Moderate Priority · Schedule Review',
+    tagline: 'Membrane-arising tumor identified. Specialist review recommended.',
+    info: 'Meningiomas arise from the meninges. Most are benign. Regular monitoring and specialist consultation advised.',
   },
   'Pituitary': {
-    icon: '🟡',
     color: '#eab308',
-    bg: 'rgba(234,179,8,0.08)',
-    border: 'rgba(234,179,8,0.35)',
-    severity: 'Moderate Priority',
-    info: 'Pituitary tumors arise in the pituitary gland. Often treatable with medication or minimally invasive surgery.',
+    severity: 'Moderate Priority · Endocrine Review',
+    tagline: 'Pituitary gland anomaly detected. Hormonal assessment needed.',
+    info: 'Pituitary adenomas are often treatable with medication or minimally invasive surgery.',
   },
   'No Tumor': {
-    icon: '✅',
     color: '#22c55e',
-    bg: 'rgba(34,197,94,0.08)',
-    border: 'rgba(34,197,94,0.35)',
-    severity: 'Normal',
-    info: 'No tumor detected. Continue regular health monitoring. Consult a neurologist if symptoms persist.',
+    severity: 'Normal · No Tumor Detected',
+    tagline: 'No tumor markers identified in the uploaded MRI scan.',
+    info: 'Continue regular health monitoring. Consult a neurologist if symptoms persist.',
   },
 }
 
 function getBarColor(idx: number) {
-  const colors = ['#C5757C', '#F9AAAD', '#A1525F', '#683A46']
-  return colors[idx % colors.length]
+  return ['#C5757C', '#F9AAAD', '#A1525F', '#683A46'][idx % 4]
 }
 
 export default function ResultsPage() {
   const [predictions, setPredictions] = useState<Prediction[]>([])
   const [imagePreview, setImagePreview] = useState<string>('')
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'breakdown' | 'info'>('breakdown')
 
   useEffect(() => {
     const stored = localStorage.getItem('latestResult')
@@ -62,16 +52,15 @@ export default function ResultsPage() {
     setLoading(false)
   }, [])
 
-  const topPrediction = predictions[0]
-  const tumorDetected = topPrediction && topPrediction.tagName !== 'No Tumor'
-  const meta = topPrediction ? (TUMOR_META[topPrediction.tagName] ?? TUMOR_META['No Tumor']) : TUMOR_META['No Tumor']
-  const confidencePct = topPrediction ? (topPrediction.probability * 100).toFixed(1) : '0'
+  const top = predictions[0]
+  const meta = top ? (TUMOR_META[top.tagName] ?? TUMOR_META['No Tumor']) : TUMOR_META['No Tumor']
+  const pct = top ? (top.probability * 100).toFixed(1) : '0'
 
   if (loading) {
     return (
       <Layout>
-        <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg,#f5f3ff 0%,#ede8f5 50%,#f5f3ff 100%)' }}>
-          <div className="w-10 h-10 border-3 border-[#C5757C] border-t-transparent rounded-full animate-spin" />
+        <div className="min-h-screen flex items-center justify-center bg-[#f4f2fb]">
+          <div className="w-10 h-10 border-[3px] border-[#C5757C] border-t-transparent rounded-full animate-spin" />
         </div>
       </Layout>
     )
@@ -80,14 +69,16 @@ export default function ResultsPage() {
   if (!predictions.length) {
     return (
       <Layout>
-        <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg,#f5f3ff 0%,#ede8f5 50%,#f5f3ff 100%)' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center p-12 bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 max-w-md">
+        <div className="min-h-screen flex items-center justify-center bg-[#f4f2fb]">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="text-center p-12 bg-white rounded-3xl shadow-xl max-w-md">
             <div className="text-7xl mb-6">🧠</div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-3">No Results Yet</h2>
-            <p className="text-gray-500 mb-8 leading-relaxed">Upload an MRI scan first to receive your AI-powered diagnostic analysis.</p>
+            <h2 className="text-3xl font-black text-gray-900 mb-3">No Results Yet</h2>
+            <p className="text-gray-400 mb-8 leading-relaxed">Upload an MRI scan to receive your AI-powered diagnosis.</p>
             <Link href="/upload">
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white font-bold rounded-full shadow-lg shadow-[#C5757C]/30">
+                className="px-8 py-3 rounded-full font-bold text-white"
+                style={{ background: 'linear-gradient(135deg,#C5757C,#F9AAAD)' }}>
                 Upload MRI Scan →
               </motion.button>
             </Link>
@@ -99,196 +90,154 @@ export default function ResultsPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg,#f5f3ff 0%,#ede8f5 50%,#f5f3ff 100%)' }}>
-        {/* Hero Section — BrainWave-style split layout */}
-        <div className="max-w-7xl mx-auto px-6 pt-10 pb-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch min-h-[480px]">
+      {/* Page background — light lavender/white like BrainWave */}
+      <div className="min-h-screen bg-[#f4f2fb] px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-6xl mx-auto">
 
-            {/* LEFT — Main result card */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}
-              className="bg-white/70 backdrop-blur-2xl rounded-[2rem] p-8 shadow-2xl border border-white/60 flex flex-col justify-between"
-            >
-              {/* Badge */}
+          {/* Main grid: left card + right image card */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-4 h-auto lg:h-[520px]">
+
+            {/* ─── LEFT CARD ─── */}
+            <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}
+              className="bg-white rounded-[2rem] p-8 shadow-lg flex flex-col justify-between overflow-hidden">
+
+              {/* Top: headline + CTA */}
               <div>
-                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest border"
-                  style={{ color: meta.color, background: meta.bg, borderColor: meta.border }}>
-                  <span>{meta.icon}</span> {meta.severity}
+                {/* Severity badge */}
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-5"
+                  style={{ background: meta.color + '15', color: meta.color }}>
+                  {meta.severity}
                 </span>
 
-                <h1 className="mt-5 text-5xl md:text-6xl font-black text-gray-900 leading-tight">
-                  {topPrediction.tagName}
-                  <br />
-                  <span className="text-3xl md:text-4xl font-bold" style={{ color: meta.color }}>
-                    Detected
-                  </span>
+                <h1 className="text-[2.6rem] leading-[1.1] font-black text-gray-900 mb-4">
+                  {top.tagName === 'No Tumor' ? (
+                    <>No Tumor<br /><span style={{ color: '#22c55e' }}>Detected</span></>
+                  ) : (
+                    <>{top.tagName}<br /><span style={{ color: meta.color }}>Detected</span></>
+                  )}
                 </h1>
 
-                <p className="mt-4 text-gray-500 text-base leading-relaxed max-w-sm">
-                  {meta.info}
+                <p className="text-gray-400 text-[15px] leading-relaxed max-w-sm mb-6">
+                  {meta.tagline}<br />
+                  Harness the power of AI diagnostics through Tumor Vision's Azure-powered analysis.
                 </p>
-              </div>
 
-              {/* Confidence ring + CTA */}
-              <div className="mt-8 flex items-end gap-6 flex-wrap">
-                {/* Confidence */}
-                <div className="flex flex-col items-center">
-                  <div className="relative w-24 h-24">
-                    <svg className="w-24 h-24 -rotate-90" viewBox="0 0 36 36">
-                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none" stroke="#e5e7eb" strokeWidth="2.8" />
-                      <motion.path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none" stroke={meta.color} strokeWidth="2.8" strokeLinecap="round"
-                        strokeDasharray={`${confidencePct}, 100`}
-                        initial={{ strokeDasharray: '0, 100' }}
-                        animate={{ strokeDasharray: `${confidencePct}, 100` }}
-                        transition={{ duration: 1.2, ease: 'easeOut' }} />
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-xl font-black text-gray-800">{confidencePct}%</span>
+                {/* Confidence bars */}
+                <div className="space-y-2.5 mb-6">
+                  {predictions.map((pred, idx) => (
+                    <div key={idx}>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-gray-500 font-medium">{pred.tagName}</span>
+                        <span className="font-bold" style={{ color: getBarColor(idx) }}>
+                          {(pred.probability * 100).toFixed(1)}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }} animate={{ width: `${pred.probability * 100}%` }}
+                          transition={{ duration: 1, delay: idx * 0.15 }}
+                          className="h-2.5 rounded-full"
+                          style={{ background: `linear-gradient(90deg,${getBarColor(idx)},${getBarColor(idx)}aa)` }} />
+                      </div>
                     </div>
-                  </div>
-                  <span className="mt-1 text-xs text-gray-400 font-semibold">AI Confidence</span>
-                </div>
-
-                {/* Actions */}
-                <div className="flex flex-col gap-3 flex-1">
-                  <Link href="/review">
-                    <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                      className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold text-white shadow-lg shadow-[#C5757C]/30 text-sm"
-                      style={{ background: 'linear-gradient(135deg,#C5757C,#F9AAAD)' }}>
-                      <span>📝</span> Generate Report
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </motion.button>
-                  </Link>
-                  <Link href="/treatment">
-                    <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                      className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold text-gray-700 bg-white/80 border border-gray-200 hover:bg-gray-50 text-sm">
-                      <span>💊</span> View Treatment Options
-                    </motion.button>
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* RIGHT — MRI Scan image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative rounded-[2rem] overflow-hidden shadow-2xl min-h-[400px] lg:min-h-0"
-              style={{ background: 'linear-gradient(135deg,#C5757C22,#683A4644)' }}
-            >
-              {imagePreview ? (
-                <img src={imagePreview} alt="Uploaded MRI Scan"
-                  className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-[6rem]">🧠</div>
-              )}
-              {/* Overlay pill at bottom */}
-              <div className="absolute bottom-4 left-4 right-4">
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-                  className="flex items-center justify-between bg-black/50 backdrop-blur-md rounded-2xl px-5 py-3">
-                  <div>
-                    <p className="text-white/60 text-xs font-semibold uppercase tracking-widest">AI Analysis Complete</p>
-                    <p className="text-white font-bold text-sm mt-0.5">Tumor Vision · Azure Custom Vision</p>
-                  </div>
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* BOTTOM CARDS — BrainWave bottom row style */}
-        <div className="max-w-7xl mx-auto px-6 pb-10">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-
-            {/* Card 1 — Confidence Breakdown (tabbed) */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-              className="lg:col-span-2 bg-white/70 backdrop-blur-2xl rounded-[1.75rem] p-6 shadow-xl border border-white/60">
-
-              {/* Tabs */}
-              <div className="flex gap-2 mb-5">
-                {(['breakdown', 'info'] as const).map(tab => (
-                  <button key={tab} onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${activeTab === tab ? 'bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white shadow' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
-                    {tab === 'breakdown' ? '📊 Confidence Breakdown' : '🔬 Clinical Info'}
-                  </button>
-                ))}
-              </div>
-
-              <AnimatePresence mode="wait">
-                {activeTab === 'breakdown' ? (
-                  <motion.div key="breakdown" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-                    {predictions.map((pred, idx) => (
-                      <div key={idx}>
-                        <div className="flex justify-between text-sm mb-1.5">
-                          <span className="font-semibold text-gray-700">{pred.tagName}</span>
-                          <span className="font-bold" style={{ color: getBarColor(idx) }}>{(pred.probability * 100).toFixed(1)}%</span>
-                        </div>
-                        <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }} animate={{ width: `${pred.probability * 100}%` }}
-                            transition={{ duration: 1, delay: idx * 0.15 }}
-                            className="h-3 rounded-full"
-                            style={{ background: `linear-gradient(90deg, ${getBarColor(idx)}, ${getBarColor(idx)}99)` }} />
-                        </div>
-                      </div>
-                    ))}
-                  </motion.div>
-                ) : (
-                  <motion.div key="info" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-3">
-                    {[
-                      { label: 'Tumor Type', value: topPrediction?.tagName || '—' },
-                      { label: 'AI Model', value: 'Azure Custom Vision (CNN)' },
-                      { label: 'Analysis Engine', value: 'Tumor Vision v2.0' },
-                      { label: 'Scan Type', value: 'Brain MRI' },
-                      { label: 'Report Available', value: 'English, हिंदी, मराठी' },
-                    ].map(item => (
-                      <div key={item.label} className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="text-gray-500 text-sm">{item.label}</span>
-                        <span className="text-gray-800 font-semibold text-sm">{item.value}</span>
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-
-            {/* Card 2 — Quick actions / next steps */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-              className="bg-white/70 backdrop-blur-2xl rounded-[1.75rem] p-6 shadow-xl border border-white/60 flex flex-col justify-between">
-
-              <div>
-                <h3 className="font-bold text-gray-800 text-base mb-1">Next Steps</h3>
-                <p className="text-gray-400 text-xs mb-4">Recommended actions based on your result</p>
-                <div className="space-y-3">
-                  {[
-                    { step: '01', text: 'Generate a detailed PDF report', href: '/review', color: '#C5757C' },
-                    { step: '02', text: 'Review AI treatment options', href: '/treatment', color: '#F9AAAD' },
-                    { step: '03', text: 'Upload another scan to compare', href: '/upload', color: '#683A46' },
-                  ].map(item => (
-                    <Link key={item.step} href={item.href}>
-                      <motion.div whileHover={{ x: 4 }}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
-                        <span className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-black shrink-0"
-                          style={{ background: item.color }}>{item.step}</span>
-                        <span className="text-gray-700 text-sm font-medium">{item.text}</span>
-                      </motion.div>
-                    </Link>
                   ))}
                 </div>
+
+                {/* CTA pill button */}
+                <Link href="/review">
+                  <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.96 }}
+                    className="inline-flex items-center gap-3 px-6 py-3 rounded-full font-bold text-white text-sm shadow-lg"
+                    style={{ background: 'linear-gradient(135deg,#1a1a2e,#16213e)' }}>
+                    Generate Report
+                    <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">→</span>
+                  </motion.button>
+                </Link>
               </div>
 
-              {/* Disclaimer */}
-              <div className="mt-5 p-3 rounded-xl bg-amber-50 border border-amber-200">
-                <p className="text-amber-700 text-xs leading-relaxed">
-                  <strong>⚕️ Disclaimer:</strong> AI-assisted suggestive analysis only. Consult a qualified physician for diagnosis.
+              {/* ── Bottom mini-card (BrainWave style thumbnail row) ── */}
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
+                className="mt-6 flex items-center gap-4 bg-[#f8f7fd] rounded-2xl p-4">
+                {/* MRI thumbnail */}
+                <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-[#C5757C]/30 to-[#683A46]/30">
+                  {imagePreview
+                    ? <img src={imagePreview} alt="MRI thumb" className="w-full h-full object-cover" />
+                    : <div className="w-full h-full flex items-center justify-center text-2xl">🧠</div>}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-gray-800 font-bold text-sm leading-tight">
+                    AI Confidence: {pct}%
+                  </p>
+                  <p className="text-gray-400 text-xs mt-0.5 line-clamp-2">
+                    {meta.info}
+                  </p>
+                  <Link href="/treatment">
+                    <span className="text-[#C5757C] text-xs font-bold hover:underline cursor-pointer">Learn more →</span>
+                  </Link>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* ─── RIGHT CARD — full MRI image ─── */}
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55, delay: 0.1 }}
+              className="relative rounded-[2rem] overflow-hidden shadow-lg min-h-[340px]"
+              style={{ background: 'linear-gradient(135deg,#C5757C33,#683A4655)' }}>
+
+              {imagePreview ? (
+                <img src={imagePreview} alt="MRI Scan"
+                  className="absolute inset-0 w-full h-full object-cover" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-[8rem] opacity-40">🧠</div>
+                </div>
+              )}
+
+              {/* Top-right arrow button */}
+              <motion.div whileHover={{ scale: 1.1 }} className="absolute top-4 right-4 z-10">
+                <Link href="/treatment">
+                  <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white font-bold hover:bg-white/40 transition-colors cursor-pointer">
+                    ↗
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* Bottom overlay text — matches BrainWave "Innovate Your Mind" */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
+                className="absolute bottom-0 left-0 right-0 p-6"
+                style={{ background: 'linear-gradient(to top, rgba(20,14,28,0.85) 0%, transparent 100%)' }}>
+                <h2 className="text-white text-2xl font-black leading-tight mb-1">
+                  Analyze Your Scan,<br />Protect Your Future
+                </h2>
+                <p className="text-white/60 text-xs leading-relaxed max-w-xs">
+                  Discover precise AI-powered diagnostics from Tumor Vision, where cutting-edge neural networks converge to amplify medical insight.
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
+
+          {/* Action row */}
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
+            className="mt-4 flex flex-wrap gap-3 items-center">
+            <Link href="/treatment">
+              <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                className="px-6 py-2.5 rounded-full text-sm font-bold text-white shadow-md"
+                style={{ background: 'linear-gradient(135deg,#C5757C,#F9AAAD)' }}>
+                💊 View Treatment Options
+              </motion.button>
+            </Link>
+            <Link href="/upload">
+              <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                className="px-6 py-2.5 rounded-full text-sm font-bold text-gray-600 bg-white border border-gray-200 hover:bg-gray-50">
+                📤 New Scan
+              </motion.button>
+            </Link>
+            <div className="ml-auto">
+              <p className="text-gray-400 text-xs">
+                ⚕️ AI-assisted analysis only — not a medical diagnosis
+              </p>
+            </div>
+          </motion.div>
+
         </div>
       </div>
     </Layout>
