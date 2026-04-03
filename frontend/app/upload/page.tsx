@@ -1,0 +1,137 @@
+'use client'
+
+import { useState, useCallback } from 'react'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import Layout from '@/components/Layout'
+import { uploadAndPredict } from '@/lib/api'
+
+export default function UploadPage() {
+    const router = useRouter()
+    const [file, setFile] = useState<File | null>(null)
+    const [preview, setPreview] = useState<string>('')
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+    const [dragActive, setDragActive] = useState(false)
+
+    const handleFile = useCallback((f: File) => {
+        if (!f.type.startsWith('image/')) {
+            setError('Please upload an image file (JPG, PNG, etc.)')
+            return
+        }
+        setFile(f)
+        setError('')
+        const reader = new FileReader()
+        reader.onloadend = () => setPreview(reader.result as string)
+        reader.readAsDataURL(f)
+    }, [])
+
+    const handleDrop = useCallback((e: React.DragEvent) => {
+        e.preventDefault()
+        setDragActive(false)
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0])
+    }, [handleFile])
+
+    const handleSubmit = async () => {
+        if (!file) return
+        setLoading(true)
+        setError('')
+        try {
+            const result = await uploadAndPredict(file)
+            if (result.status === 'success') {
+                localStorage.setItem('latestResult', JSON.stringify(result))
+                router.push('/results')
+            } else {
+                setError(result.message || 'Analysis failed')
+            }
+        } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : 'Cannot connect to server'
+            setError(msg)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return (
+        <Layout>
+            <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #140E1C 0%, #2A1020 50%, #140E1C 100%)' }}>
+                <div className="absolute inset-0 opacity-20">
+                    <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(to right, #C5757C 1px, transparent 1px), linear-gradient(to bottom, #F9AAAD 1px, transparent 1px)`, backgroundSize: '80px 80px' }} />
+                </div>
+
+                <div className="container mx-auto px-6 pt-20 pb-12 relative z-10">
+                    <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
+                        <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-[#C5757C]/20 to-[#F9AAAD]/20 border border-[#C5757C]/30 rounded-full mb-4">
+                            <span className="text-sm font-medium bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">MRI SCAN ANALYSIS</span>
+                        </div>
+                        <h1 className="text-5xl font-bold mb-4">
+                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">Upload Brain MRI Scan</span>
+                        </h1>
+                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">Upload a brain MRI scan for AI-powered tumor detection and classification</p>
+                    </motion.div>
+
+                    <div className="max-w-2xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className={`relative bg-white/5 backdrop-blur-xl border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300 cursor-pointer ${dragActive ? 'border-[#C5757C] bg-[#C5757C]/10' : 'border-white/20 hover:border-[#C5757C]/50'}`}
+                            onDragOver={(e) => { e.preventDefault(); setDragActive(true) }}
+                            onDragLeave={() => setDragActive(false)}
+                            onDrop={handleDrop}
+                            onClick={() => document.getElementById('fileInput')?.click()}
+                        >
+                            <input id="fileInput" type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])} />
+
+                            {preview ? (
+                                <div className="space-y-4">
+                                    <img src={preview} alt="MRI Preview" className="max-h-64 mx-auto rounded-xl border border-white/20" />
+                                    <p className="text-white font-medium">{file?.name}</p>
+                                    <p className="text-gray-400 text-sm">Click or drag to replace</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    <div className="text-6xl">🧠</div>
+                                    <div>
+                                        <p className="text-white text-xl font-semibold mb-2">Drop your MRI scan here</p>
+                                        <p className="text-gray-400">or click to browse files</p>
+                                    </div>
+                                    <p className="text-gray-500 text-sm">Supports JPG, PNG, JPEG</p>
+                                </div>
+                            )}
+                        </motion.div>
+
+                        {error && (
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 bg-red-500/20 border border-red-500/50 rounded-xl p-4">
+                                <p className="text-red-200">⚠️ {error}</p>
+                            </motion.div>
+                        )}
+
+                        <motion.button
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={handleSubmit}
+                            disabled={!file || loading}
+                            className="w-full mt-6 px-8 py-4 bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-[#C5757C]/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                        >
+                            {loading ? (
+                                <><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div><span>Analyzing...</span></>
+                            ) : (
+                                <><span>🔬</span><span>Analyze Scan</span></>
+                            )}
+                        </motion.button>
+
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mt-6 bg-gradient-to-r from-[#C5757C]/10 to-cyan-500/10 border border-emerald-500/30 rounded-xl p-4">
+                            <p className="text-gray-300 text-sm">
+                                <strong className="text-[#F9AAAD]">⚕️ Note:</strong> This tool provides AI-assisted suggestive analysis only. It does NOT constitute a medical diagnosis. Always consult a qualified medical professional.
+                            </p>
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    )
+}

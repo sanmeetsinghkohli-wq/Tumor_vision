@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+.env.production
+__pycache__/
+*.pyc
+*.pyo
+static/uploads/
+reports/
+dataset/
+npm-debug.log*
+.DS_Store
+Visionary-Minds/
