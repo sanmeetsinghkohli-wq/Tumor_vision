@@ -1,5 +1,5 @@
 const rawBase = (process.env.NEXT_PUBLIC_API_URL || '').trim();
-let API_BASE_URL: string = (/^https?:\/\//i.test(rawBase) ? rawBase : '') || 'https://tumor-vision-api.onrender.com';
+let API_BASE_URL: string = (/^https?:\/\//i.test(rawBase) ? rawBase : '') || 'https://tumor-vision.onrender.com';
 
 if (typeof window !== 'undefined') {
   const onLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
