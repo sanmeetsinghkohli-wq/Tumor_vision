@@ -13,65 +13,63 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#140E1C] w-full z-0",
+        "relative min-h-screen overflow-hidden bg-[#140E1C] w-full flex flex-col items-center",
         className
       )}
     >
-      <div className="relative flex w-full flex-1 scale-y-125 items-center justify-center isolate z-0">
+      {/* ── Beam layer (top portion, absolute) ── */}
+      <div className="absolute top-0 left-0 right-0 h-[55vh] flex items-end justify-center overflow-hidden pointer-events-none">
         {/* Left conic beam */}
         <motion.div
-          initial={{ opacity: 0.5, width: "15rem" }}
-          whileInView={{ opacity: 1, width: "30rem" }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+          initial={{ opacity: 0.4, width: "12rem" }}
+          whileInView={{ opacity: 1, width: "28rem" }}
+          transition={{ delay: 0.3, duration: 0.9, ease: "easeInOut" }}
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
-          className="absolute inset-auto right-1/2 h-56 overflow-visible w-[30rem] bg-gradient-conic from-[#C5757C] via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top]"
+          className="absolute bottom-0 right-1/2 h-52 overflow-visible bg-gradient-conic from-[#C5757C] via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top]"
         >
-          <div className="absolute w-[100%] left-0 bg-[#140E1C] h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
-          <div className="absolute w-40 h-[100%] left-0 bg-[#140E1C] bottom-0 z-20 [mask-image:linear-gradient(to_right,white,transparent)]" />
+          <div className="absolute w-full left-0 bg-[#140E1C] h-36 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
+          <div className="absolute w-36 h-full left-0 bg-[#140E1C] bottom-0 z-20 [mask-image:linear-gradient(to_right,white,transparent)]" />
         </motion.div>
 
         {/* Right conic beam */}
         <motion.div
-          initial={{ opacity: 0.5, width: "15rem" }}
-          whileInView={{ opacity: 1, width: "30rem" }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+          initial={{ opacity: 0.4, width: "12rem" }}
+          whileInView={{ opacity: 1, width: "28rem" }}
+          transition={{ delay: 0.3, duration: 0.9, ease: "easeInOut" }}
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
-          className="absolute inset-auto left-1/2 h-56 w-[30rem] bg-gradient-conic from-transparent via-transparent to-[#C5757C] text-white [--conic-position:from_290deg_at_center_top]"
+          className="absolute bottom-0 left-1/2 h-52 bg-gradient-conic from-transparent via-transparent to-[#C5757C] text-white [--conic-position:from_290deg_at_center_top]"
         >
-          <div className="absolute w-40 h-[100%] right-0 bg-[#140E1C] bottom-0 z-20 [mask-image:linear-gradient(to_left,white,transparent)]" />
-          <div className="absolute w-[100%] right-0 bg-[#140E1C] h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
+          <div className="absolute w-36 h-full right-0 bg-[#140E1C] bottom-0 z-20 [mask-image:linear-gradient(to_left,white,transparent)]" />
+          <div className="absolute w-full right-0 bg-[#140E1C] h-36 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
         </motion.div>
 
-        {/* Background blur layer */}
-        <div className="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-[#140E1C] blur-2xl"></div>
-        <div className="absolute top-1/2 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"></div>
-
-        {/* Central glow orb */}
-        <div className="absolute inset-auto z-50 h-36 w-[28rem] -translate-y-1/2 rounded-full bg-[#C5757C] opacity-40 blur-3xl"></div>
+        {/* Horizontal beam line */}
         <motion.div
-          initial={{ width: "8rem" }}
-          whileInView={{ width: "16rem" }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
-          className="absolute inset-auto z-30 h-36 w-64 -translate-y-[6rem] rounded-full bg-[#F9AAAD] blur-2xl opacity-70"
-        ></motion.div>
+          initial={{ width: "12rem", opacity: 0 }}
+          whileInView={{ width: "28rem", opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.9, ease: "easeInOut" }}
+          className="absolute bottom-[4.5rem] z-50 h-[2px] bg-gradient-to-r from-transparent via-[#F9AAAD] to-transparent"
+        />
 
-        {/* Beam line */}
+        {/* Glow orb at beam origin */}
+        <div className="absolute bottom-16 z-40 h-24 w-72 rounded-full bg-[#C5757C] opacity-30 blur-3xl" />
         <motion.div
-          initial={{ width: "15rem" }}
-          whileInView={{ width: "30rem" }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
-          className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-[#F9AAAD]"
-        ></motion.div>
+          initial={{ width: "6rem" }}
+          whileInView={{ width: "14rem" }}
+          transition={{ delay: 0.3, duration: 0.9, ease: "easeInOut" }}
+          className="absolute bottom-16 z-30 h-24 rounded-full bg-[#F9AAAD] blur-2xl opacity-50"
+        />
 
-        <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-[#140E1C]"></div>
+        {/* Floor mask */}
+        <div className="absolute bottom-0 h-16 w-full bg-[#140E1C] blur-xl z-50" />
       </div>
 
-      {/* Content slot */}
-      <div className="relative z-50 flex -translate-y-80 flex-col items-center px-5">
+      {/* ── Content (below beams) ── */}
+      <div className="relative z-10 flex flex-col items-center justify-center flex-1 w-full pt-[50vh]">
         {children}
       </div>
     </div>
