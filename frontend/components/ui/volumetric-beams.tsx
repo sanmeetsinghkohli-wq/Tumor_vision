@@ -201,7 +201,7 @@ function VolumetricBeamsShader({
   pointerSmoothing = 0.18,
   ...meshProps
 }: any) {
-  const mat = useRef<any>()
+  const mat = useRef<any>(null)
   const { size, gl, pointer } = useThree()
   const tmpV2 = useMemo(() => new THREE.Vector2(), [])
 
