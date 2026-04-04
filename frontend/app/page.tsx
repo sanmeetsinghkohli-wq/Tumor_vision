@@ -33,7 +33,7 @@ export default function Home() {
           {/* Text content — clamp padding pushes text into lower portion at any viewport height */}
           <div
             className="relative z-20 flex flex-col items-center text-center px-6"
-            style={{ paddingTop: 'clamp(160px, 42vh, 480px)', paddingBottom: '2rem' }}
+            style={{ paddingTop: 'clamp(200px, 52vh, 560px)', paddingBottom: '2rem' }}
           >
             <motion.div
               initial={{ opacity: 0, y: 40 }}
