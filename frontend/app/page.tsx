@@ -10,59 +10,53 @@ export default function Home() {
   return (
     <Layout>
       <article>
-        {/* Hero Section — Lamp */}
-        <section className="-mt-20">
-          <LampContainer>
-            <motion.div
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.9, ease: "easeInOut" }}
-              className="flex flex-col items-center gap-4 text-center"
-            >
-              {/* Hero video */}
-              <motion.div
-                animate={{ filter: ['drop-shadow(0 0 30px #C5757C66)', 'drop-shadow(0 0 60px #F9AAADaa)', 'drop-shadow(0 0 30px #C5757C66)'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="w-[260px] sm:w-[340px] md:w-[420px] rounded-2xl overflow-hidden"
-              >
-                <video
-                  src="/brain-hero.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
+        {/* Hero Section — Full-screen video with lamp overlay */}
+        <section className="relative -mt-20 min-h-screen overflow-hidden bg-[#140E1C]">
 
-              {/* Title */}
+          {/* Full-screen background video — pushed down so lamp beams show at top */}
+          <video
+            src="/brain-hero.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ marginTop: '80px' }}
+          />
+
+          {/* Dark overlay so text is readable */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#140E1C] via-[#140E1C]/40 to-[#140E1C]/80" />
+
+          {/* Lamp beams — sit on top of video at the top */}
+          <LampContainer className="absolute inset-0 bg-transparent min-h-0 h-full" />
+
+          {/* Text content — centered in hero */}
+          <div className="relative z-20 flex flex-col items-center justify-center min-h-screen text-center px-6 pb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }}
+              className="flex flex-col items-center gap-3"
+            >
               <h1
-                className="text-[4rem] sm:text-[6rem] md:text-[8rem] font-bold leading-none tracking-tight text-white uppercase"
+                className="text-[4.5rem] sm:text-[7rem] md:text-[9rem] font-bold leading-none tracking-tight text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
                 style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
               >
                 Tumor Vision
               </h1>
-
-              {/* Subtitle */}
               <h2
-                className="text-[2.5rem] sm:text-[4rem] md:text-[5.5rem] font-bold leading-none uppercase bg-gradient-to-r from-[#C5757C] via-[#F9AAAD] to-[#A1525F] bg-clip-text text-transparent"
+                className="text-[3rem] sm:text-[5rem] md:text-[6.5rem] font-bold leading-none uppercase bg-gradient-to-r from-[#C5757C] via-[#F9AAAD] to-[#A1525F] bg-clip-text text-transparent drop-shadow-[0_2px_16px_rgba(197,117,124,0.5)]"
                 style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
               >
                 AI Detection
               </h2>
-
-              <p className="text-white/50 text-base md:text-lg max-w-lg leading-relaxed mt-2">
+              <p className="text-white/60 text-base md:text-lg max-w-xl leading-relaxed mt-2">
                 Upload a brain MRI scan and receive an instant AI-powered diagnosis — bridging healthcare gaps in rural communities.
               </p>
-
-              {/* CTA buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mt-4">
+              <div className="flex flex-col sm:flex-row gap-4 mt-6">
                 <Link href="/upload">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#A1525F] to-[#C5757C] text-white text-lg font-bold rounded-full hover:shadow-2xl hover:shadow-[#C5757C]/50 transition-all duration-300"
-                  >
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                    className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#A1525F] to-[#C5757C] text-white text-lg font-bold rounded-full hover:shadow-2xl hover:shadow-[#C5757C]/50 transition-all duration-300">
                     <span className="mr-2">Start Free Analysis</span>
                     <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -70,17 +64,14 @@ export default function Home() {
                   </motion.button>
                 </Link>
                 <Link href="/about">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white text-lg font-semibold rounded-full border-2 border-white/30 hover:bg-white/20 transition-all duration-300"
-                  >
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white text-lg font-semibold rounded-full border-2 border-white/30 hover:bg-white/20 transition-all duration-300">
                     Learn More
                   </motion.button>
                 </Link>
               </div>
             </motion.div>
-          </LampContainer>
+          </div>
         </section>
 
         {/* Stats Section */}
