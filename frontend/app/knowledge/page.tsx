@@ -10,7 +10,7 @@ const sections = [
     id: 'pcnsl',
     icon: '🧬',
     title: 'Primary CNS Lymphoma',
-    color: 'purple' as const,
+    color: 'blue' as const,
     summary: 'A rare but aggressive form of non-Hodgkin lymphoma arising within the brain, spinal cord, or eyes.',
     cards: [
       {
@@ -43,7 +43,7 @@ const sections = [
     id: 'rare',
     icon: '🔬',
     title: 'Other Rare Brain Tumors',
-    color: 'green' as const,
+    color: 'blue' as const,
     summary: 'Hemangioblastomas, choroid plexus tumors, germ cell tumors, and other unusual neoplasms.',
     cards: [
       {
@@ -68,7 +68,7 @@ const sections = [
     id: 'metastatic',
     icon: '🎯',
     title: 'Secondary (Metastatic) Brain Tumors',
-    color: 'red' as const,
+    color: 'blue' as const,
     summary: 'The most common type of intracranial neoplasm, accounting for nearly 50% of all brain tumors.',
     cards: [
       {
@@ -122,7 +122,7 @@ const sections = [
     id: 'symptoms',
     icon: '🩺',
     title: 'Symptoms & Clinical Presentations',
-    color: 'orange' as const,
+    color: 'blue' as const,
     summary: 'Brain tumor symptoms range from headaches and seizures to cognitive changes and endocrine disturbances.',
     cards: [
       {
@@ -184,7 +184,7 @@ const sections = [
     id: 'treatment',
     icon: '💊',
     title: 'Treatment Approaches',
-    color: 'purple' as const,
+    color: 'blue' as const,
     summary: 'Surgery, radiation, chemotherapy, targeted therapy, immunotherapy, and supportive care.',
     cards: [
       {
