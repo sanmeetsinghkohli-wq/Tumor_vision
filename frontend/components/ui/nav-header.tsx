@@ -20,7 +20,7 @@ function NavHeader({ items }: { items: NavItem[] }) {
 
   return (
     <ul
-      className="relative mx-auto flex w-fit rounded-full border border-white/20 bg-white/5 backdrop-blur-sm p-1"
+      className="relative mx-auto flex w-fit rounded-full border border-[#8B7AB5]/20 bg-white/60 backdrop-blur-sm p-1"
       onMouseLeave={() => setPosition((pv) => ({ ...pv, opacity: 0 }))}
     >
       {items.map((item) => (
@@ -67,7 +67,7 @@ const Tab = ({
       <Link
         href={href}
         className={`block px-3 py-1.5 text-xs uppercase md:px-4 md:py-2.5 md:text-sm font-medium transition-colors duration-200 ${
-          isActive ? 'text-white' : 'text-white/60 hover:text-white'
+          isActive ? 'text-[#1a1a2e]' : 'text-gray-500 hover:text-[#1a1a2e]'
         }`}
         style={{ mixBlendMode: 'difference' }}
       >
@@ -82,7 +82,7 @@ const Cursor = ({ position }: { position: { left: number; width: number; opacity
     <motion.li
       animate={position}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="absolute z-0 h-7 rounded-full bg-gradient-to-r from-[#C5757C] to-[#A1525F] md:h-10"
+      className="absolute z-0 h-7 rounded-full bg-gradient-to-r from-[#8B7AB5] to-[#6B5B95] md:h-10"
       style={{ top: '50%', transform: 'translateY(-50%)' }}
     />
   );

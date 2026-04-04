@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #140E1C;
-  --foreground: #f5f0f7;
-  --primary: #C5757C;
-  --primary-dark: #A1525F;
-  --accent: #683A46;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --card-border: rgba(255, 255, 255, 0.1);
+  --background: #F0EAF5;
+  --foreground: #1a1a2e;
+  --primary: #8B7AB5;
+  --primary-dark: #6B5B95;
+  --accent: #C4B5DE;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(139, 122, 181, 0.2);
 }
 
 @theme inline {
@@ -16,8 +16,8 @@
 }
 
 body {
-  background: #140E1C;
-  color: #f5f0f7;
+  background: #F0EAF5;
+  color: #1a1a2e;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -71,14 +71,14 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #140E1C; border-radius: 10px; }
+::-webkit-scrollbar-track { background: #F0EAF5; border-radius: 10px; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #C5757C 0%, #F9AAAD 100%);
+  background: linear-gradient(180deg, #8B7AB5 0%, #C4B5DE 100%);
   border-radius: 10px;
-  border: 2px solid #140E1C;
+  border: 2px solid #F0EAF5;
 }
-::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #A1525F 0%, #C5757C 100%); }
-* { scrollbar-width: thin; scrollbar-color: #C5757C #140E1C; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #6B5B95 0%, #8B7AB5 100%); }
+* { scrollbar-width: thin; scrollbar-color: #8B7AB5 #F0EAF5; }
 
 @keyframes smoothFadeIn {
   from { opacity: 0; transform: translateY(20px); }

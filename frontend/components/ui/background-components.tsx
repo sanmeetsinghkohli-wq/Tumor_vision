@@ -20,12 +20,12 @@ export const PageBackground = ({
   };
 
   return (
-    <div className={cn('min-h-screen w-full relative bg-[#140E1C]', className)}>
-      {/* Centered rose glow */}
+    <div className={cn('min-h-screen w-full relative bg-[#F0EAF5]', className)}>
+      {/* Centered purple glow */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 0%, #C5757C 0%, transparent 70%)`,
+          backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 0%, #8B7AB5 0%, transparent 70%)`,
           opacity: glowOpacity[variant],
         }}
       />
@@ -33,8 +33,8 @@ export const PageBackground = ({
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(ellipse 60% 40% at 80% 100%, #683A46 0%, transparent 60%)`,
-          opacity: 0.12,
+          backgroundImage: `radial-gradient(ellipse 60% 40% at 80% 100%, #6B5B95 0%, transparent 60%)`,
+          opacity: 0.08,
         }}
       />
       <div className="relative z-10 w-full h-full">
