@@ -973,22 +973,43 @@ def download_report():
     if feedback:
         story.append(Paragraph('RADIOLOGIST PROFESSIONAL REVIEW', heading_style))
         
-        diagnosis_text = "✓ CONFIRMED - AI Diagnosis Verified" if feedback.get('diagnosis') == 'confirm' else "⚠ REQUIRES FURTHER REVIEW"
-        diagnosis_color = '#10b981' if feedback.get('diagnosis') == 'confirm' else '#f59e0b'
-        
+        # Support both old and new frontend field names
+        is_verified = feedback.get('radiologist_verified', feedback.get('diagnosis') == 'confirm')
+        diagnosis_text = "✓ CONFIRMED - AI Diagnosis Verified" if is_verified else "⚠ REQUIRES FURTHER REVIEW"
+        diagnosis_color = '#10b981' if is_verified else '#f59e0b'
+
+        radiologist_name = feedback.get('radiologist_name', 'Professional Radiologist')
+        radiologist_id = feedback.get('radiologist_id', '')
+        radiologist_diagnosis = feedback.get('radiologist_diagnosis', '')
+        final_diagnosis = feedback.get('final_diagnosis', feedback.get('diagnosis', ''))
+        comments = feedback.get('comments', '')
+
+        reviewer_line = f"<b>Reviewed By:</b> Dr. {radiologist_name}" if radiologist_name else "<b>Reviewed By:</b> Professional Radiologist"
+        if radiologist_id:
+            reviewer_line += f" (ID: {radiologist_id})"
+
         review_text = f"""
         <font color={diagnosis_color}><b>{diagnosis_text}</b></font><br/><br/>
-        <b>Reviewed By:</b> Professional Radiologist<br/>
+        {reviewer_line}<br/>
         <b>Review Date:</b> {datetime.now().strftime('%B %d, %Y at %H:%M')}<br/><br/>
-        <b>Professional Comments & Clinical Assessment:</b><br/>
-        {feedback.get('comments', 'No additional comments provided by the reviewing radiologist.')}
         """
+
+        if not is_verified and radiologist_diagnosis:
+            review_text += f"<b>Radiologist Diagnosis:</b> {radiologist_diagnosis}<br/><br/>"
+
+        if final_diagnosis:
+            review_text += f"<b>Final Diagnosis:</b> {final_diagnosis}<br/><br/>"
+
+        if comments:
+            review_text += f"<b>Professional Comments & Clinical Assessment:</b><br/>{comments}"
+        else:
+            review_text += "<b>Professional Comments & Clinical Assessment:</b><br/>No additional comments provided by the reviewing radiologist."
         
         review_box_data = [[Paragraph(review_text, info_style)]]
         review_box = Table(review_box_data, colWidths=[doc.width])
         review_box.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#faf5ff')),
-            ('BOX', (0, 0), (-1, -1), 1, colors.HexColor('#8b5cf6')),
+            ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#E0EFFF')),
+            ('BOX', (0, 0), (-1, -1), 1, colors.HexColor('#528DCB')),
             ('VALIGN', (0, 0), (-1, -1), 'TOP'),
             ('LEFTPADDING', (0, 0), (-1, -1), 12),
             ('RIGHTPADDING', (0, 0), (-1, -1), 12),

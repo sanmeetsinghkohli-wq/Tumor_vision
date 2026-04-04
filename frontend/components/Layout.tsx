@@ -4,7 +4,6 @@ import Navbar from './Navbar';
 import { usePathname } from 'next/navigation';
 import PageBackground from './ui/background-components';
 import { useLang } from '@/contexts/LanguageContext';
-import AIChatBot from './ui/ai-chat';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -72,7 +71,6 @@ export default function Layout({ children }: LayoutProps) {
                     </div>
                 </div>
             </footer>
-            <AIChatBot />
         </PageBackground>
     );
 }
