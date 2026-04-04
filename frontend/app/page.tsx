@@ -3,20 +3,77 @@
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { HeroGeometric } from '@/components/ui/shape-landing-hero';
+import { LampContainer } from '@/components/ui/lamp';
 import { ContainerScroll } from '@/components/ui/container-scroll-animation';
 
 export default function Home() {
   return (
     <Layout>
       <article>
-        {/* Hero Section */}
-        <section className="-mt-20 sm:-mt-24 lg:-mt-28">
-          <HeroGeometric
-            badge="AI Diagnostics"
-            title1="Tumor Vision"
-            title2="AI Detection"
-          />
+        {/* Hero Section — Lamp */}
+        <section className="-mt-20">
+          <LampContainer>
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.9, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-4 text-center"
+            >
+              {/* Glowing brain */}
+              <motion.div
+                animate={{ scale: [1, 1.06, 1], filter: ['drop-shadow(0 0 40px #C5757C88)', 'drop-shadow(0 0 80px #F9AAADcc)', 'drop-shadow(0 0 40px #C5757C88)'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="text-[7rem] md:text-[10rem] leading-none select-none"
+              >
+                🧠
+              </motion.div>
+
+              {/* Title */}
+              <h1
+                className="text-[4rem] sm:text-[6rem] md:text-[8rem] font-bold leading-none tracking-tight text-white uppercase"
+                style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
+              >
+                Tumor Vision
+              </h1>
+
+              {/* Subtitle */}
+              <h2
+                className="text-[2.5rem] sm:text-[4rem] md:text-[5.5rem] font-bold leading-none uppercase bg-gradient-to-r from-[#C5757C] via-[#F9AAAD] to-[#A1525F] bg-clip-text text-transparent"
+                style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
+              >
+                AI Detection
+              </h2>
+
+              <p className="text-white/50 text-base md:text-lg max-w-lg leading-relaxed mt-2">
+                Upload a brain MRI scan and receive an instant AI-powered diagnosis — bridging healthcare gaps in rural communities.
+              </p>
+
+              {/* CTA buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-4">
+                <Link href="/upload">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#A1525F] to-[#C5757C] text-white text-lg font-bold rounded-full hover:shadow-2xl hover:shadow-[#C5757C]/50 transition-all duration-300"
+                  >
+                    <span className="mr-2">Start Free Analysis</span>
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </motion.button>
+                </Link>
+                <Link href="/about">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white text-lg font-semibold rounded-full border-2 border-white/30 hover:bg-white/20 transition-all duration-300"
+                  >
+                    Learn More
+                  </motion.button>
+                </Link>
+              </div>
+            </motion.div>
+          </LampContainer>
         </section>
 
         {/* Stats Section */}
