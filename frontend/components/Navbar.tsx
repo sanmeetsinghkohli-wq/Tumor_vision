@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useLang } from '@/contexts/LanguageContext';
+import NavHeader from '@/components/ui/nav-header';
 
 const LANGS = [
     { code: 'en', label: 'EN', full: '🇬🇧 English' },
@@ -49,7 +50,7 @@ export default function Navbar() {
 
     return (
         <>
-            <motion.header
+            <header
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
                     scrolled
                         ? 'bg-[#140E1C]/90 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/30 translate-y-0 opacity-100'
@@ -58,42 +59,26 @@ export default function Navbar() {
             >
                 <div className="h-[2px] bg-gradient-to-r from-[#462037] via-[#C5757C] to-[#462037]" />
 
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group">
+                    <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
                         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#C5757C] to-[#683A46] flex items-center justify-center shadow-lg shadow-[#C5757C]/20 group-hover:shadow-[#C5757C]/40 transition-all duration-300">
                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                             </svg>
                         </div>
-                        <div>
-                            <span className="text-white font-bold text-lg leading-none block">Tumor Vision</span>
-                            <span className="text-[#C5757C] text-[10px] font-medium tracking-widest uppercase">{t('nav_tagline')}</span>
-                        </div>
                     </Link>
 
-                    {/* Desktop nav */}
-                    <nav className="hidden lg:flex items-center gap-1">
-                        {navItems.map((item) => (
-                            <Link key={item.href} href={item.href}
-                                className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                    isActive(item.href) ? 'text-white' : 'text-white/60 hover:text-white'
-                                }`}>
-                                {isActive(item.href) && (
-                                    <motion.div layoutId="nav-active"
-                                        className="absolute inset-0 rounded-lg bg-white/10 border border-white/20"
-                                        transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }} />
-                                )}
-                                <span className="relative z-10">{item.label}</span>
-                            </Link>
-                        ))}
-                    </nav>
+                    {/* Desktop nav — sliding cursor pill */}
+                    <div className="hidden lg:block">
+                        <NavHeader items={navItems} />
+                    </div>
 
-                    <div className="flex items-center gap-3">
-                        {/* 🌐 Language Selector */}
+                    <div className="flex items-center gap-3 flex-shrink-0">
+                        {/* Language Selector */}
                         <div className="relative">
                             <button onClick={() => setShowLangMenu(!showLangMenu)}
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-xs font-bold hover:bg-white/20 transition-all">
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold hover:bg-white/20 transition-all">
                                 🌐 {currentLang.label} <span className="text-[#C5757C]">▾</span>
                             </button>
                             <AnimatePresence>
@@ -111,13 +96,6 @@ export default function Navbar() {
                             </AnimatePresence>
                         </div>
 
-                        <Link href="/upload" className="hidden lg:inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-gradient-to-r from-[#C5757C] to-[#A1525F] text-white text-sm font-semibold shadow-lg shadow-[#C5757C]/20 hover:shadow-[#C5757C]/40 hover:scale-105 transition-all duration-200">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                            </svg>
-                            {t('nav_new_scan')}
-                        </Link>
-
                         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                             className="lg:hidden p-2 rounded-lg bg-white/10 border border-white/20 text-white">
                             <motion.div animate={isMobileMenuOpen ? 'open' : 'closed'} className="w-5 h-5 flex flex-col justify-center gap-1">
@@ -128,7 +106,7 @@ export default function Navbar() {
                         </button>
                     </div>
                 </div>
-            </motion.header>
+            </header>
 
             {/* Mobile menu */}
             <AnimatePresence>
@@ -153,7 +131,6 @@ export default function Navbar() {
                                             <p className="text-[#C5757C] text-[10px] tracking-widest uppercase">{t('nav_tagline')}</p>
                                         </div>
                                     </div>
-                                    {/* Mobile language picker */}
                                     <div className="flex gap-2">
                                         {LANGS.map(l => (
                                             <button key={l.code} onClick={() => handleLang(l.code)}
