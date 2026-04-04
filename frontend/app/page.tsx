@@ -11,9 +11,9 @@ export default function Home() {
     <Layout>
       <article>
         {/* Hero Section — Full-screen video with lamp overlay */}
-        <section className="relative -mt-20 min-h-screen overflow-hidden bg-[#140E1C]">
+        <section className="relative min-h-screen overflow-hidden bg-[#140E1C]">
 
-          {/* Full-screen background video — pushed down so lamp beams show at top */}
+          {/* Full-screen background video */}
           <video
             src="/brain-hero.mp4"
             autoPlay
@@ -21,14 +21,10 @@ export default function Home() {
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
-            style={{ marginTop: '80px' }}
           />
 
-          {/* Subtle edge vignette only — no solid background behind text */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#140E1C]/60 via-transparent to-[#140E1C]/50" />
-
-          {/* Lamp beams — sit on top of video at the top */}
-          <LampContainer className="absolute inset-0 bg-transparent min-h-0 h-full" />
+          {/* Subtle edge vignette only */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#140E1C]/40 via-transparent to-[#140E1C]/50" />
 
           {/* Text content — clamp padding pushes text into lower portion at any viewport height */}
           <div
@@ -48,7 +44,7 @@ export default function Home() {
                 Tumor Vision
               </h1>
               <p className="text-white/60 text-xs sm:text-sm tracking-[0.3em] uppercase font-medium mt-1">
-                AI Powered Diagnoses
+                AI Powered Diagnostics
               </p>
               <p className="hidden sm:block text-white/50 text-base md:text-lg max-w-xl leading-relaxed mt-2">
                 Upload a brain MRI scan and receive an instant AI-powered diagnosis — bridging healthcare gaps in rural communities.
