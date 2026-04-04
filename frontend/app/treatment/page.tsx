@@ -171,7 +171,7 @@ export default function TreatmentPage() {
                                                 </div>
                                                 <div className="bg-gradient-to-br from-purple-500/10 to-transparent rounded-xl p-4 border border-purple-500/20">
                                                     <p className="text-purple-300 text-sm mb-1">💰 Cost</p>
-                                                    <p className="text-white text-lg font-bold">{results.recommendations[selectedTreatment].cost_estimate}</p>
+                                                    <p className="text-white text-lg font-bold">{results.recommendations[selectedTreatment].cost_estimate?.replace(/\$/g, '₹')}</p>
                                                 </div>
                                             </div>
 
