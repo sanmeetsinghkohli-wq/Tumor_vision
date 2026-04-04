@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useLang } from '@/contexts/LanguageContext';
 
 const LANGS = [
     { code: 'en', label: 'EN', full: '🇬🇧 English' },
@@ -15,8 +16,8 @@ export default function Navbar() {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [language, setLanguage] = useState('en');
     const [showLangMenu, setShowLangMenu] = useState(false);
+    const { lang: language, setLang, t } = useLang();
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20);
@@ -25,17 +26,11 @@ export default function Navbar() {
     }, []);
 
     useEffect(() => {
-        const saved = localStorage.getItem('appLanguage') || 'en';
-        setLanguage(saved);
-    }, []);
-
-    useEffect(() => {
         document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'unset';
     }, [isMobileMenuOpen]);
 
     const handleLang = (code: string) => {
-        setLanguage(code);
-        localStorage.setItem('appLanguage', code);
+        setLang(code as 'en' | 'hi' | 'mr');
         setShowLangMenu(false);
     };
 
@@ -43,11 +38,11 @@ export default function Navbar() {
     const currentLang = LANGS.find(l => l.code === language) || LANGS[0];
 
     const navItems = [
-        { href: '/upload', label: 'Upload' },
-        { href: '/results', label: 'Results' },
-        { href: '/review', label: 'Report' },
-        { href: '/treatment', label: 'Treatment' },
-        { href: '/about', label: 'About' },
+        { href: '/upload', label: t('nav_upload') },
+        { href: '/results', label: t('nav_results') },
+        { href: '/review', label: t('nav_report') },
+        { href: '/treatment', label: t('nav_treatment') },
+        { href: '/about', label: t('nav_about') },
     ];
 
     return (
@@ -74,7 +69,7 @@ export default function Navbar() {
                         </div>
                         <div>
                             <span className="text-white font-bold text-lg leading-none block">Tumor Vision</span>
-                            <span className="text-[#C5757C] text-[10px] font-medium tracking-widest uppercase">AI Diagnostics</span>
+                            <span className="text-[#C5757C] text-[10px] font-medium tracking-widest uppercase">{t('nav_tagline')}</span>
                         </div>
                     </Link>
 
@@ -121,7 +116,7 @@ export default function Navbar() {
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                             </svg>
-                            New Scan
+                            {t('nav_new_scan')}
                         </Link>
 
                         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -156,7 +151,7 @@ export default function Navbar() {
                                         </div>
                                         <div>
                                             <p className="text-white font-bold">Tumor Vision</p>
-                                            <p className="text-[#C5757C] text-[10px] tracking-widest uppercase">AI Diagnostics</p>
+                                            <p className="text-[#C5757C] text-[10px] tracking-widest uppercase">{t('nav_tagline')}</p>
                                         </div>
                                     </div>
                                     {/* Mobile language picker */}
@@ -186,7 +181,7 @@ export default function Navbar() {
                                 <div className="px-6 py-6 border-t border-[#683A46]/30">
                                     <Link href="/upload" onClick={() => setIsMobileMenuOpen(false)}
                                         className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#C5757C] to-[#A1525F] text-white text-sm font-bold">
-                                        Upload New Scan
+                                        {t('nav_new_scan')}
                                     </Link>
                                 </div>
                             </div>

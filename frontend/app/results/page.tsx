@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Layout from '@/components/Layout'
 import Link from 'next/link'
 import type { Prediction } from '@/lib/api'
+import { useLang } from '@/contexts/LanguageContext'
 
 const TUMOR_META: Record<string, { color: string; severity: string; tagline: string; info: string }> = {
   'Glioma': {
@@ -41,6 +42,7 @@ export default function ResultsPage() {
   const [predictions, setPredictions] = useState<Prediction[]>([])
   const [imagePreview, setImagePreview] = useState<string>('')
   const [loading, setLoading] = useState(true)
+  const { t } = useLang()
 
   useEffect(() => {
     const stored = localStorage.getItem('latestResult')
@@ -59,7 +61,7 @@ export default function ResultsPage() {
   if (loading) {
     return (
       <Layout>
-        <div className="min-h-screen flex items-center justify-center bg-[#f4f2fb]">
+        <div className="min-h-screen flex items-center justify-center">
           <div className="w-10 h-10 border-[3px] border-[#C5757C] border-t-transparent rounded-full animate-spin" />
         </div>
       </Layout>
@@ -69,17 +71,17 @@ export default function ResultsPage() {
   if (!predictions.length) {
     return (
       <Layout>
-        <div className="min-h-screen flex items-center justify-center bg-[#f4f2fb]">
+        <div className="min-h-screen flex items-center justify-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="text-center p-12 bg-white rounded-3xl shadow-xl max-w-md">
+            className="text-center p-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl max-w-md">
             <div className="text-7xl mb-6">🧠</div>
-            <h2 className="text-3xl font-black text-gray-900 mb-3">No Results Yet</h2>
-            <p className="text-gray-400 mb-8 leading-relaxed">Upload an MRI scan to receive your AI-powered diagnosis.</p>
+            <h2 className="text-3xl font-black text-white mb-3">No Results Yet</h2>
+            <p className="text-gray-400 mb-8 leading-relaxed">{t('upload_sub')}</p>
             <Link href="/upload">
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                 className="px-8 py-3 rounded-full font-bold text-white"
                 style={{ background: 'linear-gradient(135deg,#C5757C,#F9AAAD)' }}>
-                Upload MRI Scan →
+                {t('nav_new_scan')} →
               </motion.button>
             </Link>
           </motion.div>
@@ -90,8 +92,7 @@ export default function ResultsPage() {
 
   return (
     <Layout>
-      {/* Page background — light lavender/white like BrainWave */}
-      <div className="min-h-screen bg-[#f4f2fb] px-4 sm:px-6 lg:px-8 py-8">
+      <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-6xl mx-auto">
 
           {/* Main grid: left card + right image card */}
@@ -99,27 +100,25 @@ export default function ResultsPage() {
 
             {/* ─── LEFT CARD ─── */}
             <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}
-              className="bg-white rounded-[2rem] p-8 shadow-lg flex flex-col justify-between overflow-hidden">
+              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 shadow-lg flex flex-col justify-between overflow-hidden">
 
-              {/* Top: headline + CTA */}
               <div>
                 {/* Severity badge */}
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-5"
-                  style={{ background: meta.color + '15', color: meta.color }}>
+                  style={{ background: meta.color + '22', color: meta.color }}>
                   {meta.severity}
                 </span>
 
-                <h1 className="text-[2.6rem] leading-[1.1] font-black text-gray-900 mb-4">
+                <h1 className="text-[2.6rem] leading-[1.1] font-black text-white mb-4">
                   {top.tagName === 'No Tumor' ? (
-                    <>No Tumor<br /><span style={{ color: '#22c55e' }}>Detected</span></>
+                    <>No Tumor<br /><span style={{ color: '#22c55e' }}>{t('results_detected')}</span></>
                   ) : (
-                    <>{top.tagName}<br /><span style={{ color: meta.color }}>Detected</span></>
+                    <>{top.tagName}<br /><span style={{ color: meta.color }}>{t('results_detected')}</span></>
                   )}
                 </h1>
 
                 <p className="text-gray-400 text-[15px] leading-relaxed max-w-sm mb-6">
-                  {meta.tagline}<br />
-                  Harness the power of AI diagnostics through Tumor Vision's Azure-powered analysis.
+                  {meta.tagline}
                 </p>
 
                 {/* Confidence bars */}
@@ -127,12 +126,12 @@ export default function ResultsPage() {
                   {predictions.map((pred, idx) => (
                     <div key={idx}>
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-gray-500 font-medium">{pred.tagName}</span>
+                        <span className="text-gray-400 font-medium">{pred.tagName}</span>
                         <span className="font-bold" style={{ color: getBarColor(idx) }}>
                           {(pred.probability * 100).toFixed(1)}%
                         </span>
                       </div>
-                      <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                      <div className="w-full bg-white/10 rounded-full h-2.5 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }} animate={{ width: `${pred.probability * 100}%` }}
                           transition={{ duration: 1, delay: idx * 0.15 }}
@@ -143,35 +142,34 @@ export default function ResultsPage() {
                   ))}
                 </div>
 
-                {/* CTA pill button */}
+                {/* CTA button */}
                 <Link href="/review">
                   <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.96 }}
                     className="inline-flex items-center gap-3 px-6 py-3 rounded-full font-bold text-white text-sm shadow-lg"
-                    style={{ background: 'linear-gradient(135deg,#1a1a2e,#16213e)' }}>
-                    Generate Report
+                    style={{ background: 'linear-gradient(135deg,#C5757C,#A1525F)' }}>
+                    {t('results_generate_report')}
                     <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">→</span>
                   </motion.button>
                 </Link>
               </div>
 
-              {/* ── Bottom mini-card (BrainWave style thumbnail row) ── */}
+              {/* Bottom mini-card */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                className="mt-6 flex items-center gap-4 bg-[#f8f7fd] rounded-2xl p-4">
-                {/* MRI thumbnail */}
+                className="mt-6 flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-4">
                 <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-[#C5757C]/30 to-[#683A46]/30">
                   {imagePreview
                     ? <img src={imagePreview} alt="MRI thumb" className="w-full h-full object-cover" />
                     : <div className="w-full h-full flex items-center justify-center text-2xl">🧠</div>}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-gray-800 font-bold text-sm leading-tight">
-                    AI Confidence: {pct}%
+                  <p className="text-white font-bold text-sm leading-tight">
+                    {t('results_confidence')}: {pct}%
                   </p>
                   <p className="text-gray-400 text-xs mt-0.5 line-clamp-2">
                     {meta.info}
                   </p>
                   <Link href="/treatment">
-                    <span className="text-[#C5757C] text-xs font-bold hover:underline cursor-pointer">Learn more →</span>
+                    <span className="text-[#C5757C] text-xs font-bold hover:underline cursor-pointer">{t('results_treatment')} →</span>
                   </Link>
                 </div>
               </motion.div>
@@ -179,8 +177,8 @@ export default function ResultsPage() {
 
             {/* ─── RIGHT CARD — full MRI image ─── */}
             <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55, delay: 0.1 }}
-              className="relative rounded-[2rem] overflow-hidden shadow-lg min-h-[340px]"
-              style={{ background: 'linear-gradient(135deg,#C5757C33,#683A4655)' }}>
+              className="relative rounded-[2rem] overflow-hidden shadow-lg min-h-[340px] border border-white/10"
+              style={{ background: 'linear-gradient(135deg,#C5757C22,#683A4644)' }}>
 
               {imagePreview ? (
                 <img src={imagePreview} alt="MRI Scan"
@@ -191,7 +189,6 @@ export default function ResultsPage() {
                 </div>
               )}
 
-              {/* Top-right arrow button */}
               <motion.div whileHover={{ scale: 1.1 }} className="absolute top-4 right-4 z-10">
                 <Link href="/treatment">
                   <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white font-bold hover:bg-white/40 transition-colors cursor-pointer">
@@ -200,16 +197,15 @@ export default function ResultsPage() {
                 </Link>
               </motion.div>
 
-              {/* Bottom overlay text — matches BrainWave "Innovate Your Mind" */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
                 className="absolute bottom-0 left-0 right-0 p-6"
-                style={{ background: 'linear-gradient(to top, rgba(20,14,28,0.85) 0%, transparent 100%)' }}>
+                style={{ background: 'linear-gradient(to top, rgba(20,14,28,0.92) 0%, transparent 100%)' }}>
                 <h2 className="text-white text-2xl font-black leading-tight mb-1">
-                  Analyze Your Scan,<br />Protect Your Future
+                  {t('results_analysis_complete')}
                 </h2>
                 <p className="text-white/60 text-xs leading-relaxed max-w-xs">
-                  Discover precise AI-powered diagnostics from Tumor Vision, where cutting-edge neural networks converge to amplify medical insight.
+                  {t('results_disclaimer')}
                 </p>
               </motion.div>
             </motion.div>
@@ -222,18 +218,18 @@ export default function ResultsPage() {
               <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                 className="px-6 py-2.5 rounded-full text-sm font-bold text-white shadow-md"
                 style={{ background: 'linear-gradient(135deg,#C5757C,#F9AAAD)' }}>
-                💊 View Treatment Options
+                💊 {t('results_treatment')}
               </motion.button>
             </Link>
             <Link href="/upload">
               <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                className="px-6 py-2.5 rounded-full text-sm font-bold text-gray-600 bg-white border border-gray-200 hover:bg-gray-50">
-                📤 New Scan
+                className="px-6 py-2.5 rounded-full text-sm font-bold text-white/80 bg-white/10 border border-white/20 hover:bg-white/20">
+                📤 {t('results_new_scan')}
               </motion.button>
             </Link>
             <div className="ml-auto">
               <p className="text-gray-400 text-xs">
-                ⚕️ AI-assisted analysis only — not a medical diagnosis
+                ⚕️ {t('results_disclaimer')}
               </p>
             </div>
           </motion.div>

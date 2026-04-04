@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Layout from '@/components/Layout'
 import { uploadAndPredict } from '@/lib/api'
+import { useLang } from '@/contexts/LanguageContext'
 
 export default function UploadPage() {
     const router = useRouter()
@@ -13,6 +14,7 @@ export default function UploadPage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [dragActive, setDragActive] = useState(false)
+    const { t } = useLang()
 
     const handleFile = useCallback((f: File) => {
         if (!f.type.startsWith('image/')) {
@@ -54,8 +56,9 @@ export default function UploadPage() {
 
     return (
         <Layout>
-            <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #140E1C 0%, #2A1020 50%, #140E1C 100%)' }}>
-                <div className="absolute inset-0 opacity-20">
+            <div className="min-h-screen relative overflow-hidden">
+                {/* Subtle grid overlay */}
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(to right, #C5757C 1px, transparent 1px), linear-gradient(to bottom, #F9AAAD 1px, transparent 1px)`, backgroundSize: '80px 80px' }} />
                 </div>
 
@@ -65,9 +68,9 @@ export default function UploadPage() {
                             <span className="text-sm font-medium bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">MRI SCAN ANALYSIS</span>
                         </div>
                         <h1 className="text-5xl font-bold mb-4">
-                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">Upload Brain MRI Scan</span>
+                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">{t('upload_title')}</span>
                         </h1>
-                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">Upload a brain MRI scan for AI-powered tumor detection and classification</p>
+                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t('upload_sub')}</p>
                     </motion.div>
 
                     <div className="max-w-2xl mx-auto">
@@ -87,16 +90,16 @@ export default function UploadPage() {
                                 <div className="space-y-4">
                                     <img src={preview} alt="MRI Preview" className="max-h-64 mx-auto rounded-xl border border-white/20" />
                                     <p className="text-white font-medium">{file?.name}</p>
-                                    <p className="text-gray-400 text-sm">Click or drag to replace</p>
+                                    <p className="text-gray-400 text-sm">{t('upload_drag')}</p>
                                 </div>
                             ) : (
                                 <div className="space-y-4">
                                     <div className="text-6xl">🧠</div>
                                     <div>
-                                        <p className="text-white text-xl font-semibold mb-2">Drop your MRI scan here</p>
-                                        <p className="text-gray-400">or click to browse files</p>
+                                        <p className="text-white text-xl font-semibold mb-2">{t('upload_drag')}</p>
+                                        <p className="text-gray-400">{t('upload_or')} {t('upload_browse').toLowerCase()}</p>
                                     </div>
-                                    <p className="text-gray-500 text-sm">Supports JPG, PNG, JPEG</p>
+                                    <p className="text-gray-500 text-sm">{t('upload_formats')}</p>
                                 </div>
                             )}
                         </motion.div>
@@ -118,15 +121,15 @@ export default function UploadPage() {
                             className="w-full mt-6 px-8 py-4 bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-[#C5757C]/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                         >
                             {loading ? (
-                                <><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div><span>Analyzing...</span></>
+                                <><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div><span>{t('upload_analyzing')}</span></>
                             ) : (
-                                <><span>🔬</span><span>Analyze Scan</span></>
+                                <><span>🔬</span><span>{t('upload_submit')}</span></>
                             )}
                         </motion.button>
 
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mt-6 bg-gradient-to-r from-[#C5757C]/10 to-cyan-500/10 border border-emerald-500/30 rounded-xl p-4">
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mt-6 bg-gradient-to-r from-[#C5757C]/10 to-[#683A46]/10 border border-[#C5757C]/30 rounded-xl p-4">
                             <p className="text-gray-300 text-sm">
-                                <strong className="text-[#F9AAAD]">⚕️ Note:</strong> This tool provides AI-assisted suggestive analysis only. It does NOT constitute a medical diagnosis. Always consult a qualified medical professional.
+                                <strong className="text-[#F9AAAD]">⚕️ Note:</strong> {t('upload_disclaimer')}
                             </p>
                         </motion.div>
                     </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Layout from '@/components/Layout'
 import { submitReview, downloadReport, type ReviewData, type Prediction } from '@/lib/api'
+import { useLang } from '@/contexts/LanguageContext'
 
 export default function ReviewPage() {
     const [form, setForm] = useState<ReviewData>({
@@ -16,7 +17,7 @@ export default function ReviewPage() {
     const [loading, setLoading] = useState(false)
     const [submitted, setSubmitted] = useState(false)
     const [error, setError] = useState('')
-    const [language, setLanguage] = useState('en')
+    const { lang: language, setLang, t } = useLang()
 
     useEffect(() => {
         const stored = localStorage.getItem('latestResult')
@@ -34,19 +35,7 @@ export default function ReviewPage() {
                 }))
             }
         }
-        // Read global language preference
-        const savedLang = localStorage.getItem('appLanguage') || 'en'
-        setLanguage(savedLang)
-
-        // Keep in sync if user changes language in navbar while on this page
-        const onStorage = () => setLanguage(localStorage.getItem('appLanguage') || 'en')
-        window.addEventListener('storage', onStorage)
-        // Also poll every 500ms (same-tab localStorage changes don't fire 'storage')
-        const interval = setInterval(onStorage, 500)
-        return () => {
-            window.removeEventListener('storage', onStorage)
-            clearInterval(interval)
-        }
+        // language is managed by LanguageContext — no manual sync needed
     }, [])
 
     const handleSubmit = async () => {
@@ -63,31 +52,29 @@ export default function ReviewPage() {
     }
 
     const handleDownload = () => {
-        // Always read the freshest language at download time
-        const lang = localStorage.getItem('appLanguage') || language || 'en'
-        downloadReport(form, predictions, image, undefined, lang)
+        downloadReport(form, predictions, image, undefined, language)
     }
 
     return (
         <Layout>
-            <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #140E1C 0%, #2A1020 50%, #140E1C 100%)' }}>
-                <div className="absolute inset-0 opacity-20">
+            <div className="min-h-screen relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(to right, #C5757C 1px, transparent 1px), linear-gradient(to bottom, #F9AAAD 1px, transparent 1px)`, backgroundSize: '80px 80px' }} />
                 </div>
 
                 <div className="container mx-auto px-6 pt-20 pb-12 relative z-10">
                     <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
                         <h1 className="text-5xl font-bold mb-4">
-                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">Generate Report</span>
+                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">{t('review_title')}</span>
                         </h1>
-                        <p className="text-gray-400 text-lg">Fill in patient details to generate a diagnostic report</p>
+                        <p className="text-gray-400 text-lg">{t('review_sub')}</p>
                     </motion.div>
 
                     <div className="max-w-3xl mx-auto">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 space-y-6">
                             {/* Language Selection */}
                             <div>
-                                <label className="block text-gray-300 mb-2 font-medium">Report Language</label>
+                                <label className="block text-gray-300 mb-2 font-medium">{t('review_lang_label')}</label>
                                 <div className="flex gap-3">
                                     {[
                                         { code: 'en', label: '🇬🇧 English' },
@@ -96,9 +83,9 @@ export default function ReviewPage() {
                                     ].map(lang_opt => (
                                         <button
                                             key={lang_opt.code}
-                                            onClick={() => setLanguage(lang_opt.code)}
+                                            onClick={() => setLang(lang_opt.code as 'en' | 'hi' | 'mr')}
                                             className={`px-4 py-2 rounded-lg font-medium transition-all ${language === lang_opt.code
-                                                ? 'bg-gradient-to-r from-[#C5757C] to-cyan-500 text-white'
+                                                ? 'bg-gradient-to-r from-[#C5757C] to-[#A1525F] text-white'
                                                 : 'bg-white/5 text-gray-300 hover:bg-white/10'
                                                 }`}
                                         >
@@ -111,63 +98,63 @@ export default function ReviewPage() {
                             {/* Patient Details */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-gray-300 mb-2 font-medium">Patient Name *</label>
+                                    <label className="block text-gray-300 mb-2 font-medium">{t('review_name')} *</label>
                                     <input
                                         type="text"
                                         value={form.patient_name}
                                         onChange={(e) => setForm({ ...form, patient_name: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
-                                        placeholder="Enter patient name"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        placeholder={t('review_name_ph')}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-gray-300 mb-2 font-medium">Age *</label>
+                                    <label className="block text-gray-300 mb-2 font-medium">{t('review_age')} *</label>
                                     <input
                                         type="number"
                                         value={form.patient_age || ''}
                                         onChange={(e) => setForm({ ...form, patient_age: Number(e.target.value) })}
-                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
-                                        placeholder="Age"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        placeholder={t('review_age')}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-gray-300 mb-2 font-medium">Gender</label>
+                                    <label className="block text-gray-300 mb-2 font-medium">{t('review_gender')}</label>
                                     <select
                                         value={form.patient_gender}
                                         onChange={(e) => setForm({ ...form, patient_gender: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
                                     >
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
+                                        <option value="Male">{t('gender_male')}</option>
+                                        <option value="Female">{t('gender_female')}</option>
+                                        <option value="Other">{t('gender_other')}</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-gray-300 mb-2 font-medium">Contact Number</label>
+                                    <label className="block text-gray-300 mb-2 font-medium">{t('review_phone')}</label>
                                     <input
                                         type="tel"
                                         value={form.patient_number}
                                         onChange={(e) => setForm({ ...form, patient_number: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
-                                        placeholder="Phone number"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        placeholder={t('review_phone_ph')}
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-gray-300 mb-2 font-medium">AI Diagnosis</label>
+                                <label className="block text-gray-300 mb-2 font-medium">{t('review_diagnosis')}</label>
                                 <div className="px-4 py-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-[#F9AAAD] font-medium">
                                     {form.diagnosis || 'No analysis data found'} {form.confidence ? `(${(form.confidence * 100).toFixed(1)}%)` : ''}
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-gray-300 mb-2 font-medium">Additional Comments</label>
+                                <label className="block text-gray-300 mb-2 font-medium">{t('review_comments')}</label>
                                 <textarea
                                     value={form.comments}
                                     onChange={(e) => setForm({ ...form, comments: e.target.value })}
-                                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[100px]"
-                                    placeholder="Any additional observations or notes..."
+                                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50 min-h-[100px]"
+                                    placeholder={t('review_comments_ph')}
                                 />
                             </div>
 
@@ -178,8 +165,8 @@ export default function ReviewPage() {
                             )}
 
                             {submitted && (
-                                <div className="bg-emerald-500/20 border border-emerald-500/50 rounded-xl p-4">
-                                    <p className="text-emerald-200">✅ Review submitted successfully!</p>
+                                <div className="bg-[#C5757C]/20 border border-[#C5757C]/50 rounded-xl p-4">
+                                    <p className="text-[#F9AAAD]">✅ {t('review_success')}</p>
                                 </div>
                             )}
 
@@ -192,7 +179,7 @@ export default function ReviewPage() {
                                     className="flex-1 px-8 py-4 bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white font-bold rounded-xl disabled:opacity-50 flex items-center justify-center gap-2"
                                 >
                                     {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : '📝'}
-                                    <span>{loading ? 'Submitting...' : 'Submit Review'}</span>
+                                    <span>{loading ? t('review_submitting') : t('review_submit')}</span>
                                 </motion.button>
 
                                 <motion.button
@@ -201,14 +188,14 @@ export default function ReviewPage() {
                                     onClick={handleDownload}
                                     className="px-8 py-4 bg-white/10 border border-white/20 text-white font-bold rounded-xl flex items-center gap-2"
                                 >
-                                    ⬇️ Download PDF
+                                    ⬇️ {t('review_download')}
                                 </motion.button>
                             </div>
                         </motion.div>
 
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="mt-6 bg-gradient-to-r from-[#C5757C]/10 to-cyan-500/10 border border-emerald-500/30 rounded-xl p-4">
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="mt-6 bg-gradient-to-r from-[#C5757C]/10 to-[#683A46]/10 border border-[#C5757C]/30 rounded-xl p-4">
                             <p className="text-gray-300 text-sm">
-                                <strong className="text-[#F9AAAD]">⚕️ Disclaimer:</strong> AI-assisted suggestive analysis only. Reports are generated in {language === 'en' ? 'English' : language === 'hi' ? 'Hindi' : 'Marathi'}.
+                                <strong className="text-[#F9AAAD]">⚕️ Disclaimer:</strong> {t('review_disclaimer')} {language === 'en' ? 'English' : language === 'hi' ? 'हिन्दी' : 'मराठी'}.
                             </p>
                         </motion.div>
                     </div>

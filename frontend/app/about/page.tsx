@@ -2,28 +2,30 @@
 
 import { motion } from 'framer-motion'
 import Layout from '@/components/Layout'
+import { useLang } from '@/contexts/LanguageContext'
 
 export default function AboutPage() {
+    const { t } = useLang()
     return (
         <Layout>
-            <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #140E1C 0%, #2A1020 50%, #140E1C 100%)' }}>
-                <div className="absolute inset-0 opacity-20">
+            <div className="min-h-screen relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(to right, #C5757C 1px, transparent 1px), linear-gradient(to bottom, #F9AAAD 1px, transparent 1px)`, backgroundSize: '80px 80px' }} />
                 </div>
 
                 <div className="container mx-auto px-6 pt-20 pb-12 relative z-10">
                     <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
                         <h1 className="text-5xl font-bold mb-4">
-                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">About Tumor Vision</span>
+                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">{t('about_title')}</span>
                         </h1>
-                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">AI-powered brain tumor detection — bridging healthcare gaps in rural India</p>
+                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t('about_mission_text')}</p>
                     </motion.div>
 
                     <div className="max-w-5xl mx-auto space-y-12">
                         {/* Mission */}
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                             className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
-                            <h2 className="text-3xl font-bold text-white mb-4">🎯 Our Mission</h2>
+                            <h2 className="text-3xl font-bold text-white mb-4">🎯 {t('about_mission')}</h2>
                             <p className="text-gray-300 leading-relaxed text-lg">
                                 Tumor Vision is an AI-assisted diagnostic tool designed to support radiologists and healthcare professionals in the early detection of brain tumors — especially in rural and underserved regions of India where specialist access is limited.
                             </p>

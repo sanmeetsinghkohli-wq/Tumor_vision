@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Layout from '@/components/Layout'
 import AnimatedDropdown from '@/components/AnimatedDropdown'
 import { getTreatmentRecommendation, downloadTreatmentSummary, type TreatmentResponse } from '@/lib/api'
+import { useLang } from '@/contexts/LanguageContext'
 
 export default function TreatmentPage() {
     const [tumorType, setTumorType] = useState('Glioma')
@@ -14,6 +15,7 @@ export default function TreatmentPage() {
     const [results, setResults] = useState<TreatmentResponse | null>(null)
     const [error, setError] = useState('')
     const [selectedTreatment, setSelectedTreatment] = useState(0)
+    const { t } = useLang()
 
     const handleSimulation = async () => {
         setLoading(true)
@@ -31,8 +33,8 @@ export default function TreatmentPage() {
 
     return (
         <Layout>
-            <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #140E1C 0%, #2A1020 50%, #140E1C 100%)' }}>
-                <div className="absolute inset-0 opacity-20">
+            <div className="min-h-screen relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(to right, #C5757C 1px, transparent 1px), linear-gradient(to bottom, #F9AAAD 1px, transparent 1px)`, backgroundSize: '80px 80px' }} />
                 </div>
 
@@ -42,9 +44,9 @@ export default function TreatmentPage() {
                             <span className="text-sm font-medium bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">AI-POWERED TREATMENT PLANNING</span>
                         </div>
                         <h1 className="text-5xl font-bold mb-4">
-                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">Treatment Recommendations</span>
+                            <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">{t('treatment_title')}</span>
                         </h1>
-                        <p className="text-gray-400 text-lg">AI-Suggested Treatment Options for Brain Tumors</p>
+                        <p className="text-gray-400 text-lg">{t('treatment_sub')}</p>
                     </motion.div>
 
                     <div className="max-w-5xl mx-auto">

@@ -66,8 +66,8 @@ export default function MetricsPage() {
 
     return (
         <Layout>
-            <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #140E1C 0%, #2A1020 50%, #140E1C 100%)' }}>
-                <div className="absolute inset-0 opacity-20">
+            <div className="min-h-screen relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute inset-0" style={{
                         backgroundImage: `linear-gradient(to right, #C5757C 1px, transparent 1px), linear-gradient(to bottom, #F9AAAD 1px, transparent 1px)`,
                         backgroundSize: '80px 80px'
