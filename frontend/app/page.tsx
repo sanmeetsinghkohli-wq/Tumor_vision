@@ -30,8 +30,8 @@ export default function Home() {
           {/* Lamp beams — sit on top of video at the top */}
           <LampContainer className="absolute inset-0 bg-transparent min-h-0 h-full" />
 
-          {/* Text content — centered in hero */}
-          <div className="relative z-20 flex flex-col items-center justify-center min-h-screen text-center px-6 pb-16">
+          {/* Text content — pushed to bottom half */}
+          <div className="relative z-20 flex flex-col items-center justify-end min-h-screen text-center px-6 pb-20">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
