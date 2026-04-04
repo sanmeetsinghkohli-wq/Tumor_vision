@@ -1,0 +1,330 @@
+export type LangCode = 'en' | 'hi' | 'mr'
+
+export const TRANSLATIONS = {
+  en: {
+    // Navbar
+    nav_upload: 'Upload',
+    nav_results: 'Results',
+    nav_report: 'Report',
+    nav_treatment: 'Treatment',
+    nav_about: 'About',
+    nav_new_scan: 'New Scan',
+    nav_tagline: 'AI Diagnostics',
+
+    // Home
+    home_hero_title: 'AI-Powered Brain Tumor Detection',
+    home_hero_sub: 'Upload an MRI scan and receive an instant AI-powered diagnosis — bridging healthcare gaps in rural communities.',
+    home_cta_upload: 'Upload MRI Scan',
+    home_cta_learn: 'Learn More',
+    home_feature_fast: 'Instant Results',
+    home_feature_fast_desc: 'Get AI analysis in under 2 minutes',
+    home_feature_multilang: 'Multilingual Reports',
+    home_feature_multilang_desc: 'PDF reports in English, Hindi & Marathi',
+    home_feature_accurate: 'High Accuracy',
+    home_feature_accurate_desc: 'Powered by Azure Custom Vision AI',
+
+    // Upload
+    upload_title: 'Upload MRI Scan',
+    upload_sub: 'Upload a brain MRI image for AI-powered tumor detection',
+    upload_drag: 'Drag & drop your MRI scan here',
+    upload_or: 'or',
+    upload_browse: 'Browse File',
+    upload_formats: 'Supported: JPG, PNG, WEBP up to 10MB',
+    upload_analyzing: 'Analyzing...',
+    upload_submit: 'Analyze Scan',
+    upload_disclaimer: 'This is an AI-assisted tool. Results are not a medical diagnosis.',
+
+    // Results
+    results_title: 'Analysis Results',
+    results_sub: 'AI-Powered Suggestive Diagnosis',
+    results_detected: 'Detected',
+    results_confidence: 'AI Confidence',
+    results_breakdown: 'Confidence Breakdown',
+    results_clinical: 'Clinical Info',
+    results_next_steps: 'Next Steps',
+    results_generate_report: 'Generate Report',
+    results_treatment: 'View Treatment Options',
+    results_new_scan: 'New Scan',
+    results_disclaimer: "AI-assisted analysis only — not a medical diagnosis",
+    results_step1: 'Generate a detailed PDF report',
+    results_step2: 'Review AI treatment options',
+    results_step3: 'Upload another scan to compare',
+    results_tumor_type: 'Tumor Type',
+    results_ai_model: 'AI Model',
+    results_engine: 'Analysis Engine',
+    results_scan_type: 'Scan Type',
+    results_report_langs: 'Report Available',
+    results_analysis_complete: 'AI Analysis Complete',
+
+    // Review / Report
+    review_title: 'Generate Report',
+    review_sub: 'Fill in patient details to generate a diagnostic report',
+    review_lang_label: 'Report Language',
+    review_name: 'Patient Name',
+    review_age: 'Age',
+    review_gender: 'Gender',
+    review_phone: 'Contact Number',
+    review_diagnosis: 'AI Diagnosis',
+    review_comments: 'Additional Comments',
+    review_comments_ph: 'Any additional observations or notes...',
+    review_submit: 'Submit Review',
+    review_submitting: 'Submitting...',
+    review_download: 'Download PDF',
+    review_success: 'Review submitted successfully!',
+    review_disclaimer: 'AI-assisted suggestive analysis only. Reports are generated in',
+    review_name_ph: 'Enter patient name',
+    review_phone_ph: 'Phone number',
+
+    // Treatment
+    treatment_title: 'Treatment Options',
+    treatment_sub: 'AI-curated treatment recommendations based on your diagnosis',
+    treatment_loading: 'Loading recommendations...',
+    treatment_severity: 'Severity',
+    treatment_urgency: 'Urgency',
+    treatment_success_rate: 'Success Rate',
+    treatment_duration: 'Duration',
+    treatment_recovery: 'Recovery Time',
+    treatment_cost: 'Cost Estimate',
+    treatment_side_effects: 'Side Effects',
+    treatment_steps: 'Procedure Steps',
+    treatment_recommended_for: 'Recommended For',
+    treatment_disclaimer: 'AI-generated decision support only. Consult a qualified oncologist.',
+    treatment_suitability: 'Suitability Score',
+
+    // About
+    about_title: 'About Tumor Vision',
+    about_mission: 'Our Mission',
+    about_mission_text: 'Bridging the healthcare gap by bringing AI-powered diagnostics to rural and underserved communities.',
+
+    // Footer
+    footer_rights: '© 2026 Tumor Vision. All rights reserved.',
+    footer_powered: 'AI-Powered Diagnostics',
+    footer_quick_links: 'Quick Links',
+    footer_powered_by: 'Powered By',
+
+    // Genders
+    gender_male: 'Male',
+    gender_female: 'Female',
+    gender_other: 'Other',
+  },
+
+  hi: {
+    // Navbar
+    nav_upload: 'अपलोड',
+    nav_results: 'परिणाम',
+    nav_report: 'रिपोर्ट',
+    nav_treatment: 'उपचार',
+    nav_about: 'हमारे बारे में',
+    nav_new_scan: 'नई स्कैन',
+    nav_tagline: 'AI निदान',
+
+    // Home
+    home_hero_title: 'AI-संचालित ब्रेन ट्यूमर पहचान',
+    home_hero_sub: 'एक MRI स्कैन अपलोड करें और तत्काल AI-संचालित निदान प्राप्त करें — ग्रामीण समुदायों में स्वास्थ्य सेवा की खाई को पाटना।',
+    home_cta_upload: 'MRI स्कैन अपलोड करें',
+    home_cta_learn: 'और जानें',
+    home_feature_fast: 'तत्काल परिणाम',
+    home_feature_fast_desc: '2 मिनट से कम में AI विश्लेषण',
+    home_feature_multilang: 'बहुभाषी रिपोर्ट',
+    home_feature_multilang_desc: 'अंग्रेज़ी, हिंदी और मराठी में PDF रिपोर्ट',
+    home_feature_accurate: 'उच्च सटीकता',
+    home_feature_accurate_desc: 'Azure Custom Vision AI द्वारा संचालित',
+
+    // Upload
+    upload_title: 'MRI स्कैन अपलोड करें',
+    upload_sub: 'AI-संचालित ट्यूमर पहचान के लिए ब्रेन MRI छवि अपलोड करें',
+    upload_drag: 'यहाँ अपना MRI स्कैन खींचें और छोड़ें',
+    upload_or: 'या',
+    upload_browse: 'फ़ाइल चुनें',
+    upload_formats: 'समर्थित: JPG, PNG, WEBP 10MB तक',
+    upload_analyzing: 'विश्लेषण हो रहा है...',
+    upload_submit: 'स्कैन विश्लेषण करें',
+    upload_disclaimer: 'यह एक AI-सहायक उपकरण है। परिणाम चिकित्सा निदान नहीं हैं।',
+
+    // Results
+    results_title: 'विश्लेषण परिणाम',
+    results_sub: 'AI-संचालित सुझावात्मक निदान',
+    results_detected: 'पाया गया',
+    results_confidence: 'AI विश्वास',
+    results_breakdown: 'विश्वास विवरण',
+    results_clinical: 'नैदानिक जानकारी',
+    results_next_steps: 'अगले कदम',
+    results_generate_report: 'रिपोर्ट बनाएं',
+    results_treatment: 'उपचार विकल्प देखें',
+    results_new_scan: 'नई स्कैन',
+    results_disclaimer: 'केवल AI-सहायक विश्लेषण — चिकित्सा निदान नहीं',
+    results_step1: 'विस्तृत PDF रिपोर्ट बनाएं',
+    results_step2: 'AI उपचार विकल्पों की समीक्षा करें',
+    results_step3: 'तुलना के लिए दूसरी स्कैन अपलोड करें',
+    results_tumor_type: 'ट्यूमर प्रकार',
+    results_ai_model: 'AI मॉडल',
+    results_engine: 'विश्लेषण इंजन',
+    results_scan_type: 'स्कैन प्रकार',
+    results_report_langs: 'रिपोर्ट उपलब्ध',
+    results_analysis_complete: 'AI विश्लेषण पूर्ण',
+
+    // Review
+    review_title: 'रिपोर्ट बनाएं',
+    review_sub: 'नैदानिक रिपोर्ट बनाने के लिए रोगी विवरण भरें',
+    review_lang_label: 'रिपोर्ट भाषा',
+    review_name: 'रोगी का नाम',
+    review_age: 'आयु',
+    review_gender: 'लिंग',
+    review_phone: 'संपर्क नंबर',
+    review_diagnosis: 'AI निदान',
+    review_comments: 'अतिरिक्त टिप्पणियाँ',
+    review_comments_ph: 'कोई अतिरिक्त अवलोकन या नोट्स...',
+    review_submit: 'समीक्षा सबमिट करें',
+    review_submitting: 'सबमिट हो रहा है...',
+    review_download: 'PDF डाउनलोड करें',
+    review_success: 'समीक्षा सफलतापूर्वक सबमिट!',
+    review_disclaimer: 'केवल AI-सहायक विश्लेषण। रिपोर्ट इसमें बनाई गई है',
+    review_name_ph: 'रोगी का नाम दर्ज करें',
+    review_phone_ph: 'फ़ोन नंबर',
+
+    // Treatment
+    treatment_title: 'उपचार विकल्प',
+    treatment_sub: 'आपके निदान के आधार पर AI-क्यूरेटेड उपचार अनुशंसाएँ',
+    treatment_loading: 'अनुशंसाएँ लोड हो रही हैं...',
+    treatment_severity: 'गंभीरता',
+    treatment_urgency: 'तात्कालिकता',
+    treatment_success_rate: 'सफलता दर',
+    treatment_duration: 'अवधि',
+    treatment_recovery: 'ठीक होने का समय',
+    treatment_cost: 'अनुमानित लागत',
+    treatment_side_effects: 'दुष्प्रभाव',
+    treatment_steps: 'प्रक्रिया के चरण',
+    treatment_recommended_for: 'के लिए उचित',
+    treatment_disclaimer: 'केवल AI-जनित निर्णय समर्थन। एक योग्य ऑन्कोलॉजिस्ट से परामर्श करें।',
+    treatment_suitability: 'उपयुक्तता स्कोर',
+
+    // About
+    about_title: 'ट्यूमर विजन के बारे में',
+    about_mission: 'हमारा मिशन',
+    about_mission_text: 'ग्रामीण और वंचित समुदायों तक AI-संचालित निदान लाकर स्वास्थ्य सेवा की खाई को पाटना।',
+
+    // Footer
+    footer_rights: '© 2026 ट्यूमर विजन। सर्वाधिकार सुरक्षित।',
+    footer_powered: 'AI-संचालित निदान',
+    footer_quick_links: 'त्वरित लिंक',
+    footer_powered_by: 'द्वारा संचालित',
+
+    // Genders
+    gender_male: 'पुरुष',
+    gender_female: 'महिला',
+    gender_other: 'अन्य',
+  },
+
+  mr: {
+    // Navbar
+    nav_upload: 'अपलोड',
+    nav_results: 'परिणाम',
+    nav_report: 'अहवाल',
+    nav_treatment: 'उपचार',
+    nav_about: 'आमच्याबद्दल',
+    nav_new_scan: 'नवीन स्कॅन',
+    nav_tagline: 'AI निदान',
+
+    // Home
+    home_hero_title: 'AI-चालित मेंदूचा ट्यूमर शोध',
+    home_hero_sub: 'MRI स्कॅन अपलोड करा आणि AI-चालित निदान मिळवा — ग्रामीण भागातील आरोग्यसेवेची दरी कमी करणे.',
+    home_cta_upload: 'MRI स्कॅन अपलोड करा',
+    home_cta_learn: 'अधिक जाणून घ्या',
+    home_feature_fast: 'त्वरित परिणाम',
+    home_feature_fast_desc: '2 मिनिटांपेक्षा कमी वेळात AI विश्लेषण',
+    home_feature_multilang: 'बहुभाषी अहवाल',
+    home_feature_multilang_desc: 'इंग्रजी, हिंदी आणि मराठीत PDF अहवाल',
+    home_feature_accurate: 'उच्च अचूकता',
+    home_feature_accurate_desc: 'Azure Custom Vision AI द्वारे चालवलेले',
+
+    // Upload
+    upload_title: 'MRI स्कॅन अपलोड करा',
+    upload_sub: 'AI-चालित ट्यूमर शोधासाठी मेंदूची MRI प्रतिमा अपलोड करा',
+    upload_drag: 'येथे तुमचा MRI स्कॅन टाका',
+    upload_or: 'किंवा',
+    upload_browse: 'फाइल निवडा',
+    upload_formats: 'समर्थित: JPG, PNG, WEBP 10MB पर्यंत',
+    upload_analyzing: 'विश्लेषण होत आहे...',
+    upload_submit: 'स्कॅन विश्लेषण करा',
+    upload_disclaimer: 'हे AI-सहाय्यक साधन आहे. परिणाम वैद्यकीय निदान नाही.',
+
+    // Results
+    results_title: 'विश्लेषण परिणाम',
+    results_sub: 'AI-चालित सूचक निदान',
+    results_detected: 'आढळले',
+    results_confidence: 'AI आत्मविश्वास',
+    results_breakdown: 'आत्मविश्वास तपशील',
+    results_clinical: 'नैदानिक माहिती',
+    results_next_steps: 'पुढील पावले',
+    results_generate_report: 'अहवाल तयार करा',
+    results_treatment: 'उपचार पर्याय पहा',
+    results_new_scan: 'नवीन स्कॅन',
+    results_disclaimer: 'केवळ AI-सहाय्यक विश्लेषण — वैद्यकीय निदान नाही',
+    results_step1: 'तपशीलवार PDF अहवाल तयार करा',
+    results_step2: 'AI उपचार पर्यायांचे पुनरावलोकन करा',
+    results_step3: 'तुलनेसाठी दुसरा स्कॅन अपलोड करा',
+    results_tumor_type: 'ट्यूमरचा प्रकार',
+    results_ai_model: 'AI मॉडेल',
+    results_engine: 'विश्लेषण इंजिन',
+    results_scan_type: 'स्कॅन प्रकार',
+    results_report_langs: 'अहवाल उपलब्ध',
+    results_analysis_complete: 'AI विश्लेषण पूर्ण',
+
+    // Review
+    review_title: 'अहवाल तयार करा',
+    review_sub: 'निदान अहवाल तयार करण्यासाठी रुग्ण तपशील भरा',
+    review_lang_label: 'अहवाल भाषा',
+    review_name: 'रुग्णाचे नाव',
+    review_age: 'वय',
+    review_gender: 'लिंग',
+    review_phone: 'संपर्क क्रमांक',
+    review_diagnosis: 'AI निदान',
+    review_comments: 'अतिरिक्त टिप्पणी',
+    review_comments_ph: 'कोणतेही अतिरिक्त निरीक्षणे किंवा नोट्स...',
+    review_submit: 'पुनरावलोकन सबमिट करा',
+    review_submitting: 'सबमिट होत आहे...',
+    review_download: 'PDF डाउनलोड करा',
+    review_success: 'पुनरावलोकन यशस्वीरित्या सबमिट!',
+    review_disclaimer: 'केवळ AI-सहाय्यक विश्लेषण. अहवाल तयार केला आहे',
+    review_name_ph: 'रुग्णाचे नाव प्रविष्ट करा',
+    review_phone_ph: 'फोन नंबर',
+
+    // Treatment
+    treatment_title: 'उपचार पर्याय',
+    treatment_sub: 'तुमच्या निदानावर आधारित AI-क्युरेटेड उपचार शिफारसी',
+    treatment_loading: 'शिफारसी लोड होत आहेत...',
+    treatment_severity: 'तीव्रता',
+    treatment_urgency: 'तातडीचे',
+    treatment_success_rate: 'यश दर',
+    treatment_duration: 'कालावधी',
+    treatment_recovery: 'बरे होण्याचा वेळ',
+    treatment_cost: 'अनुमानित खर्च',
+    treatment_side_effects: 'दुष्परिणाम',
+    treatment_steps: 'प्रक्रियेचे टप्पे',
+    treatment_recommended_for: 'साठी शिफारस केलेले',
+    treatment_disclaimer: 'केवळ AI-व्युत्पन्न निर्णय समर्थन. एक पात्र ऑन्कोलॉजिस्टशी सल्लामसलत करा.',
+    treatment_suitability: 'उपयुक्तता स्कोअर',
+
+    // About
+    about_title: 'ट्यूमर व्हिजनबद्दल',
+    about_mission: 'आमचे ध्येय',
+    about_mission_text: 'ग्रामीण आणि वंचित समुदायांमध्ये AI-चालित निदान आणून आरोग्यसेवेची दरी कमी करणे.',
+
+    // Footer
+    footer_rights: '© 2026 ट्यूमर व्हिजन. सर्व हक्क राखीव.',
+    footer_powered: 'AI-चालित निदान',
+    footer_quick_links: 'द्रुत दुवे',
+    footer_powered_by: 'द्वारे चालवलेले',
+
+    // Genders
+    gender_male: 'पुरुष',
+    gender_female: 'महिला',
+    gender_other: 'इतर',
+  },
+} as const
+
+export type TranslationKey = keyof typeof TRANSLATIONS['en']
+
+export function t(lang: LangCode, key: TranslationKey): string {
+  return (TRANSLATIONS[lang] as Record<string, string>)[key] ?? TRANSLATIONS['en'][key] ?? key
+}
