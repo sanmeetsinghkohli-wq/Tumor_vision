@@ -38,7 +38,6 @@ export default function AIChatBot() {
         const data = await response.json();
         setMessages((prev) => [...prev, { sender: "ai", text: data.reply || data.response || "I received your message." }]);
       } else {
-        // Fallback local responses
         setMessages((prev) => [...prev, { sender: "ai", text: getLocalResponse(userMsg) }]);
       }
     } catch {
@@ -60,7 +59,7 @@ export default function AIChatBot() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-[#8B7AB5] to-[#6B5B95] text-white shadow-lg shadow-[#8B7AB5]/30 flex items-center justify-center hover:shadow-[#8B7AB5]/50 transition-shadow"
+            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-[#528DCB] to-[#4B78A0] text-white shadow-lg shadow-[#528DCB]/30 flex items-center justify-center hover:shadow-[#528DCB]/50 transition-shadow"
           >
             <MessageCircle className="w-6 h-6" />
           </motion.button>
@@ -75,12 +74,12 @@ export default function AIChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25 }}
-            className="fixed bottom-6 right-6 z-50 w-[370px] h-[500px] rounded-2xl overflow-hidden shadow-2xl shadow-purple-300/20"
+            className="fixed bottom-6 right-6 z-50 w-[370px] h-[500px] rounded-2xl overflow-hidden shadow-2xl shadow-blue-300/20"
           >
-            <div className="relative flex flex-col w-full h-full rounded-2xl border border-[#8B7AB5]/30 overflow-hidden bg-white/95 backdrop-blur-xl">
+            <div className="relative flex flex-col w-full h-full rounded-2xl border border-[#528DCB]/30 overflow-hidden bg-white/95 backdrop-blur-xl">
 
               {/* Header */}
-              <div className="px-4 py-3 border-b border-[#8B7AB5]/15 bg-gradient-to-r from-[#8B7AB5] to-[#6B5B95] flex items-center justify-between">
+              <div className="px-4 py-3 border-b border-[#528DCB]/15 bg-gradient-to-r from-[#528DCB] to-[#4B78A0] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                     <span className="text-lg">🧠</span>
@@ -109,8 +108,8 @@ export default function AIChatBot() {
                     className={cn(
                       "px-3 py-2.5 rounded-2xl max-w-[85%] shadow-sm",
                       msg.sender === "ai"
-                        ? "bg-[#F0EAF5] text-[#1a1a2e] self-start rounded-bl-md"
-                        : "bg-gradient-to-r from-[#8B7AB5] to-[#6B5B95] text-white self-end rounded-br-md"
+                        ? "bg-[#E0EFFF] text-[#1a1a2e] self-start rounded-bl-md"
+                        : "bg-gradient-to-r from-[#528DCB] to-[#4B78A0] text-white self-end rounded-br-md"
                     )}
                   >
                     {msg.text}
@@ -118,19 +117,19 @@ export default function AIChatBot() {
                 ))}
 
                 {isTyping && (
-                  <div className="flex items-center gap-1.5 px-4 py-3 rounded-2xl rounded-bl-md max-w-[30%] bg-[#F0EAF5] self-start">
-                    <span className="w-2 h-2 rounded-full bg-[#8B7AB5] animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-2 h-2 rounded-full bg-[#8B7AB5] animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-2 h-2 rounded-full bg-[#8B7AB5] animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <div className="flex items-center gap-1.5 px-4 py-3 rounded-2xl rounded-bl-md max-w-[30%] bg-[#E0EFFF] self-start">
+                    <span className="w-2 h-2 rounded-full bg-[#528DCB] animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-[#528DCB] animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-2 h-2 rounded-full bg-[#528DCB] animate-bounce" style={{ animationDelay: '300ms' }} />
                   </div>
                 )}
                 <div ref={messagesEndRef} />
               </div>
 
               {/* Input */}
-              <div className="flex items-center gap-2 p-3 border-t border-[#8B7AB5]/15 bg-white">
+              <div className="flex items-center gap-2 p-3 border-t border-[#528DCB]/15 bg-white">
                 <input
-                  className="flex-1 px-3 py-2.5 text-sm bg-[#F0EAF5] rounded-xl border border-[#8B7AB5]/20 text-[#1a1a2e] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8B7AB5]/30"
+                  className="flex-1 px-3 py-2.5 text-sm bg-[#E0EFFF] rounded-xl border border-[#528DCB]/20 text-[#1a1a2e] placeholder-[#6A7F92] focus:outline-none focus:ring-2 focus:ring-[#528DCB]/30"
                   placeholder="Ask about brain tumors..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -138,7 +137,7 @@ export default function AIChatBot() {
                 />
                 <button
                   onClick={handleSend}
-                  className="p-2.5 rounded-xl bg-gradient-to-r from-[#8B7AB5] to-[#6B5B95] hover:shadow-lg hover:shadow-[#8B7AB5]/30 transition-all"
+                  className="p-2.5 rounded-xl bg-gradient-to-r from-[#528DCB] to-[#4B78A0] hover:shadow-lg hover:shadow-[#528DCB]/30 transition-all"
                 >
                   <Send className="w-4 h-4 text-white" />
                 </button>

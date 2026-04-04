@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F0EAF5;
+  --background: #FAF0E6;
   --foreground: #1a1a2e;
-  --primary: #8B7AB5;
-  --primary-dark: #6B5B95;
-  --accent: #C4B5DE;
+  --primary: #528DCB;
+  --primary-dark: #4B78A0;
+  --accent: #A4BFDB;
   --card-bg: rgba(255, 255, 255, 0.7);
-  --card-border: rgba(139, 122, 181, 0.2);
+  --card-border: rgba(82, 141, 203, 0.2);
 }
 
 @theme inline {
@@ -16,7 +16,7 @@
 }
 
 body {
-  background: #F0EAF5;
+  background: #FAF0E6;
   color: #1a1a2e;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -71,14 +71,14 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #F0EAF5; border-radius: 10px; }
+::-webkit-scrollbar-track { background: #FAF0E6; border-radius: 10px; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #8B7AB5 0%, #C4B5DE 100%);
+  background: linear-gradient(180deg, #528DCB 0%, #A4BFDB 100%);
   border-radius: 10px;
-  border: 2px solid #F0EAF5;
+  border: 2px solid #FAF0E6;
 }
-::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #6B5B95 0%, #8B7AB5 100%); }
-* { scrollbar-width: thin; scrollbar-color: #8B7AB5 #F0EAF5; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #4B78A0 0%, #528DCB 100%); }
+* { scrollbar-width: thin; scrollbar-color: #528DCB #FAF0E6; }
 
 @keyframes smoothFadeIn {
   from { opacity: 0; transform: translateY(20px); }

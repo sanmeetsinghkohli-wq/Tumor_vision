@@ -53,23 +53,23 @@ export default function Navbar() {
             <header
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
                     scrolled
-                        ? 'bg-white/80 backdrop-blur-xl border-b border-[#8B7AB5]/20 shadow-lg shadow-purple-200/30 translate-y-0 opacity-100'
+                        ? 'bg-white/80 backdrop-blur-xl border-b border-[#528DCB]/20 shadow-lg shadow-blue-200/30 translate-y-0 opacity-100'
                         : '-translate-y-full opacity-0 pointer-events-none'
                 }`}
             >
-                <div className="h-[2px] bg-gradient-to-r from-[#C4B5DE] via-[#8B7AB5] to-[#C4B5DE]" />
+                <div className="h-[2px] bg-gradient-to-r from-[#A4BFDB] via-[#528DCB] to-[#A4BFDB]" />
 
                 <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#8B7AB5] to-[#6B5B95] flex items-center justify-center shadow-lg shadow-[#8B7AB5]/20 group-hover:shadow-[#8B7AB5]/40 transition-all duration-300">
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#528DCB] to-[#4B78A0] flex items-center justify-center shadow-lg shadow-[#528DCB]/20 group-hover:shadow-[#528DCB]/40 transition-all duration-300">
                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                             </svg>
                         </div>
                     </Link>
 
-                    {/* Desktop nav — sliding cursor pill */}
+                    {/* Desktop nav */}
                     <div className="hidden lg:block">
                         <NavHeader items={navItems} />
                     </div>
@@ -78,16 +78,16 @@ export default function Navbar() {
                         {/* Language Selector */}
                         <div className="relative">
                             <button onClick={() => setShowLangMenu(!showLangMenu)}
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#8B7AB5]/10 border border-[#8B7AB5]/20 text-[#1a1a2e] text-xs font-bold hover:bg-[#8B7AB5]/20 transition-all">
-                                🌐 {currentLang.label} <span className="text-[#8B7AB5]">▾</span>
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#528DCB]/10 border border-[#528DCB]/20 text-[#1a1a2e] text-xs font-bold hover:bg-[#528DCB]/20 transition-all">
+                                🌐 {currentLang.label} <span className="text-[#528DCB]">▾</span>
                             </button>
                             <AnimatePresence>
                                 {showLangMenu && (
                                     <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
-                                        className="absolute right-0 top-full mt-1 bg-white border border-[#8B7AB5]/20 rounded-xl shadow-xl overflow-hidden z-50 min-w-[130px]">
+                                        className="absolute right-0 top-full mt-1 bg-white border border-[#528DCB]/20 rounded-xl shadow-xl overflow-hidden z-50 min-w-[130px]">
                                         {LANGS.map(l => (
                                             <button key={l.code} onClick={() => handleLang(l.code)}
-                                                className={`w-full px-4 py-2 text-left text-sm font-medium transition-colors ${language === l.code ? 'bg-[#8B7AB5]/20 text-[#6B5B95] font-semibold' : 'text-gray-500 hover:bg-[#8B7AB5]/10 hover:text-[#1a1a2e]'}`}>
+                                                className={`w-full px-4 py-2 text-left text-sm font-medium transition-colors ${language === l.code ? 'bg-[#528DCB]/20 text-[#4B78A0] font-semibold' : 'text-[#6A7F92] hover:bg-[#528DCB]/10 hover:text-[#1a1a2e]'}`}>
                                                 {l.full}
                                             </button>
                                         ))}
@@ -97,7 +97,7 @@ export default function Navbar() {
                         </div>
 
                         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="lg:hidden p-2 rounded-lg bg-[#8B7AB5]/10 border border-[#8B7AB5]/20 text-[#1a1a2e]">
+                            className="lg:hidden p-2 rounded-lg bg-[#528DCB]/10 border border-[#528DCB]/20 text-[#1a1a2e]">
                             <motion.div animate={isMobileMenuOpen ? 'open' : 'closed'} className="w-5 h-5 flex flex-col justify-center gap-1">
                                 <motion.span className="block w-5 h-0.5 bg-[#1a1a2e] rounded-full" variants={{ closed: { rotate: 0, y: 0 }, open: { rotate: 45, y: 6 } }} />
                                 <motion.span className="block w-5 h-0.5 bg-[#1a1a2e] rounded-full" variants={{ closed: { opacity: 1 }, open: { opacity: 0 } }} />
@@ -118,23 +118,23 @@ export default function Navbar() {
                         <motion.div className="fixed top-0 left-0 h-full w-72 z-50 lg:hidden"
                             initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
                             transition={{ type: 'tween', duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}>
-                            <div className="h-full bg-white border-r border-[#8B7AB5]/20 flex flex-col shadow-xl">
-                                <div className="px-6 py-8 border-b border-[#8B7AB5]/15">
+                            <div className="h-full bg-white border-r border-[#528DCB]/20 flex flex-col shadow-xl">
+                                <div className="px-6 py-8 border-b border-[#528DCB]/15">
                                     <div className="flex items-center gap-3 mb-4">
-                                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#8B7AB5] to-[#6B5B95] flex items-center justify-center">
+                                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#528DCB] to-[#4B78A0] flex items-center justify-center">
                                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                                             </svg>
                                         </div>
                                         <div>
                                             <p className="text-[#1a1a2e] font-bold">Tumor Vision</p>
-                                            <p className="text-[#8B7AB5] text-[10px] tracking-widest uppercase">{t('nav_tagline')}</p>
+                                            <p className="text-[#528DCB] text-[10px] tracking-widest uppercase">{t('nav_tagline')}</p>
                                         </div>
                                     </div>
                                     <div className="flex gap-2">
                                         {LANGS.map(l => (
                                             <button key={l.code} onClick={() => handleLang(l.code)}
-                                                className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${language === l.code ? 'bg-gradient-to-r from-[#8B7AB5] to-[#C4B5DE] text-white' : 'bg-[#8B7AB5]/10 text-gray-500'}`}>
+                                                className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${language === l.code ? 'bg-gradient-to-r from-[#528DCB] to-[#A4BFDB] text-white' : 'bg-[#528DCB]/10 text-[#6A7F92]'}`}>
                                                 {l.label}
                                             </button>
                                         ))}
@@ -144,15 +144,15 @@ export default function Navbar() {
                                 <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
                                     {navItems.map((item) => (
                                         <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
-                                            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(item.href) ? 'bg-[#8B7AB5]/10 text-[#1a1a2e] border border-[#8B7AB5]/20' : 'text-gray-500 hover:text-[#1a1a2e] hover:bg-[#8B7AB5]/10'}`}>
+                                            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(item.href) ? 'bg-[#528DCB]/10 text-[#1a1a2e] border border-[#528DCB]/20' : 'text-[#6A7F92] hover:text-[#1a1a2e] hover:bg-[#528DCB]/10'}`}>
                                             <span className="w-5 text-center">→</span> {item.label}
                                         </Link>
                                     ))}
                                 </nav>
 
-                                <div className="px-6 py-6 border-t border-[#8B7AB5]/15">
+                                <div className="px-6 py-6 border-t border-[#528DCB]/15">
                                     <Link href="/upload" onClick={() => setIsMobileMenuOpen(false)}
-                                        className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#8B7AB5] to-[#6B5B95] text-white text-sm font-bold">
+                                        className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#528DCB] to-[#4B78A0] text-white text-sm font-bold">
                                         {t('nav_new_scan')}
                                     </Link>
                                 </div>

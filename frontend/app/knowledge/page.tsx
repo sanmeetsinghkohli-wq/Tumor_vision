@@ -221,20 +221,17 @@ export default function KnowledgePage() {
   return (
     <Layout>
       <div className="min-h-screen relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
-          <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(to right, #8B7AB5 1px, transparent 1px), linear-gradient(to bottom, #C4B5DE 1px, transparent 1px)`, backgroundSize: '80px 80px' }} />
-        </div>
 
         <div className="container mx-auto px-6 pt-20 pb-16 relative z-10">
           {/* Header */}
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
-            <span className="inline-block px-4 py-2 mb-4 bg-gradient-to-r from-[#8B7AB5]/15 to-[#C4B5DE]/15 rounded-full border border-[#8B7AB5]/25 text-[#8B7AB5] text-sm font-semibold tracking-widest">
+            <span className="inline-block px-4 py-2 mb-4 bg-gradient-to-r from-[#528DCB]/15 to-[#A4BFDB]/15 rounded-full border border-[#528DCB]/25 text-[#528DCB] text-sm font-semibold tracking-widest">
               MEDICAL KNOWLEDGE BASE
             </span>
             <h1 className="text-4xl md:text-6xl font-bold text-[#1a1a2e] mb-4">
-              Brain Tumor <span className="bg-gradient-to-r from-[#8B7AB5] to-[#6B5B95] text-transparent bg-clip-text">Encyclopedia</span>
+              Brain Tumor <span className="bg-gradient-to-r from-[#528DCB] to-[#4B78A0] text-transparent bg-clip-text">Encyclopedia</span>
             </h1>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            <p className="text-[#6A7F92] text-lg max-w-2xl mx-auto">
               Comprehensive information about brain tumor types, diagnosis, classification, symptoms, and treatment approaches.
             </p>
           </motion.div>
@@ -264,13 +261,13 @@ export default function KnowledgePage() {
                         <span className="text-4xl">{section.icon}</span>
                         <div>
                           <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a2e]">{section.title}</h2>
-                          <p className="text-gray-500 text-sm mt-1">{section.summary}</p>
+                          <p className="text-[#6A7F92] text-sm mt-1">{section.summary}</p>
                         </div>
                       </div>
                       <motion.div
                         animate={{ rotate: expandedSection === section.id ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
-                        className="text-[#8B7AB5] text-2xl flex-shrink-0 ml-4"
+                        className="text-[#528DCB] text-2xl flex-shrink-0 ml-4"
                       >
                         ▼
                       </motion.div>
@@ -300,10 +297,10 @@ export default function KnowledgePage() {
                         >
                           <div className="p-4 flex flex-col h-full">
                             <h3 className="text-lg font-bold text-[#1a1a2e] mb-3 flex items-center gap-2">
-                              <span className="w-2 h-2 rounded-full bg-[#8B7AB5] flex-shrink-0" />
+                              <span className="w-2 h-2 rounded-full bg-[#528DCB] flex-shrink-0" />
                               {card.heading}
                             </h3>
-                            <p className="text-gray-600 text-sm leading-relaxed flex-1">
+                            <p className="text-[#6A7F92] text-sm leading-relaxed flex-1">
                               {card.content}
                             </p>
                           </div>
@@ -321,10 +318,10 @@ export default function KnowledgePage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="mt-16 bg-[#8B7AB5]/10 border border-[#8B7AB5]/20 rounded-xl p-6"
+            className="mt-16 bg-[#528DCB]/10 border border-[#528DCB]/20 rounded-xl p-6"
           >
-            <p className="text-gray-500 text-sm text-center">
-              <strong className="text-[#6B5B95]">⚕️ Medical Disclaimer:</strong> This information is for educational purposes only and should not replace professional medical advice. Always consult qualified healthcare professionals for diagnosis and treatment decisions.
+            <p className="text-[#6A7F92] text-sm text-center">
+              <strong className="text-[#4B78A0]">⚕️ Medical Disclaimer:</strong> This information is for educational purposes only and should not replace professional medical advice. Always consult qualified healthcare professionals for diagnosis and treatment decisions.
             </p>
           </motion.div>
         </div>
