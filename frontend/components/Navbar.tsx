@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -62,11 +63,7 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#528DCB] to-[#4B78A0] flex items-center justify-center shadow-lg shadow-[#528DCB]/20 group-hover:shadow-[#528DCB]/40 transition-all duration-300">
-                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                            </svg>
-                        </div>
+                        <Image src="/logo.jpeg" alt="Tumor Vision" width={36} height={36} className="rounded-xl shadow-lg shadow-[#528DCB]/20 group-hover:shadow-[#528DCB]/40 transition-all duration-300" />
                     </Link>
 
                     {/* Desktop nav */}
@@ -121,11 +118,7 @@ export default function Navbar() {
                             <div className="h-full bg-white border-r border-[#528DCB]/20 flex flex-col shadow-xl">
                                 <div className="px-6 py-8 border-b border-[#528DCB]/15">
                                     <div className="flex items-center gap-3 mb-4">
-                                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#528DCB] to-[#4B78A0] flex items-center justify-center">
-                                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                            </svg>
-                                        </div>
+                                        <Image src="/logo.jpeg" alt="Tumor Vision" width={36} height={36} className="rounded-xl" />
                                         <div>
                                             <p className="text-[#1a1a2e] font-bold">Tumor Vision</p>
                                             <p className="text-[#528DCB] text-[10px] tracking-widest uppercase">{t('nav_tagline')}</p>
