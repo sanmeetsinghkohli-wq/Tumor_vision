@@ -5,54 +5,45 @@ import { cn } from "@/lib/utils";
 interface PageBackgroundProps {
   children?: React.ReactNode;
   className?: string;
-  /** Which glow variant to use */
   variant?: 'default' | 'soft' | 'intense';
 }
 
 /**
  * Base background for all pages.
- * Dark #140E1C base with a centered rose/mauve radial glow.
+ * White base with a centered soft rose radial glow (multiply blend).
  */
 export const PageBackground = ({
   children,
   className,
   variant = 'default',
 }: PageBackgroundProps) => {
-  const glowStyles: Record<string, React.CSSProperties> = {
-    default: {
-      backgroundImage: `radial-gradient(circle at center, #683A46 0%, transparent 70%)`,
-      opacity: 0.55,
-    },
-    soft: {
-      backgroundImage: `radial-gradient(circle at center, #462037 0%, transparent 65%)`,
-      opacity: 0.45,
-    },
-    intense: {
-      backgroundImage: `radial-gradient(circle at center, #C5757C 0%, transparent 65%)`,
-      opacity: 0.4,
-    },
+  const glowColor: Record<string, string> = {
+    default: '#F9AAAD',
+    soft:    '#f5c8ca',
+    intense: '#C5757C',
   };
 
   return (
     <div
-      className={cn(
-        'min-h-screen w-full relative',
-        className
-      )}
-      style={{ background: '#140E1C' }}
+      className={cn('min-h-screen w-full relative bg-white', className)}
     >
-      {/* Radial rose glow */}
+      {/* Primary centered rose glow */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
-        style={glowStyles[variant]}
+        style={{
+          backgroundImage: `radial-gradient(circle at center, ${glowColor[variant]} 0%, transparent 70%)`,
+          opacity: 0.55,
+          mixBlendMode: 'multiply',
+        }}
       />
 
       {/* Secondary accent glow — top-right */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle at 80% 20%, #462037 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(circle at 80% 15%, #F9AAAD 0%, transparent 55%)`,
           opacity: 0.3,
+          mixBlendMode: 'multiply',
         }}
       />
 

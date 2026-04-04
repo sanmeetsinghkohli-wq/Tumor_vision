@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #140E1C;
-  --foreground: #F9AAAD;
+  --background: #fdf8f8;
+  --foreground: #3d1a22;
   --primary: #C5757C;
   --primary-dark: #A1525F;
-  --accent: #F9AAAD;
-  --card-bg: rgba(70, 32, 55, 0.5);
-  --card-border: rgba(104, 58, 70, 0.4);
+  --accent: #683A46;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(197, 117, 124, 0.2);
 }
 
 @theme inline {
@@ -16,16 +16,10 @@
 }
 
 body {
-  background: #140E1C;
-  color: #F9AAAD;
+  background: #fdf8f8;
+  color: #3d1a22;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #140E1C; }
-::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #C5757C, #683A46); border-radius: 6px; }
-* { scrollbar-width: thin; scrollbar-color: #C5757C #140E1C; }
 
 * {
   -webkit-tap-highlight-color: transparent;
@@ -75,53 +69,20 @@ body {
   }
 }
 
-::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
-}
-
-@media (max-width: 768px) {
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-}
-
-::-webkit-scrollbar-track {
-  background: #140E1C;
-  border-radius: 10px;
-}
-
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #fdf8f8; border-radius: 10px; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #C5757C 0%, #F9AAAD 100%);
   border-radius: 10px;
-  border: 2px solid transparent;
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.6),
-    0 0 25px rgba(6, 182, 212, 0.4),
-    inset 0 0 10px rgba(255, 255, 255, 0.1);
+  border: 2px solid #fdf8f8;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #059669 0%, #0891b2 100%);
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.8),
-    0 0 35px rgba(6, 182, 212, 0.6),
-    inset 0 0 12px rgba(255, 255, 255, 0.15);
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #C5757C #140E1C;
-}
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #A1525F 0%, #C5757C 100%); }
+* { scrollbar-width: thin; scrollbar-color: #C5757C #fdf8f8; }
 
 @keyframes smoothFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-smooth-fade {

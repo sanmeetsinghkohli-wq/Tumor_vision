@@ -27,6 +27,12 @@ export interface ReviewData {
   diagnosis: string;
   tumor_type?: string;
   confidence?: number;
+  // Radiologist verification
+  radiologist_name?: string;
+  radiologist_id?: string;
+  radiologist_verified?: boolean;       // true = AI correct, false = AI incorrect
+  radiologist_diagnosis?: string;       // filled only when AI is incorrect
+  final_diagnosis?: string;             // computed: radiologist_diagnosis or diagnosis
 }
 
 export interface TreatmentOption {

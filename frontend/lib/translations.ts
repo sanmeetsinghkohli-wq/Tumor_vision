@@ -102,6 +102,20 @@ export const TRANSLATIONS = {
     footer_quick_links: 'Quick Links',
     footer_powered_by: 'Powered By',
 
+    // Radiologist Verification
+    review_radiologist_section: 'Radiologist Verification',
+    review_ai_suggested: 'AI Suggested Diagnosis',
+    review_radiologist_name: 'Radiologist Name',
+    review_radiologist_id: 'Registration / ID No.',
+    review_radiologist_name_ph: 'Dr. Full Name',
+    review_radiologist_id_ph: 'MCI Reg. No.',
+    review_ai_correct: 'AI diagnosis is correct',
+    review_ai_incorrect: 'AI diagnosis is incorrect',
+    review_radiologist_diagnosis: "Radiologist's Diagnosis",
+    review_radiologist_diagnosis_ph: 'Enter your diagnosis (e.g. Glioma, Meningioma…)',
+    review_final_diagnosis: 'Final Diagnosis',
+    review_radiologist_note: "The radiologist's assessment takes final precedence over AI results.",
+
     // Genders
     gender_male: 'Male',
     gender_female: 'Female',
@@ -209,6 +223,20 @@ export const TRANSLATIONS = {
     footer_quick_links: 'त्वरित लिंक',
     footer_powered_by: 'द्वारा संचालित',
 
+    // Radiologist Verification
+    review_radiologist_section: 'रेडियोलॉजिस्ट सत्यापन',
+    review_ai_suggested: 'AI सुझाया गया निदान',
+    review_radiologist_name: 'रेडियोलॉजिस्ट का नाम',
+    review_radiologist_id: 'पंजीकरण / आईडी नंबर',
+    review_radiologist_name_ph: 'डॉ. पूरा नाम',
+    review_radiologist_id_ph: 'MCI रजि. नं.',
+    review_ai_correct: 'AI निदान सही है',
+    review_ai_incorrect: 'AI निदान गलत है',
+    review_radiologist_diagnosis: 'रेडियोलॉजिस्ट का निदान',
+    review_radiologist_diagnosis_ph: 'अपना निदान दर्ज करें',
+    review_final_diagnosis: 'अंतिम निदान',
+    review_radiologist_note: 'रेडियोलॉजिस्ट का आकलन AI परिणामों पर अंतिम प्राथमिकता लेता है।',
+
     // Genders
     gender_male: 'पुरुष',
     gender_female: 'महिला',
@@ -315,6 +343,20 @@ export const TRANSLATIONS = {
     footer_powered: 'AI-चालित निदान',
     footer_quick_links: 'द्रुत दुवे',
     footer_powered_by: 'द्वारे चालवलेले',
+
+    // Radiologist Verification
+    review_radiologist_section: 'रेडिओलॉजिस्ट सत्यापन',
+    review_ai_suggested: 'AI सुचवलेले निदान',
+    review_radiologist_name: 'रेडिओलॉजिस्टचे नाव',
+    review_radiologist_id: 'नोंदणी / आयडी क्र.',
+    review_radiologist_name_ph: 'डॉ. पूर्ण नाव',
+    review_radiologist_id_ph: 'MCI नोंदणी क्र.',
+    review_ai_correct: 'AI निदान बरोबर आहे',
+    review_ai_incorrect: 'AI निदान चुकीचे आहे',
+    review_radiologist_diagnosis: 'रेडिओलॉजिस्टचे निदान',
+    review_radiologist_diagnosis_ph: 'तुमचे निदान प्रविष्ट करा',
+    review_final_diagnosis: 'अंतिम निदान',
+    review_radiologist_note: 'रेडिओलॉजिस्टचे मूल्यांकन AI परिणामांवर अंतिम प्राधान्य घेते.',
 
     // Genders
     gender_male: 'पुरुष',

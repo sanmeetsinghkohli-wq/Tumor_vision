@@ -3,59 +3,20 @@
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { TubesCursor } from '@/components/ui/tube-cursor';
+import { HeroGeometric } from '@/components/ui/shape-landing-hero';
 import { ContainerScroll } from '@/components/ui/container-scroll-animation';
 
 export default function Home() {
   return (
     <Layout>
       <article>
-        {/* Hero Section with TubesCursor background */}
-        <section className="relative min-h-screen overflow-hidden -mt-20 sm:-mt-24 lg:-mt-28">
-          <TubesCursor
-            title="Tumor Vision"
-            subtitle="AI Detection"
-            caption="Click to change colors"
-            initialColors={["#C5757C", "#F9AAAD", "#683A46"]}
-            lightColors={["#C5757C", "#F9AAAD", "#683A46", "#A1525F"]}
-            lightIntensity={250}
-            titleSize="text-[50px] md:text-[80px]"
-            subtitleSize="text-[30px] md:text-[50px]"
-            captionSize="text-sm md:text-base"
-            enableRandomizeOnClick
+        {/* Hero Section */}
+        <section className="-mt-20 sm:-mt-24 lg:-mt-28">
+          <HeroGeometric
+            badge="AI Diagnostics"
+            title1="Tumor Vision"
+            title2="AI Detection"
           />
-
-          {/* Overlay content on top of the tubes */}
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-20 pointer-events-none">
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pointer-events-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.0 }}
-            >
-              <Link href="/upload">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white text-lg font-bold rounded-full hover:shadow-2xl hover:shadow-[#C5757C]/50 transition-all duration-300"
-                >
-                  <span className="mr-2">Start Free Analysis</span>
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </motion.button>
-              </Link>
-              <Link href="/about">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white text-lg font-semibold rounded-full border-2 border-white/30 hover:bg-white/20 transition-all duration-300"
-                >
-                  Learn More
-                </motion.button>
-              </Link>
-            </motion.div>
-          </div>
         </section>
 
         {/* Stats Section */}

@@ -50,8 +50,8 @@ export default function Navbar() {
             <motion.header
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                     scrolled
-                        ? 'bg-[#140E1C]/95 backdrop-blur-xl border-b border-[#683A46]/30 shadow-lg shadow-black/30'
-                        : 'bg-transparent'
+                        ? 'bg-white/90 backdrop-blur-xl border-b border-[#C5757C]/20 shadow-sm shadow-[#C5757C]/10'
+                        : 'bg-white/60 backdrop-blur-sm'
                 }`}
                 initial={{ y: -80, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -68,7 +68,7 @@ export default function Navbar() {
                             </svg>
                         </div>
                         <div>
-                            <span className="text-white font-bold text-lg leading-none block">Tumor Vision</span>
+                            <span className="text-[#462037] font-bold text-lg leading-none block">Tumor Vision</span>
                             <span className="text-[#C5757C] text-[10px] font-medium tracking-widest uppercase">{t('nav_tagline')}</span>
                         </div>
                     </Link>
@@ -78,11 +78,11 @@ export default function Navbar() {
                         {navItems.map((item) => (
                             <Link key={item.href} href={item.href}
                                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                    isActive(item.href) ? 'text-white' : 'text-white/60 hover:text-white/90'
+                                    isActive(item.href) ? 'text-[#462037]' : 'text-[#683A46]/70 hover:text-[#462037]'
                                 }`}>
                                 {isActive(item.href) && (
                                     <motion.div layoutId="nav-active"
-                                        className="absolute inset-0 rounded-lg bg-[#683A46]/50 border border-[#C5757C]/30"
+                                        className="absolute inset-0 rounded-lg bg-[#C5757C]/15 border border-[#C5757C]/30"
                                         transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }} />
                                 )}
                                 <span className="relative z-10">{item.label}</span>
@@ -94,16 +94,16 @@ export default function Navbar() {
                         {/* 🌐 Language Selector */}
                         <div className="relative">
                             <button onClick={() => setShowLangMenu(!showLangMenu)}
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white text-xs font-bold hover:bg-white/20 transition-all">
-                                🌐 {currentLang.label} <span className="text-white/50">▾</span>
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#C5757C]/30 text-[#462037] text-xs font-bold hover:bg-[#F9AAAD]/20 transition-all shadow-sm">
+                                🌐 {currentLang.label} <span className="text-[#C5757C]">▾</span>
                             </button>
                             <AnimatePresence>
                                 {showLangMenu && (
                                     <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
-                                        className="absolute right-0 top-full mt-1 bg-[#1a0f24] border border-[#683A46]/40 rounded-xl shadow-xl overflow-hidden z-50 min-w-[120px]">
+                                        className="absolute right-0 top-full mt-1 bg-white border border-[#C5757C]/20 rounded-xl shadow-xl overflow-hidden z-50 min-w-[130px]">
                                         {LANGS.map(l => (
                                             <button key={l.code} onClick={() => handleLang(l.code)}
-                                                className={`w-full px-4 py-2 text-left text-sm font-medium transition-colors ${language === l.code ? 'bg-[#C5757C]/20 text-[#F9AAAD]' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}>
+                                                className={`w-full px-4 py-2 text-left text-sm font-medium transition-colors ${language === l.code ? 'bg-[#C5757C]/10 text-[#A1525F] font-semibold' : 'text-[#462037]/70 hover:bg-[#F9AAAD]/20 hover:text-[#462037]'}`}>
                                                 {l.full}
                                             </button>
                                         ))}
@@ -120,11 +120,11 @@ export default function Navbar() {
                         </Link>
 
                         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="lg:hidden p-2 rounded-lg bg-[#683A46]/40 border border-[#C5757C]/20 text-white">
+                            className="lg:hidden p-2 rounded-lg bg-[#C5757C]/10 border border-[#C5757C]/20 text-[#462037]">
                             <motion.div animate={isMobileMenuOpen ? 'open' : 'closed'} className="w-5 h-5 flex flex-col justify-center gap-1">
-                                <motion.span className="block w-5 h-0.5 bg-white rounded-full" variants={{ closed: { rotate: 0, y: 0 }, open: { rotate: 45, y: 6 } }} />
-                                <motion.span className="block w-5 h-0.5 bg-white rounded-full" variants={{ closed: { opacity: 1 }, open: { opacity: 0 } }} />
-                                <motion.span className="block w-5 h-0.5 bg-white rounded-full" variants={{ closed: { rotate: 0, y: 0 }, open: { rotate: -45, y: -6 } }} />
+                                <motion.span className="block w-5 h-0.5 bg-[#462037] rounded-full" variants={{ closed: { rotate: 0, y: 0 }, open: { rotate: 45, y: 6 } }} />
+                                <motion.span className="block w-5 h-0.5 bg-[#462037] rounded-full" variants={{ closed: { opacity: 1 }, open: { opacity: 0 } }} />
+                                <motion.span className="block w-5 h-0.5 bg-[#462037] rounded-full" variants={{ closed: { rotate: 0, y: 0 }, open: { rotate: -45, y: -6 } }} />
                             </motion.div>
                         </button>
                     </div>
@@ -141,8 +141,8 @@ export default function Navbar() {
                         <motion.div className="fixed top-0 left-0 h-full w-72 z-50 lg:hidden"
                             initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
                             transition={{ type: 'tween', duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}>
-                            <div className="h-full bg-[#140E1C] border-r border-[#683A46]/40 flex flex-col">
-                                <div className="px-6 py-8 border-b border-[#683A46]/30">
+                            <div className="h-full bg-white border-r border-[#C5757C]/20 flex flex-col shadow-xl">
+                                <div className="px-6 py-8 border-b border-[#C5757C]/15">
                                     <div className="flex items-center gap-3 mb-4">
                                         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#C5757C] to-[#683A46] flex items-center justify-center">
                                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -150,7 +150,7 @@ export default function Navbar() {
                                             </svg>
                                         </div>
                                         <div>
-                                            <p className="text-white font-bold">Tumor Vision</p>
+                                            <p className="text-[#462037] font-bold">Tumor Vision</p>
                                             <p className="text-[#C5757C] text-[10px] tracking-widest uppercase">{t('nav_tagline')}</p>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@ export default function Navbar() {
                                     <div className="flex gap-2">
                                         {LANGS.map(l => (
                                             <button key={l.code} onClick={() => handleLang(l.code)}
-                                                className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${language === l.code ? 'bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white' : 'bg-white/10 text-white/60'}`}>
+                                                className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${language === l.code ? 'bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white' : 'bg-[#F9AAAD]/20 text-[#683A46]'}`}>
                                                 {l.label}
                                             </button>
                                         ))}
@@ -167,18 +167,18 @@ export default function Navbar() {
 
                                 <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
                                     <Link href="/" onClick={() => setIsMobileMenuOpen(false)}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/') ? 'bg-[#683A46]/50 text-white border border-[#C5757C]/30' : 'text-white/60 hover:text-white hover:bg-[#683A46]/20'}`}>
+                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/') ? 'bg-[#C5757C]/15 text-[#462037] border border-[#C5757C]/30' : 'text-[#683A46]/70 hover:text-[#462037] hover:bg-[#F9AAAD]/20'}`}>
                                         <span>🏠</span> Home
                                     </Link>
                                     {navItems.map((item) => (
                                         <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
-                                            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(item.href) ? 'bg-[#683A46]/50 text-white border border-[#C5757C]/30' : 'text-white/60 hover:text-white hover:bg-[#683A46]/20'}`}>
+                                            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(item.href) ? 'bg-[#C5757C]/15 text-[#462037] border border-[#C5757C]/30' : 'text-[#683A46]/70 hover:text-[#462037] hover:bg-[#F9AAAD]/20'}`}>
                                             <span className="w-5 text-center">→</span> {item.label}
                                         </Link>
                                     ))}
                                 </nav>
 
-                                <div className="px-6 py-6 border-t border-[#683A46]/30">
+                                <div className="px-6 py-6 border-t border-[#C5757C]/15">
                                     <Link href="/upload" onClick={() => setIsMobileMenuOpen(false)}
                                         className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#C5757C] to-[#A1525F] text-white text-sm font-bold">
                                         {t('nav_new_scan')}

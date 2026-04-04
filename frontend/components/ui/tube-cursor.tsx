@@ -13,6 +13,9 @@ type TubesCursorProps = {
   titleSize?: string;
   subtitleSize?: string;
   captionSize?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
+  showCaption?: boolean;
   enableRandomizeOnClick?: boolean;
   className?: string;
 };
@@ -27,6 +30,9 @@ const TubesCursor = ({
   titleSize = "text-[80px]",
   subtitleSize = "text-[60px]",
   captionSize = "text-base",
+  titleClassName = "",
+  subtitleClassName = "",
+  showCaption = true,
   enableRandomizeOnClick = true,
   className = "",
 }: TubesCursorProps) => {
