@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, jsonify, redirect, url_for, session, send_from_directory, send_file, make_response
 import json
+import base64
 from flask_cors import CORS
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
 from msrest.authentication import ApiKeyCredentials
@@ -752,7 +753,16 @@ def download_report():
         story.append(Paragraph('<font size=11 color=#1f2937><b>MRI SCAN IMAGE</b></font>', heading_style))
         story.append(Spacer(1, 6))
 
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+        # Support both base64 data URLs (from frontend localStorage) and filenames
+        if image_filename and image_filename.startswith('data:'):
+            try:
+                _, b64data = image_filename.split(',', 1)
+                image_source = BytesIO(base64.b64decode(b64data))
+            except Exception:
+                image_source = None
+        else:
+            fp = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+            image_source = fp if os.path.exists(fp) else None
 
         confidence = top_pred['probability'] * 100
         box_color = '#10b981' if confidence >= 80 else '#f59e0b' if confidence >= 60 else '#ef4444'
@@ -760,14 +770,14 @@ def download_report():
         clinical_notes_text = f'''
         <font size=10 color=#06b6d4><b>CLINICAL NOTES</b></font><br/><br/>
         <font size=9><b>AI Analysis Summary:</b><br/>
-        The diagnostic model has identified <font color={box_color}><b>{top_pred['tagName']}</b></font> 
+        The diagnostic model has identified <font color={box_color}><b>{top_pred['tagName']}</b></font>
         with a confidence level of <b>{confidence:.1f}%</b>.<br/><br/>
-        
+
         <b>Recommendation:</b><br/>
-        This AI-assisted analysis should be reviewed and confirmed by a 
-        qualified radiologist or neurologist. Further clinical correlation is 
+        This AI-assisted analysis should be reviewed and confirmed by a
+        qualified radiologist or neurologist. Further clinical correlation is
         recommended.<br/><br/>
-        
+
         <b>Next Steps:</b><br/>
         • Specialist consultation<br/>
         • Review patient history<br/>
@@ -776,7 +786,9 @@ def download_report():
         '''
 
         try:
-            img = Image(image_path, width=240, height=240)
+            img = Image(image_source, width=240, height=240) if image_source else None
+            if img is None:
+                raise ValueError("No image available")
             img.hAlign = 'LEFT'
             image_notes_data = [[img, Paragraph(clinical_notes_text, body_style)]]
             image_notes_table = Table(image_notes_data, colWidths=[250, doc.width - 250])
@@ -789,7 +801,8 @@ def download_report():
             story.append(image_notes_table)
             story.append(Spacer(1, 6))
             story.append(Paragraph(f'<font size=7 color=#6b7280><b>CONFIDENTIAL MEDICAL REPORT</b></font>', small_style))
-            story.append(Paragraph(f'<font size=7>Filename: {image_filename} | Analysis Date: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}<br/>Report ID: {report_id}</font>', small_style))
+            display_filename = 'mri_scan.jpg' if image_filename and image_filename.startswith('data:') else image_filename
+            story.append(Paragraph(f'<font size=7>Filename: {display_filename} | Analysis Date: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}<br/>Report ID: {report_id}</font>', small_style))
             tumor_key_norm = str(top_pred['tagName']).strip().lower().replace('_', ' ')
             diagnosis_msg = "The Patient does not have a tumor" if tumor_key_norm in ("no tumor", "notumor", "no tumor detected") else f"The Patient has {top_pred['tagName']}"
             story.append(Paragraph(f'<font size=9 color={box_color}><b>{diagnosis_msg}</b></font>', body_style))
@@ -1121,7 +1134,7 @@ def treatment_recommendation():
                     "type": "Surgical + Radiation",
                     "success_rate": 72,
                     "duration": "6-8 weeks",
-                    "cost_estimate": "$75,000 - $125,000",
+                    "cost_estimate": "₹6,00,000 - ₹10,00,000",
                     "recovery_time": "4-6 weeks",
                     "side_effects": ["Fatigue", "Headaches", "Hair loss in treatment area"],
                     "description": "Maximum safe surgical removal followed by targeted radiation therapy to eliminate remaining tumor cells.",
@@ -1154,7 +1167,7 @@ def treatment_recommendation():
                     "type": "Medical",
                     "success_rate": 58,
                     "duration": "12-16 weeks",
-                    "cost_estimate": "$50,000 - $90,000",
+                    "cost_estimate": "₹4,00,000 - ₹7,50,000",
                     "recovery_time": "Ongoing during treatment",
                     "side_effects": ["Nausea", "Decreased immunity", "Appetite changes"],
                     "description": "Combination of systemic chemotherapy with molecularly targeted drugs to attack cancer cells.",
@@ -1187,7 +1200,7 @@ def treatment_recommendation():
                     "type": "Radiosurgery",
                     "success_rate": 81,
                     "duration": "Single session + monitoring",
-                    "cost_estimate": "$30,000 - $60,000",
+                    "cost_estimate": "₹2,50,000 - ₹5,00,000",
                     "recovery_time": "1-2 days",
                     "side_effects": ["Temporary swelling", "Mild headache", "Minimal hair loss"],
                     "description": "Highly precise, non-invasive radiation treatment delivered in a single high-dose session.",
@@ -1223,7 +1236,7 @@ def treatment_recommendation():
                     "type": "Surgical",
                     "success_rate": 89,
                     "duration": "2-4 weeks recovery",
-                    "cost_estimate": "$60,000 - $100,000",
+                    "cost_estimate": "₹5,00,000 - ₹8,50,000",
                     "recovery_time": "2-4 weeks",
                     "side_effects": ["Temporary swelling", "Surgical site pain", "Rare: CSF leak"],
                     "description": "Complete surgical removal of the meningioma with surrounding dural attachment.",
@@ -1256,7 +1269,7 @@ def treatment_recommendation():
                     "type": "Conservative",
                     "success_rate": 95,
                     "duration": "Lifelong monitoring",
-                    "cost_estimate": "$5,000 - $10,000 annually",
+                    "cost_estimate": "₹40,000 - ₹80,000 annually",
                     "recovery_time": "None",
                     "side_effects": ["None (no active treatment)", "Anxiety from surveillance"],
                     "description": "Watchful waiting approach for small, asymptomatic meningiomas with slow growth.",
@@ -1289,7 +1302,7 @@ def treatment_recommendation():
                     "type": "Radiation",
                     "success_rate": 84,
                     "duration": "5-6 weeks",
-                    "cost_estimate": "$35,000 - $70,000",
+                    "cost_estimate": "₹3,00,000 - ₹6,00,000",
                     "recovery_time": "Minimal",
                     "side_effects": ["Mild fatigue", "Scalp irritation", "Rare: hearing changes"],
                     "description": "Precise radiation therapy delivered in multiple small doses for tumors near critical structures.",
@@ -1325,7 +1338,7 @@ def treatment_recommendation():
                     "type": "Surgical",
                     "success_rate": 87,
                     "duration": "1-2 weeks recovery",
-                    "cost_estimate": "$45,000 - $80,000",
+                    "cost_estimate": "₹3,75,000 - ₹6,50,000",
                     "recovery_time": "1-2 weeks",
                     "side_effects": ["Nasal congestion", "Temporary diabetes insipidus", "Rare: CSF leak"],
                     "description": "Minimally invasive endoscopic surgery through the nasal passage to remove pituitary tumors.",
@@ -1358,7 +1371,7 @@ def treatment_recommendation():
                     "type": "Medical",
                     "success_rate": 78,
                     "duration": "Long-term therapy",
-                    "cost_estimate": "$3,000 - $8,000 annually",
+                    "cost_estimate": "₹25,000 - ₹65,000 annually",
                     "recovery_time": "None",
                     "side_effects": ["Nausea", "Dizziness", "Mood changes"],
                     "description": "Medication-based treatment to shrink prolactin-secreting tumors without surgery.",
@@ -1391,7 +1404,7 @@ def treatment_recommendation():
                     "type": "Radiosurgery",
                     "success_rate": 82,
                     "duration": "Single treatment session",
-                    "cost_estimate": "$25,000 - $50,000",
+                    "cost_estimate": "₹2,00,000 - ₹4,25,000",
                     "recovery_time": "1-2 days",
                     "side_effects": ["Possible hormone deficiency", "Rare: vision changes"],
                     "description": "Precise radiation therapy for residual or recurrent pituitary tumors.",
@@ -1427,7 +1440,7 @@ def treatment_recommendation():
                     "type": "Preventive",
                     "success_rate": 100,
                     "duration": "Annual checkups",
-                    "cost_estimate": "$500 - $1,000 annually",
+                    "cost_estimate": "₹5,000 - ₹10,000 annually",
                     "recovery_time": "None",
                     "side_effects": ["None"],
                     "description": "No active treatment required. Continue regular health monitoring.",
