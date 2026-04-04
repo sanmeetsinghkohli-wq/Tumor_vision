@@ -47,12 +47,6 @@ export default function Home() {
               >
                 Tumor Vision
               </h1>
-              <h2
-                className="text-[1.8rem] sm:text-[3.2rem] md:text-[6.5rem] font-bold leading-none uppercase bg-gradient-to-r from-[#C5757C] via-[#F9AAAD] to-[#A1525F] bg-clip-text text-transparent drop-shadow-[0_2px_16px_rgba(197,117,124,0.6)]"
-                style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
-              >
-                AI Detection
-              </h2>
               <p className="text-white/60 text-xs sm:text-sm tracking-[0.3em] uppercase font-medium mt-1">
                 AI Powered Diagnoses
               </p>
