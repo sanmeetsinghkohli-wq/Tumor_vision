@@ -38,12 +38,12 @@ export default function Home() {
             style={{ paddingTop: 'clamp(200px, 52vh, 560px)', paddingBottom: '2rem' }}>
             <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }} className="flex flex-col items-center gap-2">
-              <h1 className="text-[2.8rem] sm:text-[5rem] md:text-[9rem] font-bold leading-none tracking-tight text-[#1a1a2e] uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]"
-                style={{ fontFamily: "var(--font-bebas, sans-serif)" }}>
+              <h1 className="text-[2.8rem] sm:text-[5rem] md:text-[9rem] font-bold leading-none tracking-tight text-white uppercase"
+                style={{ fontFamily: "var(--font-bebas, sans-serif)", textShadow: '0 2px 12px rgba(0,0,0,0.7), 0 4px 32px rgba(0,0,0,0.5)' }}>
                 Tumor Vision
               </h1>
-              <p className="text-[#6A7F92] text-xs sm:text-sm tracking-[0.3em] uppercase font-medium mt-1">AI Powered Diagnostics</p>
-              <p className="hidden sm:block text-[#6A7F92] text-base md:text-lg max-w-xl leading-relaxed mt-2">
+              <p className="text-white/90 text-xs sm:text-sm tracking-[0.3em] uppercase font-medium mt-1" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>AI Powered Diagnostics</p>
+              <p className="hidden sm:block text-white/80 text-base md:text-lg max-w-xl leading-relaxed mt-2" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
                 Upload a brain MRI scan and receive an instant AI-powered diagnosis — bridging healthcare gaps in rural communities.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mt-4">
