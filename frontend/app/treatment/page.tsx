@@ -46,13 +46,13 @@ export default function TreatmentPage() {
                         <h1 className="text-5xl font-bold mb-4">
                             <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">{t('treatment_title')}</span>
                         </h1>
-                        <p className="text-[#683A46]/60 text-lg">{t('treatment_sub')}</p>
+                        <p className="text-gray-400 text-lg">{t('treatment_sub')}</p>
                     </motion.div>
 
                     <div className="max-w-5xl mx-auto">
                         {/* Input Form */}
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-8 mb-8">
-                            <h2 className="text-2xl font-bold text-[#462037] mb-8 flex items-center gap-3"><span className="text-3xl">👤</span> Patient Parameters</h2>
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 mb-8">
+                            <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3"><span className="text-3xl">👤</span> Patient Parameters</h2>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                 <AnimatedDropdown
@@ -68,11 +68,11 @@ export default function TreatmentPage() {
                                 />
 
                                 <div>
-                                    <label className="block text-[#683A46]/70 mb-3 font-medium text-sm">Patient Age</label>
+                                    <label className="block text-gray-400 mb-3 font-medium text-sm">Patient Age</label>
                                     <div className="space-y-3">
                                         <div className="flex items-baseline justify-between">
                                             <span className="text-4xl font-bold text-white">{patientAge}</span>
-                                            <span className="text-sm text-[#683A46]/60">years old</span>
+                                            <span className="text-sm text-gray-400">years old</span>
                                         </div>
                                         <input type="range" min="1" max="100" value={patientAge} onChange={(e) => setPatientAge(Number(e.target.value))}
                                             className="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer"
@@ -82,11 +82,11 @@ export default function TreatmentPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-[#683A46]/70 mb-3 font-medium text-sm">AI Confidence</label>
+                                    <label className="block text-gray-400 mb-3 font-medium text-sm">AI Confidence</label>
                                     <div className="space-y-3">
                                         <div className="flex items-baseline justify-between">
                                             <span className="text-4xl font-bold text-white">{(confidence * 100).toFixed(0)}%</span>
-                                            <span className="text-sm text-[#683A46]/60">certainty</span>
+                                            <span className="text-sm text-gray-400">certainty</span>
                                         </div>
                                         <input type="range" min="0.5" max="1" step="0.01" value={confidence} onChange={(e) => setConfidence(Number(e.target.value))}
                                             className="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer"
@@ -111,23 +111,23 @@ export default function TreatmentPage() {
                         {results && (
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                                 {/* Overview */}
-                                <div className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-8 mb-8">
+                                <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 mb-8">
                                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                         <div className="text-center p-4 bg-white/5 rounded-lg">
                                             <p className="text-[#F9AAAD] text-sm mb-1">Diagnosis</p>
-                                            <p className="text-[#462037] text-2xl font-bold">{results.tumor_type}</p>
+                                            <p className="text-white text-2xl font-bold">{results.tumor_type}</p>
                                         </div>
                                         <div className="text-center p-4 bg-white/5 rounded-lg">
                                             <p className="text-[#A1525F] text-sm mb-1">Severity</p>
-                                            <p className="text-[#462037] text-2xl font-bold">{results.severity}</p>
+                                            <p className="text-white text-2xl font-bold">{results.severity}</p>
                                         </div>
                                         <div className="text-center p-4 bg-white/5 rounded-lg">
                                             <p className="text-[#F9AAAD] text-sm mb-1">Age</p>
-                                            <p className="text-[#462037] text-2xl font-bold">{results.patient_age}</p>
+                                            <p className="text-white text-2xl font-bold">{results.patient_age}</p>
                                         </div>
                                         <div className="text-center p-4 bg-white/5 rounded-lg">
                                             <p className="text-[#A1525F] text-sm mb-1">Confidence</p>
-                                            <p className="text-[#462037] text-2xl font-bold">{(results.ai_confidence * 100).toFixed(0)}%</p>
+                                            <p className="text-white text-2xl font-bold">{(results.ai_confidence * 100).toFixed(0)}%</p>
                                         </div>
                                     </div>
                                     <div className="mt-4 p-4 bg-orange-500/20 border border-orange-500/50 rounded-lg">
@@ -136,12 +136,12 @@ export default function TreatmentPage() {
                                 </div>
 
                                 {/* Treatment Options */}
-                                <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-[#C5757C]/15 mb-8">
-                                    <h2 className="text-2xl font-bold text-[#462037] mb-4">💊 Treatment Options</h2>
+                                <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 mb-8">
+                                    <h2 className="text-2xl font-bold text-white mb-4">💊 Treatment Options</h2>
                                     <div className="flex flex-wrap gap-2 mb-6">
                                         {results.recommendations.map((treatment, index) => (
                                             <button key={index} onClick={() => setSelectedTreatment(index)}
-                                                className={`px-4 py-2 rounded-lg font-medium transition-all ${selectedTreatment === index ? 'bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white shadow-lg' : 'bg-white/5 text-[#683A46]/70 hover:bg-white/10'}`}>
+                                                className={`px-4 py-2 rounded-lg font-medium transition-all ${selectedTreatment === index ? 'bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white shadow-lg' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}>
                                                 Option {index + 1} {treatment.suitability_score && <span className="ml-2 text-xs opacity-80">({treatment.suitability_score}% match)</span>}
                                             </button>
                                         ))}
@@ -149,11 +149,11 @@ export default function TreatmentPage() {
 
                                     {results.recommendations[selectedTreatment] && (
                                         <motion.div key={selectedTreatment} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
-                                            <div className="border-b border-[#C5757C]/20 pb-4">
+                                            <div className="border-b border-white/10 pb-4">
                                                 <h3 className="text-3xl font-bold bg-gradient-to-r from-[#C5757C] to-[#A1525F] bg-clip-text text-transparent mb-2">
                                                     {results.recommendations[selectedTreatment].name}
                                                 </h3>
-                                                <p className="text-[#683A46]/70">{results.recommendations[selectedTreatment].description}</p>
+                                                <p className="text-gray-400">{results.recommendations[selectedTreatment].description}</p>
                                                 <div className="flex flex-wrap gap-2 mt-3">
                                                     <span className="px-3 py-1 bg-[#C5757C]/20 border border-[#C5757C]/50 rounded-full text-[#A1525F] text-sm">{results.recommendations[selectedTreatment].type}</span>
                                                     <span className="px-3 py-1 bg-[#F9AAAD]/20 border border-[#F9AAAD]/50 rounded-full text-[#683A46] text-sm">{results.recommendations[selectedTreatment].success_rate}% Success Rate</span>
@@ -161,13 +161,13 @@ export default function TreatmentPage() {
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                                <div className="bg-gradient-to-br from-[#C5757C]/10 to-transparent rounded-xl p-4 border border-[#C5757C]/20">
+                                                <div className="bg-gradient-to-br from-[#C5757C]/10 to-transparent rounded-xl p-4 border border-white/10">
                                                     <p className="text-[#F9AAAD] text-sm mb-1">⏱️ Duration</p>
-                                                    <p className="text-[#462037] text-lg font-bold">{results.recommendations[selectedTreatment].duration}</p>
+                                                    <p className="text-white text-lg font-bold">{results.recommendations[selectedTreatment].duration}</p>
                                                 </div>
                                                 <div className="bg-gradient-to-br from-[#F9AAAD]/10 to-transparent rounded-xl p-4 border border-[#F9AAAD]/30">
                                                     <p className="text-[#A1525F] text-sm mb-1">🏥 Recovery</p>
-                                                    <p className="text-[#462037] text-lg font-bold">{results.recommendations[selectedTreatment].recovery_time}</p>
+                                                    <p className="text-white text-lg font-bold">{results.recommendations[selectedTreatment].recovery_time}</p>
                                                 </div>
                                                 <div className="bg-gradient-to-br from-purple-500/10 to-transparent rounded-xl p-4 border border-purple-500/20">
                                                     <p className="text-purple-300 text-sm mb-1">💰 Cost</p>
@@ -176,13 +176,13 @@ export default function TreatmentPage() {
                                             </div>
 
                                             {/* Survival Rates */}
-                                            <div className="bg-white/70 rounded-xl p-6 border border-[#C5757C]/15">
-                                                <h4 className="text-[#462037] text-lg font-bold mb-4">📊 Survival Rates</h4>
+                                            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                                                <h4 className="text-white text-lg font-bold mb-4">📊 Survival Rates</h4>
                                                 {Object.entries(results.recommendations[selectedTreatment].survival_rates).map(([key, value]) => (
                                                     <div key={key} className="mb-3">
                                                         <div className="flex justify-between text-sm mb-1">
-                                                            <span className="text-[#683A46]/70">{key.replace('_', '-Year ')}</span>
-                                                            <span className="text-[#462037] font-bold">{value}%</span>
+                                                            <span className="text-gray-400">{key.replace('_', '-Year ')}</span>
+                                                            <span className="text-white font-bold">{value}%</span>
                                                         </div>
                                                         <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
                                                             <motion.div initial={{ width: 0 }} animate={{ width: `${value}%` }} transition={{ duration: 1 }}
@@ -193,19 +193,19 @@ export default function TreatmentPage() {
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                <div className="bg-white/70 rounded-xl p-6 border border-red-500/20">
-                                                    <h4 className="text-[#462037] text-lg font-bold mb-3">⚠️ Side Effects</h4>
+                                                <div className="bg-white/5 rounded-xl p-6 border border-red-500/20">
+                                                    <h4 className="text-white text-lg font-bold mb-3">⚠️ Side Effects</h4>
                                                     <ul className="space-y-2">
                                                         {results.recommendations[selectedTreatment].side_effects.map((e, i) => (
-                                                            <li key={i} className="flex items-start text-[#683A46]/70"><span className="text-red-400 mr-2">•</span>{e}</li>
+                                                            <li key={i} className="flex items-start text-gray-400"><span className="text-red-400 mr-2">•</span>{e}</li>
                                                         ))}
                                                     </ul>
                                                 </div>
-                                                <div className="bg-white/70 rounded-xl p-6 border border-[#C5757C]/20">
-                                                    <h4 className="text-[#462037] text-lg font-bold mb-3">✅ Recommended For</h4>
+                                                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                                                    <h4 className="text-white text-lg font-bold mb-3">✅ Recommended For</h4>
                                                     <ul className="space-y-2">
                                                         {results.recommendations[selectedTreatment].recommended_for.map((r, i) => (
-                                                            <li key={i} className="flex items-start text-[#683A46]/70"><span className="text-[#F9AAAD] mr-2">✓</span>{r}</li>
+                                                            <li key={i} className="flex items-start text-gray-400"><span className="text-[#F9AAAD] mr-2">✓</span>{r}</li>
                                                         ))}
                                                     </ul>
                                                 </div>
@@ -222,7 +222,7 @@ export default function TreatmentPage() {
                                     </motion.button>
                                 </div>
 
-                                <div className="mt-6 bg-gradient-to-r from-[#C5757C]/10 to-[#F9AAAD]/10 border border-[#C5757C]/20 rounded-xl p-5">
+                                <div className="mt-6 bg-gradient-to-r from-[#C5757C]/10 to-[#F9AAAD]/10 border border-white/10 rounded-xl p-5">
                                     <p className="text-[#683A46]/80 text-sm"><strong className="text-[#A1525F]">⚕️ Disclaimer:</strong> {results.disclaimer}</p>
                                 </div>
                             </motion.div>

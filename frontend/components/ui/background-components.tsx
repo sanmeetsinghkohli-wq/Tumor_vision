@@ -8,46 +8,35 @@ interface PageBackgroundProps {
   variant?: 'default' | 'soft' | 'intense';
 }
 
-/**
- * Base background for all pages.
- * White base with a centered soft rose radial glow (multiply blend).
- */
 export const PageBackground = ({
   children,
   className,
   variant = 'default',
 }: PageBackgroundProps) => {
-  const glowColor: Record<string, string> = {
-    default: '#F9AAAD',
-    soft:    '#f5c8ca',
-    intense: '#C5757C',
+  const glowOpacity: Record<string, number> = {
+    default: 0.18,
+    soft: 0.12,
+    intense: 0.28,
   };
 
   return (
-    <div
-      className={cn('min-h-screen w-full relative bg-white', className)}
-    >
-      {/* Primary centered rose glow */}
+    <div className={cn('min-h-screen w-full relative bg-[#140E1C]', className)}>
+      {/* Centered rose glow */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle at center, ${glowColor[variant]} 0%, transparent 70%)`,
-          opacity: 0.55,
-          mixBlendMode: 'multiply',
+          backgroundImage: `radial-gradient(ellipse 80% 50% at 50% 0%, #C5757C 0%, transparent 70%)`,
+          opacity: glowOpacity[variant],
         }}
       />
-
-      {/* Secondary accent glow — top-right */}
+      {/* Bottom accent */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle at 80% 15%, #F9AAAD 0%, transparent 55%)`,
-          opacity: 0.3,
-          mixBlendMode: 'multiply',
+          backgroundImage: `radial-gradient(ellipse 60% 40% at 80% 100%, #683A46 0%, transparent 60%)`,
+          opacity: 0.12,
         }}
       />
-
-      {/* Content */}
       <div className="relative z-10 w-full h-full">
         {children}
       </div>

@@ -56,7 +56,7 @@ export default function MetricsPage() {
         if (active && payload && payload.length) {
             return (
                 <div className="bg-[#140E1C]/95 backdrop-blur-xl border border-[#C5757C]/30 px-4 py-3 rounded-xl shadow-xl">
-                    <p className="text-[#462037] font-semibold text-sm">{payload[0].name || label}</p>
+                    <p className="text-white font-semibold text-sm">{payload[0].name || label}</p>
                     <p className="text-2xl font-bold text-[#F9AAAD]">{payload[0].value}%</p>
                 </div>
             );
@@ -82,17 +82,17 @@ export default function MetricsPage() {
                         <h1 className="text-5xl font-bold mb-4">
                             <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">Performance Metrics</span>
                         </h1>
-                        <p className="text-[#683A46]/60 text-lg max-w-2xl mx-auto">Real-time insights into our AI diagnostic system accuracy</p>
+                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">Real-time insights into our AI diagnostic system accuracy</p>
                     </motion.div>
 
                     <AnimatePresence mode="wait">
                         {loading ? (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center py-20">
                                 <div className="relative w-16 h-16 mb-4">
-                                    <div className="absolute inset-0 border-4 border-[#C5757C]/20 rounded-full"></div>
+                                    <div className="absolute inset-0 border-4 border-white/10 rounded-full"></div>
                                     <div className="absolute inset-0 border-4 border-transparent border-t-[#C5757C] rounded-full animate-spin"></div>
                                 </div>
-                                <p className="text-[#683A46]/60">Loading metrics data...</p>
+                                <p className="text-gray-400">Loading metrics data...</p>
                             </motion.div>
                         ) : error ? (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-red-500/10 border border-red-500/20 rounded-2xl p-8 text-center max-w-md mx-auto">
@@ -110,10 +110,10 @@ export default function MetricsPage() {
                                     ].map((kpi, i) => (
                                         <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
                                             whileHover={{ scale: 1.05, y: -5 }}
-                                            className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-6 hover:border-[#C5757C]/50 transition-all">
+                                            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-[#C5757C]/50 transition-all">
                                             <div className="text-4xl mb-3">{kpi.icon}</div>
                                             <div className="text-5xl font-bold mb-1" style={{ color: kpi.color }}>{kpi.value}</div>
-                                            <div className="text-[#683A46]/60 text-sm">{kpi.label}</div>
+                                            <div className="text-gray-400 text-sm">{kpi.label}</div>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -122,8 +122,8 @@ export default function MetricsPage() {
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                     {/* Radial accuracy */}
                                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}
-                                        className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-8">
-                                        <h3 className="text-xl font-bold text-[#462037] mb-4">🎯 Overall Accuracy</h3>
+                                        className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+                                        <h3 className="text-xl font-bold text-white mb-4">🎯 Overall Accuracy</h3>
                                         <ResponsiveContainer width="100%" height={200}>
                                             <RadialBarChart cx="50%" cy="50%" innerRadius="60%" outerRadius="100%" data={radialData} startAngle={180} endAngle={0}>
                                                 <defs>
@@ -137,14 +137,14 @@ export default function MetricsPage() {
                                         </ResponsiveContainer>
                                         <div className="text-center">
                                             <div className="text-5xl font-bold bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">{metrics.overall_accuracy}%</div>
-                                            <div className="text-[#683A46]/60 text-sm mt-1">{metrics.total_scans.toLocaleString()} cases analyzed</div>
+                                            <div className="text-gray-400 text-sm mt-1">{metrics.total_scans.toLocaleString()} cases analyzed</div>
                                         </div>
                                     </motion.div>
 
                                     {/* Bar chart */}
                                     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}
-                                        className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-8">
-                                        <h3 className="text-xl font-bold text-[#462037] mb-4">📊 Accuracy by Type</h3>
+                                        className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+                                        <h3 className="text-xl font-bold text-white mb-4">📊 Accuracy by Type</h3>
                                         <ResponsiveContainer width="100%" height={240}>
                                             <BarChart data={detectionData}>
                                                 <defs>
@@ -168,8 +168,8 @@ export default function MetricsPage() {
 
                                     {/* Pie chart */}
                                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-                                        className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-8">
-                                        <h3 className="text-xl font-bold text-[#462037] mb-4">🥧 Detection Distribution</h3>
+                                        className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+                                        <h3 className="text-xl font-bold text-white mb-4">🥧 Detection Distribution</h3>
                                         <ResponsiveContainer width="100%" height={280}>
                                             <PieChart>
                                                 <Pie data={detectionData} cx="50%" cy="50%" outerRadius={100} innerRadius={55} dataKey="value" paddingAngle={3}>
@@ -182,7 +182,7 @@ export default function MetricsPage() {
                                             {detectionData.map(item => (
                                                 <div key={item.name} className="flex items-center gap-2">
                                                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-                                                    <span className="text-[#683A46]/70 text-sm">{item.name}</span>
+                                                    <span className="text-gray-400 text-sm">{item.name}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -190,8 +190,8 @@ export default function MetricsPage() {
 
                                     {/* Area chart */}
                                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
-                                        className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-8">
-                                        <h3 className="text-xl font-bold text-[#462037] mb-4">📈 Performance Trend</h3>
+                                        className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+                                        <h3 className="text-xl font-bold text-white mb-4">📈 Performance Trend</h3>
                                         <ResponsiveContainer width="100%" height={280}>
                                             <AreaChart data={trendData}>
                                                 <defs>
@@ -215,9 +215,9 @@ export default function MetricsPage() {
                                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}
                                     className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     {detectionData.map((item, i) => (
-                                        <div key={item.name} className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-xl p-5 hover:scale-105 transition-transform"
+                                        <div key={item.name} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-5 hover:scale-105 transition-transform"
                                             style={{ borderColor: `${item.color}30` }}>
-                                            <div className="text-[#683A46]/60 text-sm mb-2">{item.name}</div>
+                                            <div className="text-gray-400 text-sm mb-2">{item.name}</div>
                                             <div className="text-3xl font-bold mb-2" style={{ color: item.color }}>{item.value}%</div>
                                             <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
                                                 <motion.div initial={{ width: 0 }} animate={{ width: `${item.value}%` }} transition={{ duration: 1, delay: 0.7 + i * 0.1 }}

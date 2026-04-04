@@ -25,48 +25,48 @@ export default function Layout({ children }: LayoutProps) {
                             <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#C5757C] to-[#A1525F] text-transparent bg-clip-text mb-2 sm:mb-3">
                                 Tumor Vision
                             </h3>
-                            <p className="text-[#683A46]/60 text-xs sm:text-sm leading-relaxed">
+                            <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
                                 AI-powered brain tumor detection for accurate and reliable medical diagnostics — bridging healthcare gaps in underserved communities.
                             </p>
                         </div>
 
                         <div className="text-center sm:text-left">
-                            <h4 className="text-base sm:text-lg font-semibold text-[#462037] mb-2 sm:mb-3">{t('footer_quick_links')}</h4>
+                            <h4 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">{t('footer_quick_links')}</h4>
                             <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-                                <li><a href="/" className="text-[#683A46]/60 hover:text-[#C5757C] transition-colors">Home</a></li>
-                                <li><a href="/upload" className="text-[#683A46]/60 hover:text-[#C5757C] transition-colors">Upload Scan</a></li>
-                                <li><a href="/treatment" className="text-[#683A46]/60 hover:text-[#C5757C] transition-colors">Treatment</a></li>
-                                <li><a href="/about" className="text-[#683A46]/60 hover:text-[#C5757C] transition-colors">About</a></li>
+                                <li><a href="/" className="text-gray-400 hover:text-[#C5757C] transition-colors">Home</a></li>
+                                <li><a href="/upload" className="text-gray-400 hover:text-[#C5757C] transition-colors">Upload Scan</a></li>
+                                <li><a href="/treatment" className="text-gray-400 hover:text-[#C5757C] transition-colors">Treatment</a></li>
+                                <li><a href="/about" className="text-gray-400 hover:text-[#C5757C] transition-colors">About</a></li>
                             </ul>
                         </div>
 
                         <div className="text-center sm:text-left">
-                            <h4 className="text-base sm:text-lg font-semibold text-[#462037] mb-2 sm:mb-3">{t('footer_powered_by')}</h4>
+                            <h4 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">{t('footer_powered_by')}</h4>
                             <div className="flex items-center justify-center sm:justify-start space-x-2 mb-2 sm:mb-3">
                                 <div className="w-2 h-2 bg-[#C5757C] rounded-full animate-pulse"></div>
-                                <p className="text-[#683A46]/60 text-xs sm:text-sm">Azure Custom Vision AI</p>
+                                <p className="text-gray-400 text-xs sm:text-sm">Azure Custom Vision AI</p>
                             </div>
                             <div className="flex items-center justify-center sm:justify-start space-x-2 mb-2 sm:mb-3">
                                 <div className="w-2 h-2 bg-[#F9AAAD] rounded-full animate-pulse delay-150"></div>
-                                <p className="text-[#683A46]/60 text-xs sm:text-sm">Next.js & React</p>
+                                <p className="text-gray-400 text-xs sm:text-sm">Next.js & React</p>
                             </div>
                             <div className="flex items-center justify-center sm:justify-start space-x-2">
                                 <div className="w-2 h-2 bg-[#683A46] rounded-full animate-pulse delay-300"></div>
-                                <p className="text-[#683A46]/60 text-xs sm:text-sm">Deep Learning Models</p>
+                                <p className="text-gray-400 text-xs sm:text-sm">Deep Learning Models</p>
                             </div>
                         </div>
                     </div>
 
                     <div className="h-px bg-gradient-to-r from-transparent via-[#C5757C]/30 to-transparent mb-4 sm:mb-6"></div>
 
-                    <div className="flex flex-col md:flex-row justify-between items-center text-xs sm:text-sm text-[#683A46]/50 gap-3">
+                    <div className="flex flex-col md:flex-row justify-between items-center text-xs sm:text-sm text-gray-500 gap-3">
                         <p className="text-center md:text-left">{t('footer_rights')}</p>
                         <div className="flex items-center space-x-2">
                             <span className="flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-[#C5757C] opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C5757C]"></span>
                             </span>
-                            <span className="text-[#683A46]/60">{t('footer_powered')}</span>
+                            <span className="text-gray-400">{t('footer_powered')}</span>
                         </div>
                     </div>
                 </div>

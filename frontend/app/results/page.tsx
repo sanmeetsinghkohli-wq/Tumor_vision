@@ -73,10 +73,10 @@ export default function ResultsPage() {
       <Layout>
         <div className="min-h-screen flex items-center justify-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="text-center p-12 bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-3xl max-w-md">
+            className="text-center p-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl max-w-md">
             <div className="text-7xl mb-6">🧠</div>
             <h2 className="text-3xl font-black text-white mb-3">No Results Yet</h2>
-            <p className="text-[#683A46]/60 mb-8 leading-relaxed">{t('upload_sub')}</p>
+            <p className="text-gray-400 mb-8 leading-relaxed">{t('upload_sub')}</p>
             <Link href="/upload">
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                 className="px-8 py-3 rounded-full font-bold text-white"
@@ -100,7 +100,7 @@ export default function ResultsPage() {
 
             {/* ─── LEFT CARD ─── */}
             <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}
-              className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-[2rem] p-8 shadow-lg flex flex-col justify-between overflow-hidden">
+              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 shadow-lg flex flex-col justify-between overflow-hidden">
 
               <div>
                 {/* Severity badge */}
@@ -117,7 +117,7 @@ export default function ResultsPage() {
                   )}
                 </h1>
 
-                <p className="text-[#683A46]/60 text-[15px] leading-relaxed max-w-sm mb-6">
+                <p className="text-gray-400 text-[15px] leading-relaxed max-w-sm mb-6">
                   {meta.tagline}
                 </p>
 
@@ -126,7 +126,7 @@ export default function ResultsPage() {
                   {predictions.map((pred, idx) => (
                     <div key={idx}>
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-[#683A46]/60 font-medium">{pred.tagName}</span>
+                        <span className="text-gray-400 font-medium">{pred.tagName}</span>
                         <span className="font-bold" style={{ color: getBarColor(idx) }}>
                           {(pred.probability * 100).toFixed(1)}%
                         </span>
@@ -155,17 +155,17 @@ export default function ResultsPage() {
 
               {/* Bottom mini-card */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                className="mt-6 flex items-center gap-4 bg-white/70 border border-[#C5757C]/15 rounded-2xl p-4">
+                className="mt-6 flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-4">
                 <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-[#C5757C]/30 to-[#683A46]/30">
                   {imagePreview
                     ? <img src={imagePreview} alt="MRI thumb" className="w-full h-full object-cover" />
                     : <div className="w-full h-full flex items-center justify-center text-2xl">🧠</div>}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[#462037] font-bold text-sm leading-tight">
+                  <p className="text-white font-bold text-sm leading-tight">
                     {t('results_confidence')}: {pct}%
                   </p>
-                  <p className="text-[#683A46]/60 text-xs mt-0.5 line-clamp-2">
+                  <p className="text-gray-400 text-xs mt-0.5 line-clamp-2">
                     {meta.info}
                   </p>
                   <Link href="/treatment">
@@ -177,7 +177,7 @@ export default function ResultsPage() {
 
             {/* ─── RIGHT CARD — full MRI image ─── */}
             <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55, delay: 0.1 }}
-              className="relative rounded-[2rem] overflow-hidden shadow-lg min-h-[340px] border border-[#C5757C]/15"
+              className="relative rounded-[2rem] overflow-hidden shadow-lg min-h-[340px] border border-white/10"
               style={{ background: 'linear-gradient(135deg,#C5757C22,#683A4644)' }}>
 
               {imagePreview ? (
@@ -223,12 +223,12 @@ export default function ResultsPage() {
             </Link>
             <Link href="/upload">
               <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                className="px-6 py-2.5 rounded-full text-sm font-bold text-white/80 bg-white/10 border border-[#C5757C]/20 hover:bg-white/20">
+                className="px-6 py-2.5 rounded-full text-sm font-bold text-white/80 bg-white/10 border border-white/10 hover:bg-white/20">
                 📤 {t('results_new_scan')}
               </motion.button>
             </Link>
             <div className="ml-auto">
-              <p className="text-[#683A46]/60 text-xs">
+              <p className="text-gray-400 text-xs">
                 ⚕️ {t('results_disclaimer')}
               </p>
             </div>

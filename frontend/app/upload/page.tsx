@@ -70,7 +70,7 @@ export default function UploadPage() {
                         <h1 className="text-5xl font-bold mb-4">
                             <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">{t('upload_title')}</span>
                         </h1>
-                        <p className="text-[#683A46]/60 text-lg max-w-2xl mx-auto">{t('upload_sub')}</p>
+                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t('upload_sub')}</p>
                     </motion.div>
 
                     <div className="max-w-2xl mx-auto">
@@ -78,7 +78,7 @@ export default function UploadPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className={`relative bg-white/5 backdrop-blur-xl border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300 cursor-pointer ${dragActive ? 'border-[#C5757C] bg-[#C5757C]/10' : 'border-[#C5757C]/20 hover:border-[#C5757C]/50'}`}
+                            className={`relative bg-white/5 backdrop-blur-xl border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-300 cursor-pointer ${dragActive ? 'border-[#C5757C] bg-[#C5757C]/10' : 'border-white/10 hover:border-[#C5757C]/50'}`}
                             onDragOver={(e) => { e.preventDefault(); setDragActive(true) }}
                             onDragLeave={() => setDragActive(false)}
                             onDrop={handleDrop}
@@ -88,16 +88,16 @@ export default function UploadPage() {
 
                             {preview ? (
                                 <div className="space-y-4">
-                                    <img src={preview} alt="MRI Preview" className="max-h-64 mx-auto rounded-xl border border-[#C5757C]/20" />
-                                    <p className="text-[#462037] font-medium">{file?.name}</p>
-                                    <p className="text-[#683A46]/60 text-sm">{t('upload_drag')}</p>
+                                    <img src={preview} alt="MRI Preview" className="max-h-64 mx-auto rounded-xl border border-white/10" />
+                                    <p className="text-white font-medium">{file?.name}</p>
+                                    <p className="text-gray-400 text-sm">{t('upload_drag')}</p>
                                 </div>
                             ) : (
                                 <div className="space-y-4">
                                     <div className="text-6xl">🧠</div>
                                     <div>
-                                        <p className="text-[#462037] text-xl font-semibold mb-2">{t('upload_drag')}</p>
-                                        <p className="text-[#683A46]/60">{t('upload_or')} {t('upload_browse').toLowerCase()}</p>
+                                        <p className="text-white text-xl font-semibold mb-2">{t('upload_drag')}</p>
+                                        <p className="text-gray-400">{t('upload_or')} {t('upload_browse').toLowerCase()}</p>
                                     </div>
                                     <p className="text-[#683A46]/50 text-sm">{t('upload_formats')}</p>
                                 </div>
@@ -128,7 +128,7 @@ export default function UploadPage() {
                         </motion.button>
 
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mt-6 bg-gradient-to-r from-[#C5757C]/10 to-[#683A46]/10 border border-[#C5757C]/30 rounded-xl p-4">
-                            <p className="text-[#683A46]/70 text-sm">
+                            <p className="text-gray-400 text-sm">
                                 <strong className="text-[#F9AAAD]">⚕️ Note:</strong> {t('upload_disclaimer')}
                             </p>
                         </motion.div>

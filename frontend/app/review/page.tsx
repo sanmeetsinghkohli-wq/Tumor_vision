@@ -95,15 +95,15 @@ export default function ReviewPage() {
                         <h1 className="text-5xl font-bold mb-4">
                             <span className="bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-transparent bg-clip-text">{t('review_title')}</span>
                         </h1>
-                        <p className="text-[#683A46]/60 text-lg">{t('review_sub')}</p>
+                        <p className="text-gray-400 text-lg">{t('review_sub')}</p>
                     </motion.div>
 
                     <div className="max-w-3xl mx-auto space-y-6">
                         {/* Main form card */}
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-8 space-y-6">
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 space-y-6">
                             {/* Language Selection */}
                             <div>
-                                <label className="block text-[#683A46]/70 mb-2 font-medium">{t('review_lang_label')}</label>
+                                <label className="block text-gray-400 mb-2 font-medium">{t('review_lang_label')}</label>
                                 <div className="flex gap-3">
                                     {[
                                         { code: 'en', label: '🇬🇧 English' },
@@ -115,7 +115,7 @@ export default function ReviewPage() {
                                             onClick={() => setLang(lang_opt.code as 'en' | 'hi' | 'mr')}
                                             className={`px-4 py-2 rounded-lg font-medium transition-all ${language === lang_opt.code
                                                 ? 'bg-gradient-to-r from-[#C5757C] to-[#A1525F] text-white'
-                                                : 'bg-white/60 border border-[#C5757C]/20 text-[#683A46]/70 hover:bg-white/80'
+                                                : 'bg-white/10 border border-white/10 text-gray-400 hover:bg-white/5'
                                                 }`}
                                         >
                                             {lang_opt.label}
@@ -127,31 +127,31 @@ export default function ReviewPage() {
                             {/* Patient Details */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-[#683A46]/70 mb-2 font-medium">{t('review_name')} *</label>
+                                    <label className="block text-gray-400 mb-2 font-medium">{t('review_name')} *</label>
                                     <input
                                         type="text"
                                         value={form.patient_name}
                                         onChange={(e) => setForm({ ...form, patient_name: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#C5757C]/20 rounded-xl text-[#462037] focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
                                         placeholder={t('review_name_ph')}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[#683A46]/70 mb-2 font-medium">{t('review_age')} *</label>
+                                    <label className="block text-gray-400 mb-2 font-medium">{t('review_age')} *</label>
                                     <input
                                         type="number"
                                         value={form.patient_age || ''}
                                         onChange={(e) => setForm({ ...form, patient_age: Number(e.target.value) })}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#C5757C]/20 rounded-xl text-[#462037] focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
                                         placeholder={t('review_age')}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[#683A46]/70 mb-2 font-medium">{t('review_gender')}</label>
+                                    <label className="block text-gray-400 mb-2 font-medium">{t('review_gender')}</label>
                                     <select
                                         value={form.patient_gender}
                                         onChange={(e) => setForm({ ...form, patient_gender: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#C5757C]/20 rounded-xl text-[#462037] focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
                                     >
                                         <option value="Male">{t('gender_male')}</option>
                                         <option value="Female">{t('gender_female')}</option>
@@ -159,23 +159,23 @@ export default function ReviewPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-[#683A46]/70 mb-2 font-medium">{t('review_phone')}</label>
+                                    <label className="block text-gray-400 mb-2 font-medium">{t('review_phone')}</label>
                                     <input
                                         type="tel"
                                         value={form.patient_number}
                                         onChange={(e) => setForm({ ...form, patient_number: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#C5757C]/20 rounded-xl text-[#462037] focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
                                         placeholder={t('review_phone_ph')}
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-[#683A46]/70 mb-2 font-medium">{t('review_comments')}</label>
+                                <label className="block text-gray-400 mb-2 font-medium">{t('review_comments')}</label>
                                 <textarea
                                     value={form.comments}
                                     onChange={(e) => setForm({ ...form, comments: e.target.value })}
-                                    className="w-full px-4 py-3 bg-white/60 border border-[#C5757C]/20 rounded-xl text-[#462037] focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50 min-h-[100px]"
+                                    className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50 min-h-[100px]"
                                     placeholder={t('review_comments_ph')}
                                 />
                             </div>
@@ -186,7 +186,7 @@ export default function ReviewPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.15 }}
-                            className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/20 shadow-sm rounded-2xl p-8 space-y-6"
+                            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 space-y-6"
                         >
                             {/* Section header */}
                             <div className="flex items-center gap-3 pb-4 border-b border-[#C5757C]/15">
@@ -194,15 +194,15 @@ export default function ReviewPage() {
                                     🩺
                                 </div>
                                 <div>
-                                    <h2 className="text-xl font-bold text-[#462037]">{t('review_radiologist_section')}</h2>
-                                    <p className="text-sm text-[#683A46]/60">{t('review_radiologist_note')}</p>
+                                    <h2 className="text-xl font-bold text-white">{t('review_radiologist_section')}</h2>
+                                    <p className="text-sm text-gray-400">{t('review_radiologist_note')}</p>
                                 </div>
                             </div>
 
                             {/* AI suggested diagnosis */}
                             <div>
-                                <label className="block text-[#683A46]/70 mb-2 font-medium text-sm">{t('review_ai_suggested')}</label>
-                                <div className="px-4 py-3 bg-[#F9AAAD]/15 border border-[#C5757C]/30 rounded-xl text-[#462037] font-semibold flex items-center gap-2">
+                                <label className="block text-gray-400 mb-2 font-medium text-sm">{t('review_ai_suggested')}</label>
+                                <div className="px-4 py-3 bg-[#F9AAAD]/15 border border-[#C5757C]/30 rounded-xl text-white font-semibold flex items-center gap-2">
                                     <span className="text-[#C5757C]">🤖</span>
                                     {aiLabel}
                                 </div>
@@ -211,22 +211,22 @@ export default function ReviewPage() {
                             {/* Radiologist name + ID */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-[#683A46]/70 mb-2 font-medium text-sm">{t('review_radiologist_name')}</label>
+                                    <label className="block text-gray-400 mb-2 font-medium text-sm">{t('review_radiologist_name')}</label>
                                     <input
                                         type="text"
                                         value={form.radiologist_name}
                                         onChange={(e) => setForm({ ...form, radiologist_name: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#C5757C]/20 rounded-xl text-[#462037] focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
                                         placeholder={t('review_radiologist_name_ph')}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-[#683A46]/70 mb-2 font-medium text-sm">{t('review_radiologist_id')}</label>
+                                    <label className="block text-gray-400 mb-2 font-medium text-sm">{t('review_radiologist_id')}</label>
                                     <input
                                         type="text"
                                         value={form.radiologist_id}
                                         onChange={(e) => setForm({ ...form, radiologist_id: e.target.value })}
-                                        className="w-full px-4 py-3 bg-white/60 border border-[#C5757C]/20 rounded-xl text-[#462037] focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
+                                        className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#C5757C]/50"
                                         placeholder={t('review_radiologist_id_ph')}
                                     />
                                 </div>
@@ -234,7 +234,7 @@ export default function ReviewPage() {
 
                             {/* Verification toggle */}
                             <div className="space-y-3">
-                                <label className="block text-[#683A46]/70 font-medium text-sm">{t('review_diagnosis')}</label>
+                                <label className="block text-gray-400 font-medium text-sm">{t('review_diagnosis')}</label>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {/* Correct */}
                                     <button
@@ -242,8 +242,8 @@ export default function ReviewPage() {
                                         onClick={() => setVerification(true)}
                                         className={`flex items-center gap-3 px-5 py-4 rounded-xl border-2 transition-all font-medium text-left ${
                                             form.radiologist_verified === true
-                                                ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                                                : 'border-[#C5757C]/20 bg-white/60 text-[#683A46]/70 hover:bg-white/80'
+                                                ? 'border-emerald-500 bg-emerald-500/15 text-emerald-300'
+                                                : 'border-white/10 bg-white/5 text-gray-400 hover:bg-white/10'
                                         }`}
                                     >
                                         <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
@@ -260,8 +260,8 @@ export default function ReviewPage() {
                                         onClick={() => setVerification(false)}
                                         className={`flex items-center gap-3 px-5 py-4 rounded-xl border-2 transition-all font-medium text-left ${
                                             form.radiologist_verified === false
-                                                ? 'border-red-400 bg-red-50 text-red-700'
-                                                : 'border-[#C5757C]/20 bg-white/60 text-[#683A46]/70 hover:bg-white/80'
+                                                ? 'border-red-400 bg-red-500/15 text-red-300'
+                                                : 'border-white/10 bg-white/5 text-gray-400 hover:bg-white/10'
                                         }`}
                                     >
                                         <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
@@ -283,12 +283,12 @@ export default function ReviewPage() {
                                         exit={{ opacity: 0, height: 0 }}
                                         className="overflow-hidden"
                                     >
-                                        <label className="block text-[#683A46]/70 mb-2 font-medium text-sm">{t('review_radiologist_diagnosis')}</label>
+                                        <label className="block text-gray-400 mb-2 font-medium text-sm">{t('review_radiologist_diagnosis')}</label>
                                         <input
                                             type="text"
                                             value={form.radiologist_diagnosis}
                                             onChange={(e) => setRadiologistDiagnosis(e.target.value)}
-                                            className="w-full px-4 py-3 bg-white/60 border-2 border-red-300 rounded-xl text-[#462037] focus:outline-none focus:ring-2 focus:ring-red-300"
+                                            className="w-full px-4 py-3 bg-white/10 border-2 border-red-300 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-300"
                                             placeholder={t('review_radiologist_diagnosis_ph')}
                                         />
                                     </motion.div>
@@ -302,15 +302,15 @@ export default function ReviewPage() {
                                     animate={{ opacity: 1, y: 0 }}
                                     className={`rounded-xl p-4 border-2 ${
                                         form.radiologist_verified
-                                            ? 'bg-emerald-50 border-emerald-300'
-                                            : 'bg-[#FFF5F5] border-red-300'
+                                            ? 'bg-emerald-500/10 border-emerald-500/40'
+                                            : 'bg-red-500/10 border-red-500/40'
                                     }`}
                                 >
-                                    <p className="text-xs font-semibold uppercase tracking-wide mb-1 text-[#683A46]/60">{t('review_final_diagnosis')}</p>
-                                    <p className={`text-xl font-bold ${form.radiologist_verified ? 'text-emerald-700' : 'text-red-700'}`}>
+                                    <p className="text-xs font-semibold uppercase tracking-wide mb-1 text-gray-400">{t('review_final_diagnosis')}</p>
+                                    <p className={`text-xl font-bold ${form.radiologist_verified ? 'text-emerald-300' : 'text-red-300'}`}>
                                         {finalLabel}
                                     </p>
-                                    <p className="text-xs mt-1 text-[#683A46]/50">
+                                    <p className="text-xs mt-1 text-gray-500">
                                         {form.radiologist_verified
                                             ? '✅ Confirmed by radiologist'
                                             : '⚠️ Overridden by radiologist'}
@@ -324,17 +324,17 @@ export default function ReviewPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.25 }}
-                            className="bg-white/80 backdrop-blur-sm border border-[#C5757C]/15 shadow-sm rounded-2xl p-6 space-y-4"
+                            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 space-y-4"
                         >
                             {error && (
-                                <div className="bg-red-50 border border-red-300 rounded-xl p-4">
-                                    <p className="text-red-600">⚠️ {error}</p>
+                                <div className="bg-red-500/20 border border-red-500/40 rounded-xl p-4">
+                                    <p className="text-red-300">⚠️ {error}</p>
                                 </div>
                             )}
 
                             {submitted && (
-                                <div className="bg-emerald-50 border border-emerald-300 rounded-xl p-4">
-                                    <p className="text-emerald-700">✅ {t('review_success')}</p>
+                                <div className="bg-emerald-500/20 border border-emerald-500/40 rounded-xl p-4">
+                                    <p className="text-emerald-300">✅ {t('review_success')}</p>
                                 </div>
                             )}
 
@@ -343,8 +343,8 @@ export default function ReviewPage() {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={handleSubmit}
-                                    disabled={loading || !form.patient_name}
-                                    className="flex-1 px-8 py-4 bg-gradient-to-r from-[#C5757C] to-[#F9AAAD] text-white font-bold rounded-xl disabled:opacity-50 flex items-center justify-center gap-2"
+                                    disabled={loading || !form.patient_name || !form.patient_age}
+                                    className="flex-1 px-8 py-4 bg-gradient-to-r from-[#A1525F] to-[#C5757C] text-white font-bold rounded-xl disabled:opacity-40 flex items-center justify-center gap-2 shadow-lg shadow-[#C5757C]/20 hover:shadow-[#C5757C]/40 transition-all"
                                 >
                                     {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : '📝'}
                                     <span>{loading ? t('review_submitting') : t('review_submit')}</span>
@@ -354,7 +354,7 @@ export default function ReviewPage() {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={handleDownload}
-                                    className="px-8 py-4 bg-white/80 border border-[#C5757C]/30 text-[#462037] font-bold rounded-xl flex items-center gap-2 hover:bg-white"
+                                    className="px-8 py-4 bg-white/10 border border-white/20 text-white font-bold rounded-xl flex items-center gap-2 hover:bg-white/20 transition-all"
                                 >
                                     ⬇️ {t('review_download')}
                                 </motion.button>
@@ -362,7 +362,7 @@ export default function ReviewPage() {
                         </motion.div>
 
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="bg-gradient-to-r from-[#C5757C]/10 to-[#683A46]/10 border border-[#C5757C]/30 rounded-xl p-4">
-                            <p className="text-[#683A46]/70 text-sm">
+                            <p className="text-gray-400 text-sm">
                                 <strong className="text-[#A1525F]">⚕️ Disclaimer:</strong> {t('review_disclaimer')} {language === 'en' ? 'English' : language === 'hi' ? 'हिन्दी' : 'मराठी'}.
                             </p>
                         </motion.div>

@@ -125,7 +125,7 @@ function HeroGeometric({
                 />
             </div>
 
-            <div className="relative z-10 container mx-auto px-4 md:px-6">
+            <div className="relative z-10 container mx-auto px-4 md:px-6 pt-24 pb-12">
                 <div className="max-w-3xl mx-auto text-center">
                     {/* Badge */}
                     <motion.div
@@ -203,7 +203,7 @@ function HeroGeometric({
             </div>
 
             {/* Top/bottom fade */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#130810] via-transparent to-[#130810]/80 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#130810] via-transparent to-transparent pointer-events-none" />
         </div>
     );
 }
