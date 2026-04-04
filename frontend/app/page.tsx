@@ -19,13 +19,20 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.9, ease: "easeInOut" }}
               className="flex flex-col items-center gap-4 text-center"
             >
-              {/* Glowing brain */}
+              {/* Hero video */}
               <motion.div
-                animate={{ scale: [1, 1.06, 1], filter: ['drop-shadow(0 0 40px #C5757C88)', 'drop-shadow(0 0 80px #F9AAADcc)', 'drop-shadow(0 0 40px #C5757C88)'] }}
+                animate={{ filter: ['drop-shadow(0 0 30px #C5757C66)', 'drop-shadow(0 0 60px #F9AAADaa)', 'drop-shadow(0 0 30px #C5757C66)'] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="text-[7rem] md:text-[10rem] leading-none select-none"
+                className="w-[260px] sm:w-[340px] md:w-[420px] rounded-2xl overflow-hidden"
               >
-                🧠
+                <video
+                  src="/brain-hero.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
 
               {/* Title */}
