@@ -16,6 +16,7 @@ from io import BytesIO
 import os
 import re
 from dotenv import load_dotenv
+import requests as http_requests
 
 load_dotenv()
 
@@ -72,6 +73,64 @@ if PREDICTION_KEY and CUSTOM_VISION_ENDPOINT:
         print("Azure Custom Vision connected")
     except Exception as e:
         print(f"Azure connection failed: {e}")
+
+# Azure OpenAI Chat Configuration
+AZURE_OPENAI_ENDPOINT = os.environ.get('AZURE_OPENAI_ENDPOINT', '')
+AZURE_OPENAI_KEY = os.environ.get('AZURE_OPENAI_KEY', '')
+AZURE_CHAT_DEPLOYMENT = os.environ.get('AZURE_CHAT_DEPLOYMENT', 'gpt-4o-mini')
+
+@app.route('/api/chat', methods=['POST', 'OPTIONS'])
+def chat():
+    if request.method == 'OPTIONS':
+        return '', 204
+    data = request.get_json() or {}
+    message = data.get('message', '').strip()
+    if not message:
+        return jsonify({"reply": "Please send a message."}), 400
+
+    # Try Azure OpenAI if configured
+    if AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_KEY:
+        try:
+            url = f"{AZURE_OPENAI_ENDPOINT}/openai/deployments/{AZURE_CHAT_DEPLOYMENT}/chat/completions?api-version=2024-02-01"
+            headers = {"api-key": AZURE_OPENAI_KEY, "Content-Type": "application/json"}
+            body = {
+                "messages": [
+                    {"role": "system", "content": "You are Tumor Vision AI assistant — a helpful medical AI chatbot for the Tumor Vision brain tumor detection platform. Help users with brain tumor information (glioma, meningioma, pituitary), MRI upload guidance, treatment options, report generation, and platform usage. Be concise, helpful, and always remind users to consult real doctors for medical decisions. Keep responses under 150 words."},
+                    {"role": "user", "content": message}
+                ],
+                "max_tokens": 300,
+                "temperature": 0.7
+            }
+            resp = http_requests.post(url, headers=headers, json=body, timeout=15)
+            if resp.status_code == 200:
+                reply = resp.json()["choices"][0]["message"]["content"]
+                return jsonify({"reply": reply})
+        except Exception as e:
+            print(f"Azure OpenAI error: {e}")
+
+    # Fallback: keyword-based local responses
+    lower = message.lower()
+    if 'glioma' in lower:
+        reply = "Gliomas arise from glial cells and are graded I-IV by WHO. Grade IV (glioblastoma) is the most aggressive. Treatment typically involves surgery, radiation, and temozolomide chemotherapy. Always consult a neuro-oncologist."
+    elif 'meningioma' in lower:
+        reply = "Meningiomas arise from the meninges and are mostly benign (WHO Grade I). They account for ~30% of primary brain tumors. Complete surgical resection is often curative."
+    elif 'pituitary' in lower:
+        reply = "Pituitary tumors arise from the pituitary gland. They can be functioning (hormone-secreting) or non-functioning. Treatment includes medication, surgery, and sometimes radiation."
+    elif 'symptom' in lower:
+        reply = "Common brain tumor symptoms: headaches (worse in morning), seizures, vision problems, cognitive changes, weakness, and balance issues. Symptoms depend on tumor location and size."
+    elif 'upload' in lower or 'scan' in lower or 'mri' in lower:
+        reply = "Go to the Upload page, drag and drop your MRI scan image (JPG/PNG). Our AI analyzes it in under 2 minutes and classifies across 4 categories with confidence scores."
+    elif 'treatment' in lower:
+        reply = "Treatment depends on tumor type and grade. Options include surgery, radiation therapy (SRS, WBRT), chemotherapy (temozolomide), targeted therapy, and immunotherapy. Visit our Treatment page for AI-powered recommendations."
+    elif 'accuracy' in lower:
+        reply = "Our AI model achieves 98.7% accuracy using Azure Custom Vision, detecting gliomas, meningiomas, pituitary tumors, and no-tumor cases."
+    elif 'report' in lower or 'pdf' in lower:
+        reply = "After analysis, generate a PDF report from the Review page. Reports are available in English, Hindi, and Marathi with full diagnostic details."
+    elif 'hello' in lower or 'hi' in lower or 'hey' in lower:
+        reply = "Hello! I'm Tumor Vision AI assistant. Ask me about brain tumors, diagnosis, treatment, or how to use this platform."
+    else:
+        reply = "I can help with brain tumor information, diagnosis, treatment options, and platform usage. Try asking about specific tumor types, symptoms, or how to upload an MRI scan!"
+    return jsonify({"reply": reply})
 
 # ✅ Home Page
 @app.route('/')
