@@ -3,10 +3,25 @@
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { LampContainer } from '@/components/ui/lamp';
+import { useRef, useEffect } from 'react';
 import { ContainerScroll } from '@/components/ui/container-scroll-animation';
 
 export default function Home() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    const tryPlay = () => { v.play().catch(() => {}); };
+    tryPlay();
+    v.addEventListener('canplay', tryPlay);
+    v.addEventListener('loadeddata', tryPlay);
+    // Fallback: retry after short delay
+    const t = setTimeout(tryPlay, 500);
+    return () => { clearTimeout(t); v.removeEventListener('canplay', tryPlay); v.removeEventListener('loadeddata', tryPlay); };
+  }, []);
+
   return (
     <Layout>
       <article>
@@ -15,6 +30,7 @@ export default function Home() {
 
           {/* Full-screen background video */}
           <video
+            ref={videoRef}
             src="/brain-hero.mp4"
             autoPlay
             loop
