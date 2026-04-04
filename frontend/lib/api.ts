@@ -106,41 +106,34 @@ export async function downloadReport(
   const storedResult = typeof window !== 'undefined' ? localStorage.getItem('latestResult') : null;
   if (storedResult) {
     const resultData = JSON.parse(storedResult);
-    requestBody.image = image || resultData.image;
     requestBody.predictions = predictions || resultData.predictions;
     requestBody.image_url = image_url || resultData.image_url;
-  } else if (image && predictions) {
-    requestBody.image = image;
+    // Only include image if it's small (< 500KB) to avoid 500 errors on server
+    const img = image || resultData.image;
+    if (img && img.length < 500000) {
+      requestBody.image = img;
+    }
+  } else if (predictions) {
     requestBody.predictions = predictions;
     requestBody.image_url = image_url;
+    if (image && image.length < 500000) {
+      requestBody.image = image;
+    }
   }
   if (reviewData) requestBody.feedback = reviewData;
 
-  const postViaForm = () => {
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = `${API_BASE_URL}/api/download_report`;
-    form.target = '_blank';
-    form.style.display = 'none';
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'payload';
-    input.value = JSON.stringify(requestBody);
-    form.appendChild(input);
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-  };
-
-  try {
+  const doFetch = async (body: Record<string, unknown>): Promise<Blob | null> => {
     const response = await fetch(`${API_BASE_URL}/api/download_report`, {
       method: 'POST',
       mode: corsMode,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify(body),
     });
-    if (!response.ok) { postViaForm(); return; }
-    const blob = await response.blob();
+    if (!response.ok) return null;
+    return response.blob();
+  };
+
+  const downloadBlob = (blob: Blob) => {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -149,8 +142,50 @@ export async function downloadReport(
     link.click();
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
+  };
+
+  try {
+    // First attempt: with image
+    let blob = await doFetch(requestBody);
+    if (blob) { downloadBlob(blob); return; }
+
+    // Second attempt: without image (in case image data caused 500)
+    const bodyNoImage = { ...requestBody };
+    delete bodyNoImage.image;
+    blob = await doFetch(bodyNoImage);
+    if (blob) { downloadBlob(blob); return; }
+
+    // Final fallback: form POST without image
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `${API_BASE_URL}/api/download_report`;
+    form.target = '_blank';
+    form.style.display = 'none';
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(bodyNoImage);
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
   } catch {
-    postViaForm();
+    // Last resort fallback
+    const bodyNoImage = { ...requestBody };
+    delete bodyNoImage.image;
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `${API_BASE_URL}/api/download_report`;
+    form.target = '_blank';
+    form.style.display = 'none';
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(bodyNoImage);
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
   }
 }
 
