@@ -50,7 +50,10 @@ export default function Home() {
               >
                 AI Detection
               </h2>
-              <p className="text-white/60 text-base md:text-lg max-w-xl leading-relaxed mt-2">
+              <p className="text-white/50 text-sm md:text-base tracking-[0.3em] uppercase font-medium mt-1">
+                AI Powered Diagnoses
+              </p>
+              <p className="text-white/50 text-base md:text-lg max-w-xl leading-relaxed mt-2">
                 Upload a brain MRI scan and receive an instant AI-powered diagnosis — bridging healthcare gaps in rural communities.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mt-6">
