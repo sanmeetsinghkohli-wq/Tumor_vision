@@ -39,13 +39,13 @@ export default function Home() {
               className="flex flex-col items-center gap-3"
             >
               <h1
-                className="text-[4.5rem] sm:text-[7rem] md:text-[9rem] font-bold leading-none tracking-tight text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
+                className="text-[3rem] sm:text-[5.5rem] md:text-[9rem] font-bold leading-none tracking-tight text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
                 style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
               >
                 Tumor Vision
               </h1>
               <h2
-                className="text-[3rem] sm:text-[5rem] md:text-[6.5rem] font-bold leading-none uppercase bg-gradient-to-r from-[#C5757C] via-[#F9AAAD] to-[#A1525F] bg-clip-text text-transparent drop-shadow-[0_2px_16px_rgba(197,117,124,0.5)]"
+                className="text-[2rem] sm:text-[3.5rem] md:text-[6.5rem] font-bold leading-none uppercase bg-gradient-to-r from-[#C5757C] via-[#F9AAAD] to-[#A1525F] bg-clip-text text-transparent drop-shadow-[0_2px_16px_rgba(197,117,124,0.5)]"
                 style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
               >
                 AI Detection
