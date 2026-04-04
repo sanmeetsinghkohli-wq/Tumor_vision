@@ -38,10 +38,12 @@ export default function Navbar() {
     const currentLang = LANGS.find(l => l.code === language) || LANGS[0];
 
     const navItems = [
+        { href: '/', label: 'Home' },
         { href: '/upload', label: t('nav_upload') },
         { href: '/results', label: t('nav_results') },
         { href: '/review', label: t('nav_report') },
         { href: '/treatment', label: t('nav_treatment') },
+        { href: '/knowledge', label: 'Knowledge' },
         { href: '/about', label: t('nav_about') },
     ];
 
@@ -163,10 +165,6 @@ export default function Navbar() {
                                 </div>
 
                                 <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-                                    <Link href="/" onClick={() => setIsMobileMenuOpen(false)}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/') ? 'bg-white/10 text-white border border-white/20' : 'text-white/60 hover:text-white hover:bg-white/10'}`}>
-                                        <span>🏠</span> Home
-                                    </Link>
                                     {navItems.map((item) => (
                                         <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}
                                             className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(item.href) ? 'bg-white/10 text-white border border-white/20' : 'text-white/60 hover:text-white hover:bg-white/10'}`}>
