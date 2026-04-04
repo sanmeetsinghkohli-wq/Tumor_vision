@@ -24,39 +24,42 @@ export default function Home() {
             style={{ marginTop: '80px' }}
           />
 
-          {/* Dark overlay so text is readable */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#140E1C] via-[#140E1C]/40 to-[#140E1C]/80" />
+          {/* Subtle edge vignette only — no solid background behind text */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#140E1C]/60 via-transparent to-[#140E1C]/50" />
 
           {/* Lamp beams — sit on top of video at the top */}
           <LampContainer className="absolute inset-0 bg-transparent min-h-0 h-full" />
 
-          {/* Text content — pushed to bottom half */}
-          <div className="relative z-20 flex flex-col items-center justify-end min-h-screen text-center px-6 pb-20">
+          {/* Text content — clamp padding pushes text into lower portion at any viewport height */}
+          <div
+            className="relative z-20 flex flex-col items-center text-center px-6"
+            style={{ paddingTop: 'clamp(160px, 42vh, 480px)', paddingBottom: '2rem' }}
+          >
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }}
-              className="flex flex-col items-center gap-3"
+              className="flex flex-col items-center gap-2"
             >
               <h1
-                className="text-[3rem] sm:text-[5.5rem] md:text-[9rem] font-bold leading-none tracking-tight text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
+                className="text-[2.8rem] sm:text-[5rem] md:text-[9rem] font-bold leading-none tracking-tight text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]"
                 style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
               >
                 Tumor Vision
               </h1>
               <h2
-                className="text-[2rem] sm:text-[3.5rem] md:text-[6.5rem] font-bold leading-none uppercase bg-gradient-to-r from-[#C5757C] via-[#F9AAAD] to-[#A1525F] bg-clip-text text-transparent drop-shadow-[0_2px_16px_rgba(197,117,124,0.5)]"
+                className="text-[1.8rem] sm:text-[3.2rem] md:text-[6.5rem] font-bold leading-none uppercase bg-gradient-to-r from-[#C5757C] via-[#F9AAAD] to-[#A1525F] bg-clip-text text-transparent drop-shadow-[0_2px_16px_rgba(197,117,124,0.6)]"
                 style={{ fontFamily: "var(--font-bebas, sans-serif)" }}
               >
                 AI Detection
               </h2>
-              <p className="text-white/50 text-sm md:text-base tracking-[0.3em] uppercase font-medium mt-1">
+              <p className="text-white/60 text-xs sm:text-sm tracking-[0.3em] uppercase font-medium mt-1">
                 AI Powered Diagnoses
               </p>
-              <p className="text-white/50 text-base md:text-lg max-w-xl leading-relaxed mt-2">
+              <p className="hidden sm:block text-white/50 text-base md:text-lg max-w-xl leading-relaxed mt-2">
                 Upload a brain MRI scan and receive an instant AI-powered diagnosis — bridging healthcare gaps in rural communities.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-6">
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
                 <Link href="/upload">
                   <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                     className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#A1525F] to-[#C5757C] text-white text-lg font-bold rounded-full hover:shadow-2xl hover:shadow-[#C5757C]/50 transition-all duration-300">
