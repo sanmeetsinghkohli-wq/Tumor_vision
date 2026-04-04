@@ -48,14 +48,11 @@ export default function Navbar() {
     return (
         <>
             <motion.header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
                     scrolled
-                        ? 'bg-[#140E1C]/90 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/30'
-                        : 'bg-transparent'
+                        ? 'bg-[#140E1C]/90 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/30 translate-y-0 opacity-100'
+                        : '-translate-y-full opacity-0 pointer-events-none'
                 }`}
-                initial={{ y: -80, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
             >
                 <div className="h-[2px] bg-gradient-to-r from-[#462037] via-[#C5757C] to-[#462037]" />
 
